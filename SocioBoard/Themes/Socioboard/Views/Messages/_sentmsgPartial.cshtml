@@ -1,0 +1,518 @@
+﻿@using System.Data;
+@using Socioboard.Helper;
+@using Socioboard.Api;
+@using Domain.Socioboard.Domain;
+@using System.Web.Script.Serialization;
+@{
+   
+    List<Domain.Socioboard.Domain.ScheduledMessage> lstAllSentMsg = (List<Domain.Socioboard.Domain.ScheduledMessage>)Model;
+    int sorteddatacount = 0;
+
+    Domain.Socioboard.Domain.User user = (Domain.Socioboard.Domain.User)Session["User"];
+    Socioboard.Api.TwitterAccount.TwitterAccount objApiTwitterAccount = new Socioboard.Api.TwitterAccount.TwitterAccount();
+    Socioboard.Api.FacebookAccount.FacebookAccount objApiFacebookAccount = new Socioboard.Api.FacebookAccount.FacebookAccount();
+    Socioboard.Api.LinkedinAccount.LinkedinAccount objApiLinkedinAccount = new Socioboard.Api.LinkedinAccount.LinkedinAccount();
+    Socioboard.Api.TumblrAccount.TumblrAccount objApiTumblrAccount = new Socioboard.Api.TumblrAccount.TumblrAccount();
+
+    Domain.Socioboard.Domain.User objUser = (Domain.Socioboard.Domain.User)Session["User"];
+}
+
+@*<div id="page-wrapper">*@
+<style type="text/css">
+    .border-radius {
+        border-radius:13px; -webkit-border-radius:13px; -moz-border-radius:13px; -o-border-radius:13px; -ms-border-radius:13px;
+        padding:4px 22px;
+        width:110px;
+        color:#666;
+    }
+        .border-radius:hover {
+            border:1px solid #e4e3e4;
+        }
+
+</style>
+<div class="container-fluid" style="margin-top:25px">
+<div class="col-md-12">
+<div class="col-md-9">
+    <div class="row">
+        <h2>Sent Messages</h2>
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+
+                    @{
+                        try
+                        {
+                            if (lstAllSentMsg != null && lstAllSentMsg.Count > 0)
+                            {
+                                foreach (ScheduledMessage item in lstAllSentMsg)
+                                {
+                                    try
+                                    {
+                                        string icon = "";
+                                        string onClick = "";
+                                        string network = "";
+                                        string ScreenName = "";
+                                        string ProfileImageUrl = "";
+                                        if (item.ProfileType == "twitter")
+                                        {
+                                            icon = "twticon.png";
+                                            onClick = "detailsdiscoverytwitter";
+                                            network = "twitter";
+                                            Domain.Socioboard.Domain.TwitterAccount objTwitterAccount = (Domain.Socioboard.Domain.TwitterAccount)new JavaScriptSerializer().Deserialize(objApiTwitterAccount.getUserInformation(item.ProfileId), typeof(Domain.Socioboard.Domain.TwitterAccount));
+                                            ScreenName = objTwitterAccount.TwitterScreenName;
+                                            ProfileImageUrl = objTwitterAccount.ProfileImageUrl;
+                                        }
+                                        else if (item.ProfileType == "facebook")
+                                        {
+                                            icon = "fb_icon.png";
+                                            onClick = "getFacebookProfiles";
+                                            network = "facebook";
+                                            Domain.Socioboard.Domain.FacebookAccount objFacebookAccount = (Domain.Socioboard.Domain.FacebookAccount)new JavaScriptSerializer().Deserialize(objApiFacebookAccount.getFacebookAccountDetailsById(objUser.Id.ToString(), item.ProfileId), typeof(Domain.Socioboard.Domain.FacebookAccount));
+                                            ScreenName = objFacebookAccount.FbUserName;
+                                            ProfileImageUrl = "http://graph.facebook.com/" + objFacebookAccount.FbUserId + "/picture?type=small";
+                                        }
+                                        else if (item.ProfileType == "linkedin")
+                                        {
+                                            icon = "link_icon.png";
+                                            onClick = "";
+                                            network = "linkedin";
+                                            Domain.Socioboard.Domain.LinkedInAccount objLinkedInAccount = (Domain.Socioboard.Domain.LinkedInAccount)new JavaScriptSerializer().Deserialize(objApiLinkedinAccount.GetLinkedinAccountDetailsById(objUser.Id.ToString(), item.ProfileId), typeof(Domain.Socioboard.Domain.LinkedInAccount));
+                                            ScreenName = objLinkedInAccount.LinkedinUserName;
+                                            ProfileImageUrl = objLinkedInAccount.ProfileImageUrl;
+                                            if (ProfileImageUrl == null || ProfileImageUrl == "")
+                                            {
+                                                ProfileImageUrl = "/Themes/" + System.Configuration.ConfigurationManager.AppSettings["domain"] + "/Contents/img/blank_img.png";
+                                            }
+                                        }
+                                        else if (item.ProfileType == "tumblr")
+                                        {
+                                            icon = "tumblr.png";
+                                            onClick = "";
+                                            network = "tumblr";
+                                            Domain.Socioboard.Domain.TumblrAccount objTumblrAccount = (Domain.Socioboard.Domain.TumblrAccount)new JavaScriptSerializer().Deserialize(objApiTumblrAccount.GetTumblrAccountDetailsById(objUser.Id.ToString(), item.ProfileId), typeof(Domain.Socioboard.Domain.TumblrAccount));
+                                            ProfileImageUrl = "http://api.tumblr.com/v2/blog/" + objTumblrAccount.tblrUserName + ".tumblr.com/avatar";
+                                            ScreenName = objTumblrAccount.tblrUserName;
+                                        }
+                                        item.ScheduleTime = TimeZoneInfo.ConvertTimeFromUtc(item.ScheduleTime, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
+                        <div class="panel panel-primary" id="messagetaskable_@sorteddatacount">
+                                        <div class="panel-heading">
+                                            <div class="row" style="width:750px;">
+                                                <div class="col-xs-3">
+                                                    @*<img title="@ScreenName" alt="@item.ProfileId" src="@ProfileImageUrl" id="formprofileurl_@sorteddatacount" class="img-circle" data-toggle="modal" data-target="#profileModal" style="height:50px;width:50px">*@
+                                                    <img title="@ScreenName" alt="@item.ProfileId" src="@ProfileImageUrl" id="formprofileurl_@sorteddatacount" class="img-circle" onclick="DetailsofProfile('@item.ProfileId','@network')" style="height:50px;width:50px">
+                                                    <img class="img-responsive img-circle" src="~/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/@icon" style="margin-left: 35px; margin-top: -20px;">
+                                                    <span>@ScreenName</span>
+                                                    <span style="float: left">@item.ScheduleTime</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>@item.ShareMessage</p>
+                                        </div>
+                                        <div class="panel-footer">
+                                           @* <a href="#">
+                                                <span class="pull-left">View Details</span></a>*@
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                    }
+                                    catch { }
+                                    sorteddatacount++;
+                                }
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                        catch { }
+                        
+                    }
+                    <!-- Modal -->
+                    <div class="modal fade" id="CommentReply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <img src="Contents/img/photo.png" class="img-circle">
+                                    <img class="img-responsive img-circle" src="Contents/img/twticon.png" style="margin-left: 35px; margin-top: -20px;">
+                                </div>
+                                <div class="modal-body">
+                                    <h4>LEAVE A COMMENT</h4>
+                                    <textarea class="form-control" rows="3" placeholder="Write your message here"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default " data-dismiss="modal">Comment</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end of model-->
+                </div>
+
+                <!-- Modal -->
+                @*    <div class="modal fade" id="ProfileDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Profile Summary</h4>
+                            </div>
+                            <div id="ProfileDetailBody" class="modal-body col-md-12">
+                              <div class="col-md-12" style="text-align: center; background: linear-gradient(to bottom, transparent 0px, rgba(0, 0, 0, 0.73) 100%) repeat scroll 0px 0px transparent; padding: 15px;">
+                                    <img src="/Themes/@path/Contents/img/apple-touch-icon-72-precomposed.png" class="img-thumbnail" />
+                                    <p><h2>abhay mondal</h2></p>
+                                    <p>abhaymondal3</p>
+                                    <p>iPhone6</p>
+                                </div>
+                                <div class="col-md-12">
+                                    <ul class="list-inline">
+                                        <li style="border-right: 1px solid #eeeeee;float: left;padding: 11px 7px 6px;text-align: center;width: 78px;">
+                                            <a style="text-decoration:none;">
+                                                <strong>73</strong>
+                                                <span>Following</span>
+                                            </a>
+                                        </li>
+                                        <li style="border-right: 1px solid #eeeeee;float: left;padding: 11px 7px 6px;text-align: center;width: 78px;">
+                                            <a style="text-decoration:none;">
+                                                <strong>15</strong>
+                                                <span>Followers</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-12" style="text-align:center;">
+                                    <a href="#">Go to full profile →</a>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+                <!--end of model-->
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="col-md-3" style="padding-top: 20px">
+        <div class="col-md-12 btn btn-success" style="margin-bottom:7px" data-target="#Eport_sent_message" data-toggle="modal">Export to CSV</div>
+        <div class="col-md-12" style="border: 1px solid rgb(153, 153, 153); background: none repeat scroll 0% 0% rgb(248, 248, 248); padding: 4%;">
+        <div class="list-group">
+            <a href="#" class="list-group-item btn btn-default report_today" style="margin-bottom: 4%; background: #e4e3e4;" onclick="loadsentmessagesbydate('0')"><strong>Today</strong></a>
+            <a href="#" class="list-group-item btn btn-default report_yesterday" style="margin-bottom: 4%; background: #e4e3e4;" onclick="loadsentmessagesbydate('1')"><strong>Yesterday</strong></a>
+            <a href="#" class="list-group-item btn btn-default report_7_days" style="margin-bottom: 4%; background: #e4e3e4;" onclick="loadsentmessagesbydays('7')"><strong>Last 7 Days</strong></a>
+            <a href="#" class="list-group-item btn btn-default report_30_days" style="margin-bottom: 4%; background: #e4e3e4;" onclick="loadsentmessagesbydays('30')"><strong>Last 30 Days</strong></a>
+            <a href="#" class="list-group-item btn btn-default report_this_month" style="margin-bottom: 4%; background: #e4e3e4;" onclick="loadsentmessagesbymonth('0')"><strong>This Month</strong></a>
+            <a href="#" class="list-group-item btn btn-default report_last_month" style="margin-bottom: 4%; background: #e4e3e4;" onclick="loadsentmessagesbymonth('1')"><strong>Last Month</strong></a>
+            <a href="#" class="list-group-item btn btn-default report_range" style="background: #e4e3e4; margin-bottom: 4%;" onclick="Show_range()"><strong>Custom Range</strong></a>
+           <div class="range_inputs" style="padding-top: 1%; display:none">
+                <div style="margin-left: 2%; padding-bottom: 5%;" class="input-group col-md-5 pull-left">
+                    <label for="dates">From</label><input id="fromdate" type="text" class="form-control">
+                </div>
+                <div style="margin-left: 13%; padding-bottom: 5%;" class="input-group col-md-5 pull-left">
+                    <label for="dates">To</label><input id="todate" type="text" class="form-control">
+                </div>
+                <button class="btn btn-default btn-success clearBtn col-md-5 customrange_submit" style="margin-left: 5%" onclick="loadsentmessagesforCustomrange()">Submit</button>
+                <button class="btn btn-default clearBtn btn-danger col-md-5" style="margin-left: 4%" onclick="clearbutton()">Clear</button>
+            </div>
+        </div> 
+         </div>
+    </div>
+
+</div>
+</div>
+@*</div>*@
+<div class="modal fade" id="Eport_sent_message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4>Export sent message data</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="export_sent_inner">
+                                        <div class="intro">
+                                            <p>Messages will be exported in CSV format - Comma Separated Values. This data can be opened and analyzed in applications such as Microsoft Excel, Apple Numbers or Google Docs.</p>
+                                            <div class=""></div></div>
+                                        <div class="row">
+                                        <div class="col-md-4" id=""><label>Choose Date Range</label>
+                                            <ul class="" style="list-style: outside none none;padding-left:10px">
+                                                <li><a class="btn active border-radius" id="export_to_csv_0" onclick="eporttocsv('0')">Today</a></li>
+                                                <li><a class="btn border-radius" id="export_to_csv_1" onclick="eporttocsv('1')">Yesterday</a></li>
+                                                <li><a class="btn border-radius" id="export_to_csv_2" onclick="eporttocsv('2')">Last 7 Days</a></li>
+                                                <li><a class="btn border-radius" id="export_to_csv_3" onclick="eporttocsv('3')">Last 30 Days</a></li>
+                                                <li><a class="btn border-radius" id="export_to_csv_4" onclick="eporttocsv('4')">This Month</a></li>
+                                                <li><a class="btn border-radius" id="export_to_csv_5" onclick="eporttocsv('5')">Last Month</a></li>
+                                                <li><a class="btn border-radius" id="export_to_csv_6" onclick="eporttocsv('6')">Custom</a></li>
+                                            </ul>
+                                        </div>
+                                        <div id="date_range_div" style="display:none;margin-left:-40px" class="col-md-8">
+                                            <div style="float:left">
+                                                 <label for="dates">From</label><input type="text" id="cal_left" class="form-control">
+                                            </div>
+                                            <div style="float:right;margin-right:-35px">
+                                                <label for="dates">To</label><input type="text" id="cal_right" class="form-control">
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="btn btn-default" data-dismiss="modal">Cancel</a>
+                                    <a id="export_btn" class="btn btn-success" href="../Messages/ExportSentmsgByDay?day=0" data-dismiss="">Export to CSV</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<script type="text/javascript">
+    //function DetailsofProfile(id, network)
+    //{
+    //    debugger;
+    //    try {
+    //        debugger;
+    //        debugger;
+            
+    //        $("#ProfileDetailBody").html("");
+    //        $.ajax
+    //        ({
+    //            type: "GET",
+    //            url: "../Messages/getProfileDetails?Profileid=" + id + '&Network=' + network,
+    //            crossDomain: true,
+    //            contentType: "application/json; charset=utf-8",
+    //            dataType: "html",
+    //            success: function (msg) {
+    //                debugger;
+
+    //                $("#ProfileDetailBody").append(msg);
+    //                $("#ProfileDetail").modal('show');
+
+    //            },
+    //            error: function (err) {
+    //                alert(err);
+    //                debugger;
+    //            }
+    //        });
+    //    } catch (e) {
+
+    //    }
+    //}
+
+
+    $(document).ready(function (e) {
+        $('#fromdate').datepicker({
+            multidate: false,
+            todayHighlight: true,
+            startDate: '',
+            endDate: 'd',
+            clearBtn: true
+        });
+        $('#todate').datepicker({
+            multidate: false,
+            todayHighlight: true,
+            startDate: '',
+            endDate: 'd',
+            clearBtn: true
+        });
+    });
+    function loadsentmessagesbydate(day) {
+        debugger;
+        $('#page-wrapper').html("");
+        $.ajax({
+            type: "POST",
+            url: "../Messages/LoadSentmsgByDay?day=" + day,
+            data: '',
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (msg) {
+                $('#page-wrapper').append(msg);
+                if (day == 0) {
+                    $('.report_today').addClass('active');
+                }
+                else if (day == 1) {
+                    $('.report_yesterday').addClass('active');
+                }
+            }
+        });
+    }
+    function loadsentmessagesbydays(days) {
+        debugger;
+        $('#page-wrapper').html("");
+        $.ajax({
+            type: "POST",
+            url: "../Messages/LoadSentmsgByDays?days=" + days,
+            data: '',
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (msg) {
+                $('#page-wrapper').append(msg);
+                if (days == 7) {
+                    $('.report_7_days').addClass('active');
+                }
+                else if (days == 30) {
+                    $('.report_30_days').addClass('active');
+                }
+            }
+        });
+    }
+    function loadsentmessagesbymonth(month) {
+        debugger;
+        $('#page-wrapper').html("");
+        $.ajax({
+            type: "POST",
+            url: "../Messages/LoadSentmsgByMonth?month=" + month,
+            data: '',
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (msg) {
+                $('#page-wrapper').append(msg);
+                if (month == 0) {
+                    $('.report_this_month').addClass('active');
+                }
+                else if (month == 1) {
+                    $('.report_last_month').addClass('active');
+                }
+            }
+        });
+    }
+    function loadsentmessagesforCustomrange() {
+        debugger;
+        var sdate = $('#fromdate').val();
+        var ldate = $('#todate').val();
+        if (sdate != "" && ldate != "") {
+            $('#page-wrapper').html("");
+            $.ajax({
+                type: "POST",
+                url: "../Messages/LoadSentmsgForCustomrange?sdate=" + sdate + "&ldate=" + ldate,
+                data: '',
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (msg) {
+                    $('#page-wrapper').append(msg);
+                    $('.report_range').addClass('active');
+                    $('.report_range').html(sdate + ' - ' + ldate);
+                }
+            });
+        }
+    }
+    function Show_range() {
+        debugger;
+        $('.range_inputs').toggle();
+    }
+    function clearbutton() {
+        $('#fromdate').val('');
+        $('#todate').val('');
+    }
+    //------------------------
+    $("#cal_left").datepicker({
+        multidate: false,
+        dateFormat: "yy-mm-dd",
+        endDate: 'd',
+        clearBtn: true
+    });
+    $("#cal_right").datepicker({
+        multidate: false,
+        dateFormat: "yy-mm-dd",
+        endDate: 'd',
+        clearBtn: true
+    });
+    function ExportsentmessagesforCustomrange() {
+        debugger;
+        var sdate = $('#cal_left').val();
+        var ldate = $('#cal_right').val();
+        if (sdate != "" && ldate != "") {
+            window.location = "../Messages/ExportSentmsgForCustomrange?sdate=" + sdate + "&ldate=" + ldate;
+        }
+    }
+    function eporttocsv(key) {
+        debugger;
+        if (key == '0') {
+            $('#export_btn').removeAttr('onclick');
+            $('#export_btn').attr("href", "../Messages/ExportSentmsgByDay?day=0");
+            $('#date_range_div').css('display', 'none');
+            $('#export_to_csv_0').addClass('active');
+            $('#export_to_csv_1').removeClass('active');
+            $('#export_to_csv_2').removeClass('active');
+            $('#export_to_csv_3').removeClass('active');
+            $('#export_to_csv_4').removeClass('active');
+            $('#export_to_csv_5').removeClass('active');
+            $('#export_to_csv_6').removeClass('active');
+        }
+        else if (key == '1') {
+            $('#export_btn').removeAttr('onclick');
+            $('#export_btn').attr("href", "../Messages/ExportSentmsgByDay?day=1");
+            $('#date_range_div').css('display', 'none');
+            $('#export_to_csv_0').removeClass('active');
+            $('#export_to_csv_1').addClass('active');
+            $('#export_to_csv_2').removeClass('active');
+            $('#export_to_csv_3').removeClass('active');
+            $('#export_to_csv_4').removeClass('active');
+            $('#export_to_csv_5').removeClass('active');
+            $('#export_to_csv_6').removeClass('active');
+        }
+        else if (key == '2') {
+            $('#export_btn').removeAttr('onclick');
+            $('#export_btn').attr("href", "../Messages/ExportSentmsgByDays?days=7");
+            $('#date_range_div').css('display', 'none');
+            $('#export_to_csv_0').removeClass('active');
+            $('#export_to_csv_1').removeClass('active');
+            $('#export_to_csv_2').addClass('active');
+            $('#export_to_csv_3').removeClass('active');
+            $('#export_to_csv_4').removeClass('active');
+            $('#export_to_csv_5').removeClass('active');
+            $('#export_to_csv_6').removeClass('active');
+        }
+        else if (key == '3') {
+            $('#export_btn').removeAttr('onclick');
+            $('#export_btn').attr("href", "../Messages/ExportSentmsgByDays?days=30");
+            $('#date_range_div').css('display', 'none');
+            $('#export_to_csv_0').removeClass('active');
+            $('#export_to_csv_1').removeClass('active');
+            $('#export_to_csv_2').removeClass('active');
+            $('#export_to_csv_3').addClass('active');
+            $('#export_to_csv_4').removeClass('active');
+            $('#export_to_csv_5').removeClass('active');
+            $('#export_to_csv_6').removeClass('active');
+        }
+        else if (key == '4') {
+            $('#export_btn').removeAttr('onclick');
+            $('#export_btn').attr("href", "../Messages/ExportSentmsgByMonth?month=0");
+            $('#date_range_div').css('display', 'none');
+            $('#export_to_csv_0').removeClass('active');
+            $('#export_to_csv_1').removeClass('active');
+            $('#export_to_csv_2').removeClass('active');
+            $('#export_to_csv_3').removeClass('active');
+            $('#export_to_csv_4').addClass('active');
+            $('#export_to_csv_5').removeClass('active');
+            $('#export_to_csv_6').removeClass('active');
+        }
+        else if (key == '5') {
+            $('#export_btn').removeAttr('onclick');
+            $('#export_btn').attr("href", "../Messages/ExportSentmsgByMonth?month=1");
+            $('#date_range_div').css('display', 'none');
+            $('#export_to_csv_0').removeClass('active');
+            $('#export_to_csv_1').removeClass('active');
+            $('#export_to_csv_2').removeClass('active');
+            $('#export_to_csv_3').removeClass('active');
+            $('#export_to_csv_4').removeClass('active');
+            $('#export_to_csv_5').addClass('active');
+            $('#export_to_csv_6').removeClass('active');
+        }
+        else if (key == '6') {
+            $('#export_btn').removeAttr("href");
+            $('#export_btn').attr("onclick", "ExportsentmessagesforCustomrange()");
+            $('#date_range_div').css('display', 'block');
+            $('#export_to_csv_0').removeClass('active');
+            $('#export_to_csv_1').removeClass('active');
+            $('#export_to_csv_2').removeClass('active');
+            $('#export_to_csv_3').removeClass('active');
+            $('#export_to_csv_4').removeClass('active');
+            $('#export_to_csv_5').removeClass('active');
+            $('#export_to_csv_6').addClass('active');
+        }
+    }
+
+</script>

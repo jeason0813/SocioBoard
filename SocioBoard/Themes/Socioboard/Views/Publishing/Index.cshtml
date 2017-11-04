@@ -1,0 +1,574 @@
+﻿@{
+                            //ViewBag.Title = "Home Page";
+}
+
+
+
+<style>
+    .btn-file
+    {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .btn-file input[type=file]
+        {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            background: red;
+            cursor: inherit;
+            display: block;
+        }
+
+    input[readonly]
+    {
+        background-color: white !important;
+        cursor: text !important;
+    }
+</style>
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <h1 class="page-header">Schedule Message</h1>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12">
+						 <span style="margin-left:85%">Select Profile</span> 
+                            @* <span>Add Accounts to Schedule Message</span>*@
+                              <a href="#" title="Please Select Profile From Here"><div class="btn-group pull-right" >
+							 
+                                <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle" type="button" >
+                                    <i class="fa fa-chevron-down fa-2x"></i>
+                                </button>
+                                <ul class="dropdown-menu slidedown" id="binduserforcompose">
+                                </ul>
+                            </div></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div id="MessageCount" class="counter_bg"></div>
+                        <div id="bindcomposescheduledprofiles"></div>
+                        <textarea id="txtscheduled" placeholder="Type your message here" rows="3" class="form-control">@ViewBag.Message</textarea>
+                    </div>
+                    @*vikash [04/12/2014]*@
+                    <div class="form-group">
+                        <div>
+                            <div class="fileinput fileinput-new" data-provides="fileinput" style="width: 40%;">
+                                <div id="tumbnail">
+                                    <div class="fileinput-preview fileinput-exists thumbnail pull-left" style="max-width: 200px;"></div>
+                                    <a href="#" class="fileinput-exists pull-left" data-dismiss="fileinput" style="margin-left: -3%; margin-top: -16px">
+                                        <h4>x</h4>
+                                    </a>
+                                </div>
+                                <div>
+                                    <span class="btn btn-default btn-file col-md-12" style="padding: 0px;">
+                                        <span class="fileinput-new"></span>
+                                        <span class="fileinput-exists"></span>
+                                        <span class="btn btn-primary btn-file pull-right">Browse&hellip;
+                                                    <input type="file" id="scheduleimageupload" onchange="AddImageScheduleMessage()">
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-unit">
+                        <input type="text" id="scheduleddate" placeholder="Pick Date">
+                    </div>
+
+                    <div class="input-append bootstrap-timepicker">
+                        <input id="scheduledtime" type="text" class="input-small" readonly="">
+                        <span class="add-on"><i class="icon-time">
+                            <img src="~/Themes/Socioboard/Contents/img/clock.png"></i></span>
+
+                    </div>
+
+                    <div class="panel-footer">
+
+                        <button id="scheduled" class="btn btn-outline btn-default" type="button">Schedule</button>
+                        <img src="/Themes/Socioboard/Contents/img/bx_loader.gif" style="display:none;" id="ScheduleLoadimg">
+                        <button type="button" class="btn btn-outline btn-default" id="savedraft">Save To Drafts</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).on('change', '.btn-file :file', function () {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+
+    $(document).ready(function () {
+        $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    var arrbinduser = [];
+    function bindcomposemessage() {
+        $.ajax({
+            type: 'POST',
+            url: '../Publishing/ComposeScheduledMessage',
+            success: function (msg) {
+                //alert(msg);
+                $('#binduserforcompose').html(msg);
+            },
+            async: false
+        });
+
+
+    };
+
+    function checkisuserexist(profileidwithnetwork) {
+        if (jQuery.inArray(profileidwithnetwork, arrbinduser) === -1) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function removebindfrofiles(profileid, network) {
+        //alert(clas);
+        $('#' + profileid).hide(250, function () {
+            $('#' + profileid).remove();
+        });
+        var i = arrbinduser.indexOf(profileid + "~" + network);
+        if (i != -1) {
+            arrbinduser.splice(i, 1);
+        }
+    }
+
+    function bindfrofiles(network, name, profileid) {
+        var totalmessagewords = 0;
+        if (checkisuserexist(profileid + "~" + network) == false) {
+            arrbinduser.push(profileid + "~" + network);
+            $('#bindcomposescheduledprofiles').append('<span style="display:none" class="pull-right btn btn-default bindprof" onclick="removebindfrofiles(\'' + profileid + '\',\'' + network + '\')" id=' + profileid + ' data-toggle="tooltip" data-placement="right" title="click to remove"><i class="fa fa-' + network + ' fa-fw"></i>' + name + '</span>');
+            $('#' + profileid).fadeIn(250);
+
+            totalmessagewords = BindChracterAccordingProfile(network);
+            $('#MessageCount').html(totalmessagewords);
+
+
+            $('#txtscheduled').bind('keyup', function () {
+
+                debugger;
+                var totalmessagewords = 0;
+                var last = arrbinduser.slice(-1)[0]
+                var strarr = last.split('~');
+                var Network = strarr[1];
+
+                totalmessagewords = BindChracterAccordingProfile(Network);
+
+                var charactersUsed = $(this).val().length;
+
+                if (charactersUsed > totalmessagewords) {
+                    charactersUsed = totalmessagewords;
+                    $(this).val($(this).val().substr(0, totalmessagewords));
+                }
+
+                var charactersRemaining = totalmessagewords - charactersUsed;
+
+                $('#MessageCount').html(charactersRemaining);
+
+            });
+        }
+        else {
+            alertify.set({ delay: 1000 });
+            alertify.error('This Profile Already Added')
+        }
+
+    };
+
+    function BindChracterAccordingProfile(network) {
+        var totalmessagewords = 0;
+        if (network == "facebook") {
+            totalmessagewords = 5000;
+        }
+        if (network == "twitter") {
+            totalmessagewords = 140;
+        }
+        if (network == "linkedin") {
+            totalmessagewords = 600;
+        }
+
+        return totalmessagewords;
+    }
+
+    $(document).ready(function (e) {
+        $('#scheduledtime').timepicker();
+        $("#publishing").addClass('active');
+        $('li a').removeClass('active');
+        $('#scheduledmsg a').addClass('active');
+        $('#scheduleddate').datepicker({
+            multidate: true,
+             format: "yyyy/mm/dd",//format:"dd/mm/yyyy",
+            todayHighlight: true,
+            startDate: 'd',
+            clearBtn: true
+        });
+        // Edited by Antima[6/11/2014]
+        $('#scheduleddate').on('change', function () {
+            $('.datepicker').hide();
+        });
+        bindcomposemessage();
+
+        
+        //$('#scheduled').click(function () {
+        //    debugger;
+        //    var curdate = new Date();
+        //    var now = (curdate.getMonth() + 1) + "/" + curdate.getDate() + "/" + curdate.getFullYear() + " " + curdate.getHours() + ":" + curdate.getMinutes() + ":" + (curdate.getSeconds() < 10 ? '0' + curdate.getSeconds() : curdate.getSeconds());
+        //    var fd = new FormData();
+        //    var filesimage = document.getElementById('scheduleimageupload').files[0];
+        //    if (filesimage != null) {
+        //        fd.append('file', filesimage);
+        //    }
+        //    var scheduledmessage = $('#txtscheduled').val();
+        //    var scheduleddate = $('#scheduleddate').val();
+        //    var scheduledtime = $('#scheduledtime').val();
+        //    var allprofiles = '';
+        //    if (scheduledmessage == "") {
+        //        alertify.set({ delay: 1000 });
+        //        alertify.error('Please Enter a message ');
+        //        return false;
+        //    }
+        //    if (scheduleddate == "") {
+        //        alertify.set({ delay: 1000 });
+        //        alertify.error('Please Select a Date');
+        //        return false;
+        //    }
+        //    if (scheduledtime == "") {
+        //        alertify.set({ delay: 1000 });
+        //        alertify.error('Please Select a Time');
+        //        return false;
+        //    }
+        //    if (arrbinduser.length < 1) {
+        //        alertify.set({ delay: 1000 });
+        //        alertify.error('Please Select Atleast One Profile to Schedule a Message');
+        //        return false;
+        //    }
+        //    for (var i = 0; i < arrbinduser.length; i++) {
+        //        allprofiles += arrbinduser[i] + "<:>";
+        //    }
+
+
+
+        //    for (var i = 0; i < arrbinduser.length; i++) {
+        //        var account = arrbinduser[i];
+        //        var strarray = account.split('~');
+        //        var ProfileType = strarray[1];
+        //        if (ProfileType == 'facebook') {
+        //            if (scheduledmessage.length > 5000) {
+        //                alertify.error("Facebook Not Support more than 5000 characters");
+        //                return;
+        //            }
+        //        }
+        //        if (ProfileType == 'twitter') {
+        //            if (scheduledmessage.length > 140) {
+        //                alertify.error("Twitter Not Support more than 140 characters");
+        //                return;
+        //            }
+        //        }
+        //        if (ProfileType == 'linkedin') {
+        //            if (scheduledmessage.length > 600) {
+        //                alertify.error("Linkedin Not Support more than 600 characters");
+        //                return;
+        //            }
+        //        }
+
+        //    }
+
+
+        //    allprofiles = allprofiles.substr(0, allprofiles.length - 3);
+
+        //    $.ajax({
+        //        type: 'POST',
+        //        url: '../Publishing/ScheduledMessage?scheduledmessage=' + scheduledmessage + '&scheduleddate=' + scheduleddate + '&scheduledtime=' + scheduledtime + '&profiles=' + allprofiles + '&clienttime=' + now,
+        //        data: fd,
+        //        processData: false,
+        //        contentType: false,
+        //        success: function (msg) {
+        //            $('#scheduleddate').datepicker('setDate', null);
+        //            $('#txtscheduled').val('');
+        //            $('#scheduleddate').val('');
+        //            $('#scheduledtime').val('');
+        //            alertify.set({ delay: 1000 });
+        //            alertify.success('Message Scheduled Successfully');
+        //            arrbinduser = [];
+
+        //            $('.bindprof').hide(1000, function () {
+        //                $('#bindcomposescheduledprofiles').html('');
+        //                $('#MessageCount').html('');
+        //            });
+        //        }
+        //    });
+
+        //});
+
+        $('#scheduled').click(function () {
+            $('#scheduled').hide();
+            $('#ScheduleLoadimg').show();
+            var curdate = new Date();
+            var dd = curdate.getDate();
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            else {
+                dd = curdate.getDate();
+            }
+            var mm = curdate.getMonth() + 1;
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+            else {
+                mm = curdate.getMonth() + 1;
+            }
+            var hh = curdate.getHours();
+            if (hh < 10) {
+                hh = '0' + hh;
+            }
+            else {
+                hh = curdate.getHours();
+            }
+            var minm = curdate.getMinutes();
+            if (minm < 10) {
+                minm = '0' + minm;
+            }
+            else {
+                minm = curdate.getMinutes();
+            }
+            var sec = curdate.getSeconds();
+            if (sec < 10) {
+                sec = '0' + sec;
+            }
+            else {
+                sec = curdate.getSeconds();
+            }
+
+            //var now = (curdate.getMonth() + 1) + "/" + (curdate.getDate.length<1? '0' : '') +curdate.getDate() + "/" + curdate.getFullYear() + " " + curdate.getHours() + ":" + curdate.getMinutes() + ":" + (curdate.getSeconds() < 10 ? '0' + curdate.getSeconds() : curdate.getSeconds());
+            //var now = mm + "/" + dd + "/" + curdate.getFullYear() + " " + hh + ":" + minm + ":" + sec;
+			var now = curdate.getFullYear() + "/" + mm + "/" + dd + " " + hh + ":" + minm + ":" + sec;
+            var fd = new FormData();
+            var filesimage = document.getElementById('scheduleimageupload').files[0];
+            if (filesimage != null) {
+                fd.append('file', filesimage);
+            }
+            var scheduledmessage = $('#txtscheduled').val();
+            var scheduleddate = $('#scheduleddate').val();
+            var scheduledtime1 = $('#scheduledtime').val();
+            var scheduledtime2 = scheduledtime1.split(" ");
+            var scheduledtime3 = scheduledtime2[0] + ':00';
+            var schdd = scheduledtime3.split(":");
+           
+            var shdd = schdd[0];
+           
+            var shmin = schdd[1];
+            var shsec = schdd[2];
+			
+			var intScheduleDate=parseInt(shdd,10);
+			//--intScheduleDate;
+			shdd=intScheduleDate.toString();
+			
+            if (shdd < 10) {
+                shdd = '0' + shdd;
+            }
+            else {
+                shdd = schdd[0];
+            }
+			
+            if (shmin < 10) {
+                //shmin = '0' + shmin;
+                shmin = shmin;
+            }
+            else {
+                shmin = schdd[1];
+            }
+            if (scheduledtime2[1] == "PM") {
+                if (shdd != "12") {
+                    shdd = +shdd + +12;
+                }
+            }
+            var scheduledtime = shdd + ":" + shmin + ":" + shsec;
+            var allprofiles = '';
+            if (scheduledmessage == "") {
+                $('#scheduled').show();
+                $('#ScheduleLoadimg').hide();
+                alertify.set({ delay: 1000 });
+                alertify.error('Please Enter a message ');
+                return false;
+            }
+            if (scheduleddate == "") {
+                $('#scheduled').show();
+                $('#ScheduleLoadimg').hide();
+                alertify.set({ delay: 1000 });
+                alertify.error('Please Select a Date');
+                return false;
+            }
+            if (scheduledtime == "") {
+                $('#scheduled').show();
+                $('#ScheduleLoadimg').hide();
+                alertify.set({ delay: 1000 });
+                alertify.error('Please Select a Time');
+                return false;
+            }
+            if (arrbinduser.length < 1) {
+                $('#scheduled').show();
+                $('#ScheduleLoadimg').hide();
+                alertify.set({ delay: 1000 });
+                alertify.error('Please Select Profiles to Scheduled a message');
+                return false;
+            }
+            for (var i = 0; i < arrbinduser.length; i++) {
+                allprofiles += arrbinduser[i] + "<:>";
+            }
+            for (var i = 0; i < arrbinduser.length; i++) {
+                var account = arrbinduser[i];
+                var strarray = account.split('~');
+                var ProfileType = strarray[1];
+                if (ProfileType == 'facebook') {
+                    if (scheduledmessage.length > 5000) {
+                        $('#scheduled').show();
+                        $('#ScheduleLoadimg').hide();
+                        alertify.error("Facebook Not Support more than 5000 characters");
+                        return;
+                    }
+                }
+                if (ProfileType == 'twitter') {
+                    if (scheduledmessage.length > 140) {
+                        $('#scheduled').show();
+                        $('#ScheduleLoadimg').hide();
+                        alertify.error("Twitter Not Support more than 140 characters");
+                        return;
+                    }
+                }
+                if (ProfileType == 'linkedin') {
+
+                    if (scheduledmessage.length > 600) {
+                        $('#scheduled').show();
+                        $('#ScheduleLoadimg').hide();
+                        alertify.error("Linkedin Not Support more than 600 characters");
+                        return;
+                    }
+                }
+            }
+			
+			
+			
+            allprofiles = allprofiles.substr(0, allprofiles.length - 3);
+            $.ajax({
+                type: 'POST',
+                url: '../Publishing/ScheduledMessage?scheduledmessage=' + scheduledmessage + '&scheduleddate=' + scheduleddate + '&scheduledtime=' + scheduledtime + '&profiles=' + allprofiles + '&clienttime=' + now,
+                data: fd,
+                processData: false,
+                contentType: false,
+                success: function (msg) {
+                    $('#scheduleddate').datepicker('setDate', null);
+                    $('#txtscheduled').val('');
+                    $('#scheduleddate').val('');
+                    $('#scheduledtime').val('');
+                    $('#tumbnail').children().html('');
+                    $('#scheduled').show();
+                    $('#ScheduleLoadimg').hide();
+                    alertify.set({ delay: 1000 });
+                    alertify.success('Message Scheduled Successfully');
+                    arrbinduser = [];
+
+                    $('.bindprof').hide(1000, function () {
+                        $('#bindcomposescheduledprofiles').html('');
+                        $('#MessageCount').html('');
+                    });
+                }
+            });
+
+        });
+
+        $('#savedraft').click(function () {
+            $('#ScheduleLoadimg').show();
+            $('#savedraft').hide();
+            var scheduledmessage = $('#txtscheduled').val();
+            if (scheduledmessage != "") {
+                $.ajax({
+                    type: 'POST',
+                    url: '../Publishing/SaveDraft?scheduledmessage=' + scheduledmessage,
+                    success: function (msg) {
+                        $('#scheduleddate').datepicker('setDate', null);
+                        $('#txtscheduled').val('');
+                        $('#scheduleddate').val('');
+                        $('#scheduledtime').val('');
+                        $('#ScheduleLoadimg').hide();
+                        $('#savedraft').show();
+                        alertify.set({ delay: 1000 });
+                        alertify.success('Message Saved to Draft');
+                        arrbinduser = [];
+
+                        $('.bindprof').hide(1000, function () {
+                            $('#bindcomposescheduledprofiles').html('');
+                        });
+                    }
+                });
+            }
+            else {
+                $('#ScheduleLoadimg').hide();
+                $('#savedraft').show();
+                alertify.set({ delay: 1000 });
+                alertify.error('Please Enter a message ');
+                return false;
+            }
+        });
+    });
+
+    function AddImageScheduleMessage() {
+        debugger;
+        var filesinput = $('#scheduleimageupload');
+        var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+        if (filesinput != undefined && filesinput[0].files[0] != null) {
+            if (hasExtension('scheduleimageupload', fileExtension)) {
+
+            }
+            else {
+                alertify.set({ delay: 3000 });
+                alertify.error("File Extention is not current. Please upload any image file");
+                $('#scheduleimageupload').val('');
+                return;
+            }
+        }
+    }
+
+</script>
+<script>
+    $(document).ready(function () {
+        $("#publishing-draft").removeClass('active');
+        $("#publishing-SocioQueue").removeClass('active');
+        $("#publishing-SecheduleMessages").addClass('active');
+    });
+    </script>

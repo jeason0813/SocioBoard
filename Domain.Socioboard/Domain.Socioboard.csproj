@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{96ECFB64-A9AC-45F4-85BF-185E9C6A0F53}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Domain.Socioboard</RootNamespace>
+    <AssemblyName>Domain.Socioboard</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\MongoDB.Bson.2.0.1\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\packages\MongoDB.Driver.2.0.1\lib\net45\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.0.1\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Legacy">
+      <HintPath>..\packages\mongocsharpdriver.2.0.1\lib\net45\MongoDB.Driver.Legacy.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\SocioboardAPI\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StackifyLib, Version=1.12.5589.24146, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackifyLib.1.12.0.0\lib\StackifyLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StackifyLib.log4net, Version=1.12.5589.24146, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackifyLib.log4net.1.12.0.0\lib\StackifyLib.log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Domain\AddFacebookPage.cs" />
+    <Compile Include="Domain\Admin.cs" />
+    <Compile Include="Domain\Ads.cs" />
+    <Compile Include="Domain\Affiliates.cs" />
+    <Compile Include="Domain\AnalyticsGraphViewModel.cs" />
+    <Compile Include="Domain\ArchiveMessage.cs" />
+    <Compile Include="Domain\Blog_Comments.cs" />
+    <Compile Include="Domain\Blog_Posts.cs" />
+    <Compile Include="Domain\BusinessSetting.cs" />
+    <Compile Include="Domain\CompanyProfiles.cs" />
+    <Compile Include="Domain\CompanySocialProfiles.cs" />
+    <Compile Include="Domain\Coupon.cs" />
+    <Compile Include="Domain\dailymotionpost.cs" />
+    <Compile Include="Domain\DiscoverySearch.cs" />
+    <Compile Include="Domain\Drafts.cs" />
+    <Compile Include="Domain\DropboxAccount.cs" />
+    <Compile Include="Domain\EwalletWithdrawRequest.cs" />
+    <Compile Include="Domain\FacebookAccount.cs" />
+    <Compile Include="Domain\FacebookFanPage.cs" />
+    <Compile Include="Domain\FacebookFeed.cs" />
+    <Compile Include="Domain\FacebookGroup.cs" />
+    <Compile Include="Domain\FacebookGroupData.cs" />
+    <Compile Include="Domain\FacebookGroupReport_15.cs" />
+    <Compile Include="Domain\FacebookGroupReport_30.cs" />
+    <Compile Include="Domain\FacebookGroupReport_60.cs" />
+    <Compile Include="Domain\FacebookGroupReport_90.cs" />
+    <Compile Include="Domain\FacebookInsightPostStats.cs" />
+    <Compile Include="Domain\FacebookInsightStats.cs" />
+    <Compile Include="Domain\FacebookMessage.cs" />
+    <Compile Include="Domain\FacebookPagePost.cs" />
+    <Compile Include="Domain\FacebookReport.cs" />
+    <Compile Include="Domain\FacebookReport_15.cs" />
+    <Compile Include="Domain\FacebookReport_30.cs" />
+    <Compile Include="Domain\FacebookReport_60.cs" />
+    <Compile Include="Domain\FacebookReport_90.cs" />
+    <Compile Include="Domain\FacebookStats.cs" />
+    <Compile Include="Domain\FbPageComment.cs" />
+    <Compile Include="Domain\FbPageLiker.cs" />
+    <Compile Include="Domain\FbPagePost.cs" />
+    <Compile Include="Domain\FbPagePostCommentLiker.cs" />
+    <Compile Include="Domain\FbPageSharer.cs" />
+    <Compile Include="Domain\FBTwitterFeeds.cs" />
+    <Compile Include="Domain\FeedSentimentalAnalysis.cs" />
+    <Compile Include="Domain\GoogleAnalyticsAccount.cs" />
+    <Compile Include="Domain\GoogleAnalyticsCityPageViews.cs" />
+    <Compile Include="Domain\GoogleAnalyticsReport.cs" />
+    <Compile Include="Domain\GoogleAnalyticsStats.cs" />
+    <Compile Include="Domain\GoogleAnalyticsViewModel.cs" />
+    <Compile Include="Domain\GooglePlusAccount.cs" />
+    <Compile Include="Domain\GooglePlusActivities.cs" />
+    <Compile Include="Domain\GoogleplusComments.cs" />
+    <Compile Include="Domain\GoogleplusLike.cs" />
+    <Compile Include="Domain\GroupProfile.cs" />
+    <Compile Include="Domain\GroupReports.cs" />
+    <Compile Include="Domain\Groups.cs" />
+    <Compile Include="Domain\GroupScheduleMessage.cs" />
+    <Compile Include="Domain\GroupStatDetails.cs" />
+    <Compile Include="Domain\IAdsRepository.cs" />
+    <Compile Include="Domain\IArchiveMessageRepository.cs" />
+    <Compile Include="Domain\IBlog_CommentsRepository.cs" />
+    <Compile Include="Domain\IBlog_PostsRepository.cs" />
+    <Compile Include="Domain\IBusinessSettingRepository.cs" />
+    <Compile Include="Domain\IDiscoverySearchRepository.cs" />
+    <Compile Include="Domain\IDraftsRepository.cs" />
+    <Compile Include="Domain\IFacebbookInsightStatsRepository.cs" />
+    <Compile Include="Domain\IFacebookAccountRepository.cs" />
+    <Compile Include="Domain\IFacebookFeedRepository.cs" />
+    <Compile Include="Domain\IFacebookInsightPostStats.cs" />
+    <Compile Include="Domain\IFacebookMessageRepository.cs" />
+    <Compile Include="Domain\IFacebookStatsRepository.cs" />
+    <Compile Include="Domain\IGoogleAnalyticsAccountRepository.cs" />
+    <Compile Include="Domain\IGoogleAnalyticsStatsRepository.cs" />
+    <Compile Include="Domain\IGooglePlusAccountRepository.cs" />
+    <Compile Include="Domain\IGooglePlusActivitiesRepository.cs" />
+    <Compile Include="Domain\IGroupProfilesRepository.cs" />
+    <Compile Include="Domain\IGroupRepository.cs" />
+    <Compile Include="Domain\IInstagramAccountRepository.cs" />
+    <Compile Include="Domain\IInstagramComment.cs" />
+    <Compile Include="Domain\IInstagramFeed.cs" />
+    <Compile Include="Domain\ILinkedInAccountRepository.cs" />
+    <Compile Include="Domain\ILinkedInFeedRepository.cs" />
+    <Compile Include="Domain\ILogException.cs" />
+    <Compile Include="Domain\InboxMessages.cs" />
+    <Compile Include="Domain\INewsLetterRepository.cs" />
+    <Compile Include="Domain\INewsRepository.cs" />
+    <Compile Include="Domain\InstagramAccount.cs" />
+    <Compile Include="Domain\InstagramComment.cs" />
+    <Compile Include="Domain\InstagramFeed.cs" />
+    <Compile Include="Domain\InstagramIds.cs" />
+    <Compile Include="Domain\InstagramPostComments.cs" />
+    <Compile Include="Domain\InstagramPostLikes.cs" />
+    <Compile Include="Domain\InstagramReport.cs" />
+    <Compile Include="Domain\InstagramSelfFeed.cs" />
+    <Compile Include="Domain\InstagramUserDetails.cs" />
+    <Compile Include="Domain\Invitation.cs" />
+    <Compile Include="Domain\IPackageRepository.cs" />
+    <Compile Include="Domain\IRssFeedsRepository.cs" />
+    <Compile Include="Domain\IRssReader.cs" />
+    <Compile Include="Domain\IScheduledMessageRepository.cs" />
+    <Compile Include="Domain\ISocialProfilesRepository.cs" />
+    <Compile Include="Domain\ISocialSite.cs" />
+    <Compile Include="Domain\ISocialSiteAccount.cs" />
+    <Compile Include="Domain\ISocialSiteFeed.cs" />
+    <Compile Include="Domain\ISocialSiteMessage.cs" />
+    <Compile Include="Domain\ITaskCommentRepository.cs" />
+    <Compile Include="Domain\ITaskRepository.cs" />
+    <Compile Include="Domain\ITeamMemberProfileRepository.cs" />
+    <Compile Include="Domain\ITeamRepository.cs" />
+    <Compile Include="Domain\ITwitterAccountRepository.cs" />
+    <Compile Include="Domain\ITwitterDirectMessagesRepository.cs" />
+    <Compile Include="Domain\ITwitterFeedRepository.cs" />
+    <Compile Include="Domain\ITwitterMessageRepository.cs" />
+    <Compile Include="Domain\ITwitterStatsRepository.cs" />
+    <Compile Include="Domain\IUserPackageRelation.cs" />
+    <Compile Include="Domain\IUserRepository.cs" />
+    <Compile Include="Domain\LinkedinAccount.cs" />
+    <Compile Include="Domain\LinkedinCompanyPage.cs" />
+    <Compile Include="Domain\LinkedinCompanyPagePosts.cs" />
+    <Compile Include="Domain\LinkedInFeed.cs" />
+    <Compile Include="Domain\LinkedInGroup.cs" />
+    <Compile Include="Domain\LinkedInMessage.cs" />
+    <Compile Include="Domain\LinkedinPageComment.cs" />
+    <Compile Include="Domain\LinkedInUser.cs" />
+    <Compile Include="Domain\LinkedIn_Update_Messages.cs" />
+    <Compile Include="Domain\Log.cs" />
+    <Compile Include="Domain\LoginLogs.cs" />
+    <Compile Include="Domain\MandrillAccount.cs" />
+    <Compile Include="Domain\Messages.cs" />
+    <Compile Include="Domain\MongoFacebookFeed.cs" />
+    <Compile Include="Domain\News.cs" />
+    <Compile Include="Domain\NewsLetter.cs" />
+    <Compile Include="Domain\Package.cs" />
+    <Compile Include="Domain\PaymentTransaction.cs" />
+    <Compile Include="Domain\Paypaltransactions.cs" />
+    <Compile Include="Domain\ProjectDetails.cs" />
+    <Compile Include="Domain\ReplyMessage.cs" />
+    <Compile Include="Domain\ReturnData.cs" />
+    <Compile Include="Domain\RssFeeds.cs" />
+    <Compile Include="Domain\RssReader.cs" />
+    <Compile Include="Domain\ScheduledMessage.cs" />
+    <Compile Include="Domain\Shareathon.cs" />
+    <Compile Include="Domain\ShareathonGroup.cs" />
+    <Compile Include="Domain\ShareathonGroupViewModel.cs" />
+    <Compile Include="Domain\ShareathonViewModel.cs" />
+    <Compile Include="Domain\SharethonGroupPost.cs" />
+    <Compile Include="Domain\SharethonPost.cs" />
+    <Compile Include="Domain\SocialProfile.cs" />
+    <Compile Include="Domain\TaskComment.cs" />
+    <Compile Include="Domain\Tasks.cs" />
+    <Compile Include="Domain\Team.cs" />
+    <Compile Include="Domain\TeamMemberProfile.cs" />
+    <Compile Include="Domain\TicketAssigneeStatus.cs" />
+    <Compile Include="Domain\TopFiveFans.cs" />
+    <Compile Include="Domain\TopFiveFans_15.cs" />
+    <Compile Include="Domain\TopFiveFans_30.cs" />
+    <Compile Include="Domain\TopFiveFans_60.cs" />
+    <Compile Include="Domain\TopFiveFans_90.cs" />
+    <Compile Include="Domain\TumblerData.cs" />
+    <Compile Include="Domain\TumblrAccount.cs" />
+    <Compile Include="Domain\TumblrFeed.cs" />
+    <Compile Include="Domain\TwitterAccount.cs" />
+    <Compile Include="Domain\TwitterAccountFollowers.cs" />
+    <Compile Include="Domain\TwitterDirectMessages.cs" />
+    <Compile Include="Domain\TwitterEngagement.cs" />
+    <Compile Include="Domain\TwitterFeed.cs" />
+    <Compile Include="Domain\TwitterFollowerNames.cs" />
+    <Compile Include="Domain\TwitterMessage.cs" />
+    <Compile Include="Domain\TwitterNameTable.cs" />
+    <Compile Include="Domain\TwitterRecentDetails.cs" />
+    <Compile Include="Domain\TwitterReport.cs" />
+    <Compile Include="Domain\TwitterStats.cs" />
+    <Compile Include="Domain\TwitterStatsReport.cs" />
+    <Compile Include="Domain\User.cs" />
+    <Compile Include="Domain\UserActivation.cs" />
+    <Compile Include="Domain\Userfacebook.cs" />
+    <Compile Include="Domain\UserPackageRelation.cs" />
+    <Compile Include="Domain\UserRefRelation.cs" />
+    <Compile Include="Domain\WordpressAccount.cs" />
+    <Compile Include="Domain\WordpressFeeds.cs" />
+    <Compile Include="Domain\WordpressSites.cs" />
+    <Compile Include="Domain\YoutubeAccount.cs" />
+    <Compile Include="Domain\YoutubeChannel.cs" />
+    <Compile Include="Factory\SocialSiteAccountFactory.cs" />
+    <Compile Include="Helper\ScheduledTracker.cs" />
+    <Compile Include="Helper\TwitterProfileDetails.cs" />
+    <Compile Include="Helper\TwitterRecentFollower.cs" />
+    <Compile Include="MongoDomain\FacebookMessage.cs" />
+    <Compile Include="MongoDomain\GoogleplusComments.cs" />
+    <Compile Include="MongoDomain\GooglePlusFeed.cs" />
+    <Compile Include="MongoDomain\InstagramComment.cs" />
+    <Compile Include="MongoDomain\InstagramFeed.cs" />
+    <Compile Include="MongoDomain\LinkedInFeed.cs" />
+    <Compile Include="MongoDomain\LinkedInMessage.cs" />
+    <Compile Include="MongoDomain\Rss.cs" />
+    <Compile Include="MongoDomain\RssFeed.cs" />
+    <Compile Include="MongoDomain\TumblrFeed.cs" />
+    <Compile Include="MongoDomain\TwitterFeed.cs" />
+    <Compile Include="MongoDomain\TwitterMessage.cs" />
+    <Compile Include="MongoDomain\YouTubeFeed.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

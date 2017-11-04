@@ -1,0 +1,292 @@
+﻿@using Domain.Socioboard.Domain;
+@using System.Web.Script.Serialization;
+@{
+    Layout = null;
+    string path = @System.Configuration.ConfigurationManager.AppSettings["domain"];
+    int Cnt = 0;
+    int pcount = 0;
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        //alert('my test');
+        //try {
+        //    var ff = $('#first-profile-load_0').attr('onclick');
+        //    //alert(ff);
+        //    var myid = ff.replace('facebookdetails(', '').replace(');', '').replace(/'/g, '');
+        //    facebookdetails(myid);
+        //} catch (e) {
+        //    alert(e);
+        //}
+        try {
+            var x = $('#feeds > ul > li > ul > li');
+            if (x.length > 0) {
+                $('#feeds > ul').addClass('collapse in');
+                //$('#feeds > ul > li > ul').addClass('collapse in');
+                $('#feeds > ul > li > ul > li')[0].click();
+            }
+        } catch (e) {
+
+        }
+    });
+
+   
+</script>
+
+
+<a href="#"><i class="fa fa-link fa-2x"></i><span class="tweaked-margin">Feeds</span><i class="fa arrow"></i></a>
+<ul class="nav nav-second-level">
+    @foreach (var item in (Dictionary<string, List<object>>)Model)
+    {
+        if (item.Key == "facebook")
+        {
+            List<object> lstFacebookAccount = (List<object>)item.Value;
+            string profileimage = string.Empty;
+            if (lstFacebookAccount.Count > 0)
+            {
+        <li>
+            <a href="#">Facebook <span class="fa arrow"></span></a>
+            <ul class="nav nav-third-level">
+                @foreach (var facebook in lstFacebookAccount)
+                {
+                    FacebookAccount objFacebookAccount = (FacebookAccount)facebook;
+                    <li onclick="facebookdetails('@objFacebookAccount.FbUserId','@pcount');" id="first-profile-load_@pcount">
+                        <a href="#" id="first-profile-load_Id_@pcount"><img src="http://graph.facebook.com/@objFacebookAccount.FbUserId/picture?type=small" width="20" height="20"></img>&nbsp;@objFacebookAccount.FbUserName</a>
+                    </li> 
+                    pcount++;
+                }
+            </ul>
+            <!-- /.nav-third-level -->
+        </li>
+            }
+        }
+        if (item.Key == "twitter")
+        {
+            List<object> lstTwitterAccount = (List<object>)item.Value;
+            string profileimage = string.Empty;
+            if (lstTwitterAccount.Count > 0)
+            {
+        <li>
+            <a href="#">Twitter <span class="fa arrow"></span></a>
+            <ul class="nav nav-third-level">
+                @foreach (var twitterAccount in lstTwitterAccount)
+                {
+                    TwitterAccount objTwitterAccount = (TwitterAccount)twitterAccount;
+                    <li onclick="twitterdetails('@objTwitterAccount.TwitterUserId','@pcount');" id="first-profile-load_@pcount">
+                        <a href="#" id="first-profile-load_Id_@pcount"><img src="@objTwitterAccount.ProfileImageUrl" width="20" height="20"></img>&nbsp;@objTwitterAccount.TwitterScreenName</a>
+                    </li> 
+                    pcount++;
+                }
+
+            </ul>
+            <!-- /.nav-third-level -->
+        </li>
+            }
+        }
+        @*if (item.Key == "linkedin" || item.Key == "linkedincompanypage")
+        {
+
+            if (Cnt == 0)
+            {
+                    @:<li>
+                    @:<a href="#">LinkedIn <span class="fa arrow"></span></a>
+                    @:<ul class="nav nav-third-level">   
+                 Cnt++;
+            }*@
+
+
+        if (item.Key == "linkedin")
+        {
+            List<object> lstLinkedinAccount = (List<object>)item.Value;
+            string profileimage = string.Empty;
+            if (lstLinkedinAccount.Count > 0)
+            {
+
+                      <li>
+                      <a href="#">LinkedIn Account<span class="fa arrow"></span></a>
+                      <ul class="nav nav-third-level">
+                      @foreach (var linkedin in lstLinkedinAccount)
+                      {
+                          if (linkedin != null)
+                          {
+                              LinkedInAccount objFacebookAccount = (LinkedInAccount)linkedin;
+                               <li onclick="linkedindetails('@objFacebookAccount.LinkedinUserId','@pcount');" id="first-profile-load_@pcount">
+                                    <a href="#" id="first-profile-load_Id_@pcount"><img src="@objFacebookAccount.ProfileImageUrl" width="20" height="20"></img>&nbsp;@objFacebookAccount.LinkedinUserName</a>
+                                </li> 
+                              pcount++;
+                          }
+
+
+                      }
+                          </ul>
+                                </li>
+             
+               
+           
+            }
+        }
+
+
+        if (item.Key == "linkedincompanypage")
+        {
+            List<object> lstLinkedInCompanyPage = (List<object>)item.Value;
+            string profileimage = string.Empty;
+            if (lstLinkedInCompanyPage.Count > 0)
+            {
+
+                        <li>
+                        <a href="#">LinkedIn Company Page<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                        @foreach (var linkedin in lstLinkedInCompanyPage)
+                        {
+                            if (linkedin != null)
+                            {
+                                LinkedinCompanyPage objLiCompanyPage = (LinkedinCompanyPage)linkedin;
+                               <li onclick="linkedinpagedetails('@objLiCompanyPage.LinkedinPageId','@pcount');" id="first-profile-load_@pcount">
+                                    <a href="#" id="first-profile-load_Id_@pcount"><img src="@objLiCompanyPage.LogoUrl" width="20" height="20"></img>&nbsp;@objLiCompanyPage.LinkedinPageName</a>
+                               </li>
+                                pcount++;
+                            }
+
+                        }
+                          </ul>
+                                </li>
+            }
+               @* @:</ul>
+                    <!-- /.nav-third-level -->
+                @:</li>*@
+                                             
+        }
+        @*}*@
+        if (item.Key == "instagram")
+        {
+            List<object> lstInstagramAccount = (List<object>)item.Value;
+            string profileimage = string.Empty;
+            if (lstInstagramAccount.Count > 0)
+            {
+        <li>
+            <a href="#">Instagram <span class="fa arrow"></span>
+                <span class="badge pull-right">Beta</span>
+            </a>
+            <ul class="nav nav-third-level">
+                @foreach (var Instagram in lstInstagramAccount)
+                {
+                    InstagramAccount objInstagramAccount = (InstagramAccount)Instagram;
+                    <li onclick="Instagramdetails('@objInstagramAccount.InstagramId','@pcount');" id="first-profile-load_@pcount">
+                        <a href="#" id="first-profile-load_Id_@pcount"><img src="@objInstagramAccount.ProfileUrl" width="20" height="20"></img>&nbsp;@objInstagramAccount.InsUserName</a>
+                    </li> 
+                    pcount++;
+                }
+            </ul>
+            <!-- /.nav-third-level -->
+        </li>
+            }
+        }
+        if (item.Key == "tumblr")
+        {
+            List<object> lstFacebookAccount = (List<object>)item.Value;
+            string profileimage = string.Empty;
+            if (lstFacebookAccount.Count > 0)
+            {
+        <li>
+            <a href="#">Tumblr <span class="fa arrow"></span>
+                <span class="badge pull-right">Beta</span>
+            </a>
+            <ul class="nav nav-third-level">
+                @foreach (var facebook in lstFacebookAccount)
+                {
+                    TumblrAccount objTumblrAccount = (TumblrAccount)facebook;
+                    string tumblruserimage = "http://api.tumblr.com/v2/blog/" + objTumblrAccount.tblrUserName + ".tumblr.com/avatar";
+                    <li onclick="tumblrdetails('@objTumblrAccount.tblrUserName','@pcount');" id="first-profile-load_@pcount">
+                        <a href="#" id="first-profile-load_Id_@pcount"><img src="@tumblruserimage" width="20" height="20"></img>&nbsp;@objTumblrAccount.tblrUserName</a>
+                    </li> 
+                    pcount++;
+                }
+            </ul>
+            <!-- /.nav-third-level -->
+        </li>
+            }
+        }
+        if (item.Key == "youtube")
+        {
+            List<object> lstYoutubeAccount = (List<object>)item.Value;
+            string profileimage = string.Empty;
+            if (lstYoutubeAccount.Count > 0)
+            {
+        <li>
+            <a href="#">Youtube <span class="fa arrow"></span>
+                <span class="badge pull-right">Beta</span>
+            </a>
+            <ul class="nav nav-third-level">
+                @foreach (var YoutubeAccount in lstYoutubeAccount)
+                {
+                    YoutubeAccount objYoutubeAccount = (YoutubeAccount)YoutubeAccount;
+                    <li onclick="youtubedetails('@objYoutubeAccount.Ytuserid','@pcount');" id="first-profile-load_@pcount">
+                        <a href="#" id="first-profile-load_Id_@pcount"><img src="@objYoutubeAccount.Ytprofileimage" width="20" height="20"></img>&nbsp;@objYoutubeAccount.Ytusername</a>
+                    </li> 
+                    pcount++;
+                }
+
+            </ul>
+            <!-- /.nav-third-level -->
+        </li>
+            }
+        }
+        if (item.Key == "gplus")
+        {
+            List<object> lstGooglePlusAccount = (List<object>)item.Value;
+            if (lstGooglePlusAccount.Count > 0)
+            {
+             <li>
+                 <a href="#">
+                     GooglePlus <span class="fa arrow"></span>
+                     <span class="badge pull-right">Beta</span>
+                 </a>
+                <ul class="nav nav-third-level">
+                @foreach (var _GPlusAccount in lstGooglePlusAccount)
+                {
+                    GooglePlusAccount objYoutubeAccount = (GooglePlusAccount)_GPlusAccount;
+                    <li onclick="gplusdetails('@objYoutubeAccount.GpUserId');" id="first-profile-load_@pcount">
+                        <a href="#"><img src="@objYoutubeAccount.GpProfileImage" width="20" height="20"></img>&nbsp;@objYoutubeAccount.GpUserName</a>
+                    </li> 
+                    pcount++;
+                }
+                </ul>
+            </li>
+            }
+        }
+        @*if (item.Key == "wordpress")
+        {
+            List<object> lstWordpressAccount = (List<object>)item.Value;
+            if (lstWordpressAccount.Count > 0)
+            {
+             <li>
+                <a href="#">Wordpress <span class="fa arrow"></span></a>
+                <ul class="nav nav-third-level">
+                @foreach (var WordpressAccount in lstWordpressAccount)
+                {
+                    Domain.Socioboard.Domain.WordpressAccount objWordpressAccount = (Domain.Socioboard.Domain.WordpressAccount)WordpressAccount;
+                    Socioboard.Api.WordpressSites.WordpressSites apiWordpressSites = new Socioboard.Api.WordpressSites.WordpressSites();
+                    <li>
+                        <a href="#">@objWordpressAccount.WpUserName<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            @{
+                    List<WordpressSites> lstWordpressSites = (List<WordpressSites>)new JavaScriptSerializer().Deserialize(apiWordpressSites.GetAllSitesByWPUserId(objWordpressAccount.UserId.ToString(), objWordpressAccount.WpUserId), typeof(List<WordpressSites>));
+                    foreach (var WordpressSite in lstWordpressSites)
+                    {
+                                     <li onclick="WordpressDetails('@WordpressSite.SiteId','@WordpressSite.WPUserId')">
+                                           <a href="#">@WordpressSite.SiteName</a>
+                                     </li>
+                    }
+                              }
+                            </ul>
+                    </li>
+                }
+                </ul>
+            </li>
+            }
+        }*@
+    }
+</ul>
+

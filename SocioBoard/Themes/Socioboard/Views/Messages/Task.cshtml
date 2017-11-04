@@ -1,0 +1,49 @@
+@{
+    string path = @System.Configuration.ConfigurationManager.AppSettings["domain"];
+    }
+
+<div id="page-wrapper" style="min-height: 385px;">
+
+   
+</div>
+
+
+<script src="~/Themes/@path/Contents/js/Message.js"></script>
+<script src="~/Themes/@path/Contents/js/Helper.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+       $('#page-wrapper').load('../Messages/loadtask');
+        $('#side-menu a').removeClass('active');
+        $("#message").addClass('active');
+        $("#message").children().addClass('active');
+        $("#msg-task").addClass('active');
+        $("#msg-index").removeClass('active');
+        $("#msg-sentmsg").removeClass('active');
+        $("#msg-archive").removeClass('active');
+        
+    });
+
+    function hideTask(divId) {
+        alert(divId);
+        $('#' + divId).removeClass('in');
+        //$('#' + divId).css("display", "none");
+    }
+
+    function TaskFilteration(Id) {
+        debugger;
+        if (Id == "rdMyTask") {
+            $('#page-wrapper').load('../Messages/loadtask');
+        }
+        if (Id == "rdIncompleteTask") {
+            $('#page-wrapper').load('../Messages/LoadIncompleteTask');
+        }
+        if (Id == "rdCompleteTask") {
+            $('#page-wrapper').load('../Messages/LoadCompleteTask');
+        }
+        if (Id == "rdTeamTask") {
+            $('#page-wrapper').load('../Messages/LoadTeamTask');
+        }
+    }
+
+</script>

@@ -1,0 +1,665 @@
+﻿@{
+    string path = @System.Configuration.ConfigurationManager.AppSettings["domain"];
+}
+
+<script src="~/Themes/@path/Contents/js/underscore.js"></script>
+
+@* Modal Fb/Tweet Popup *@
+@*<script src="~/Themes/Socioboard/Contents/js/jquery-1.9.1.min.js"></script>
+<script src="~/Themes/Socioboard/Contents/js/bootstrap.min.js"></script>*@
+
+<!-- Modal -->
+<div class="modal fade" id="twtModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <img style="height: 40px; float: left; margin-top: -6px" src="http://wiki.socioboard.com/skins/common/images/logo.png">
+                <h4 class="modal-title" id="DemoModalLabel" style="margin-left: 60px">Tweet</h4>
+            </div>
+            <div class="modal-body col-md-12">
+                <div class="input-group col-md-11 pull-left" style="margin-left: 4%; padding-bottom: 4%;">
+                    @*<label for="username-email">Notes</label>*@<span class="pull-right text-danger"></span>
+                    <textarea id="twtNotes" class="form-control" rows="4" style="resize: none">Hey guys am using this amazing software &#64;socioboard for managing my twitter account</textarea>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                 <button type="button" class="btn btn-primary" onclick="SendTweet()">Tweet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End of Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="fbModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <img style="height: 40px; float: left; margin-top: -6px" src="http://wiki.socioboard.com/skins/common/images/logo.png">
+                <h4 class="modal-title" id="DemoModalLabel" style="margin-left: 60px">Post</h4>
+            </div>
+            <div class="modal-body col-md-12">
+                <div class="input-group col-md-11 pull-left" style="margin-left: 4%; padding-bottom: 4%;">
+                    @*<label for="username-email">Notes</label>*@<span class="pull-right text-danger"></span>
+                    <textarea id="fbNotes" class="form-control" rows="4" style="resize: none">Hey guys am using this amazing software #socioboard for managing my facebook account</textarea>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="SendFacebookMessage()">Post on Wall</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End of Modal -->
+
+
+
+@*@if (@ViewBag.IsFacebookAccountAdded == 1)
+{
+    <script>
+        alert('added');
+        $('#twtModal').modal('show');
+        function OpenTweetPopup() {
+            debugger;
+
+        }
+        </script>
+}*@
+
+
+<div id="page-wrapper">
+    <div id="DisplayCount" class="row" data-url="/Home/DisplayCount">
+        <div class="col-lg-12">
+        <h1 class="page-header">@GlobusMultiLanguageLib.Resources.Home_HomeUserActivityPartial_Updates</h1>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-comments fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge" style="min-height: 50px;"><img src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/button-loader.gif" style="margin-top: 11%; width: 18%;" /></div>
+                        <div>@GlobusMultiLanguageLib.Resources.Home_HomeUserActivityPartial_IncomingMessages</div>
+                    </div>
+                </div>
+            </div>
+            <a href="../Messages/Index">
+                <div class="panel-footer">
+                    <span class="pull-left">@GlobusMultiLanguageLib.Resources.Home_HomeUserActivityPartial_ViewDetails</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-mail-reply-all fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge" style="min-height: 50px;"><img src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/button-loader.gif" style="margin-top: 11%; width: 18%;" /></div>
+                        <div>@GlobusMultiLanguageLib.Resources.Home_HomeUserActivityPartial_SentMessages</div>
+                    </div>
+                </div>
+            </div>
+            <a href="../Messages/sentmsg">
+                <div class="panel-footer">
+                    <span class="pull-left">@GlobusMultiLanguageLib.Resources.Home_HomeUserActivityPartial_ViewDetails</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-sky">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-twitter fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge" style="min-height: 50px;"><img src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/button-loader.gif" style="margin-top: 11%; width: 18%;" /></div>
+                        <div>@GlobusMultiLanguageLib.Resources.Home_HomeUserActivityPartial_TwitterFollowers</div>
+                    </div>
+                </div>
+            </div>
+       
+                <div class="panel-footer">
+                    <span class="pull-left">@GlobusMultiLanguageLib.Resources.Home_HomeUserActivityPartial_ViewDetails</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+          
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-blue">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-facebook fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge" style="min-height: 50px;"><img src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/button-loader.gif" style="margin-top: 11%; width: 18%;" /></div>
+                        <div>@GlobusMultiLanguageLib.Resources.Home_HomeUserActivityPartial_NewFacebookFans</div>
+                    </div>
+                </div>
+            </div>
+       
+                <div class="panel-footer">
+                    <span class="pull-left">@GlobusMultiLanguageLib.Resources.Home_HomeUserActivityPartial_ViewDetails</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+          
+        </div>
+    </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9">
+                <h2 style="margin-left: -2%;">@GlobusMultiLanguageLib.Resources.Home_HomeProfileSnapshotPartial_MyRecentProfiles</h2>
+                <div class="partialContents" id="div_Home_ProfileSnapshot" data-url="/Home/ProfileSnapshot">
+                    <div id="ldr-home-profile">
+                        <center>
+                        <img class="clsImageLoader" src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/43px_on_transparent.gif" />
+                    </center>
+                    </div>
+                </div>
+                <div id="img-loader-profile" style="display: none">
+                    <center>
+                        <img class="" src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/43px_on_transparent.gif" />
+                    </center>
+                </div>
+            </div>
+            <div class="col-md-3 partialContents" data-url="/Home/UserProfile">
+                <center>
+                    <img src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/43px_on_transparent.gif" />
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="SocialProfileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade in" style="height: 1048px;"></div>
+    <div class="modal-dialog">
+        <div class="modal-content" style="box-shadow: none ! important; background-color: transparent;  margin-top: 21%; border:none ! important">
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6" style="margin-bottom: 10px; margin-left: 20px;">
+
+                            <a onclick="AddFacebookProfile()" class="btn btn-social-icon btn-facebook">
+                                <i class="fa fa-facebook"></i></a>
+
+                            <a onclick="AddYouTubeProfile()" class="btn btn-social-icon btn-dropbox"><i class="fa fa-youtube"></i></a>
+                            <a onclick="AddInstagramProfile()" class="btn btn-social-icon btn-instagram"><i class="fa fa-instagram"></i></a>
+                            <a onclick="AddLinkedInProfile()" class="btn btn-social-icon btn-linkedin"><i class="fa fa-linkedin"></i></a>
+                            <a onclick="AddTumblerProfile()" class="btn btn-social-icon btn-tumblr"><i class="fa fa-tumblr"></i></a>
+                            <a onclick="AddTwitterProfile()" class="btn btn-social-icon btn-twitter"><i class="fa fa-twitter"></i></a>
+                        </div>
+                        <div class="col-md-12">
+                            <p style="color: white; padding-left: 45px; margin-top: 3%;">Attach Your Social Network Profile's to Kick Start  With Socioboard‏</p>
+                        </div>
+                        <div class="col-md-6 col-xs-offset-2">
+                            <a id="AttachProfile" href="#" onclick="AddProfile()" class="btn btn-danger" type="button" value="Attach Your Profile" style="margin-top: 31px;">Attach Your Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var isShowFBModal = false;
+    var isShowTwtModal = false;
+
+    function getParameterByName(name) {
+        debugger;
+        var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    }
+
+    function AddfbPage(fbpagename, fbpageid, fbpagetoken, email) {
+$('#fbpagebind').html('<img src="../Themes/@path/Contents/img/360.gif" />').append('       plaese wait while we are fetching page data');
+        $.ajax({
+            type: 'POST',
+            url: '../FacebookManager/AddFbPage?profileid=' + fbpageid + '&accesstoken=' + fbpagetoken + '&email=' + email,
+            contentType: false,
+            success: function (data) {
+                alertify.set({ delay: 3000 });
+                $('#facebookpageinfo').css({ 'display': 'none' });
+                //jQuery.noConflict();
+                $('#facebookpopup').modal('hide');
+                alertify.success("Fan Page Added Successfully");
+                window.location = '../Home/Index';
+            }
+        });
+
+    }
+
+    function AddfbGroup(fbgroupname, fbgroupid, fbtoken, email) {
+        debugger;
+
+        $.ajax({
+            type: 'POST',
+            url: '../FacebookManager/AddFbGroup?ProfileGroupId=' + fbgroupid + '&accesstoken=' + fbtoken + '&email=' + email + '&Name=' + fbgroupname,
+            contentType: false,
+            success: function (data) {
+
+                alertify.set({ delay: 3000 });
+                $('#facebookgroupinfo').css({ 'display': 'none' });
+                //jQuery.noConflict();
+                $('#facebookpopup').modal('hide');
+                alertify.success("Group Added Successfully");
+                window.location = '../Home/Index';
+            }
+        });
+
+    }
+
+    function DisplayRemainingDaysMsg() {
+        debugger;
+
+        $.ajax({
+            type: "POST",
+            url: "../Index/RemainingDays",
+            contentType: false,
+            success: function (msg) {
+                if (msg !== "") {
+                    alertify.alert(msg);
+                }
+            }
+        });
+
+    }
+
+    // Edited by Antima
+
+    function AddProfilepopUp() {
+        debugger;
+        //alert("success");
+        //jQuery.noConflict();
+        $('#SocialProfileModal').modal({
+            backdrop: 'static'
+        });
+    }
+
+    function AddProfile() {
+        debugger;
+
+        var profileType = $("#AttachProfile").html();
+        if (profileType == "Attach Your Profile") {
+            alert("Please Select a profile.!!");
+        }
+    }
+
+    function AddFacebookProfile() {
+        debugger;
+        $("#AttachProfile").html('Attach Facebook Profile');
+        $("#AttachProfile").attr('href', '../FacebookManager/AuthenticateFacebook');
+    }
+
+    function AddTwitterProfile() {
+        debugger;
+        $("#AttachProfile").html('Attach Twitter Profile');
+        $("#AttachProfile").attr('href', '../TwitterManager/AuthenticateTwitter');
+    }
+
+    function AddLinkedInProfile() {
+        debugger;
+        $("#AttachProfile").html('Attach LinkedIn Profile');
+        $("#AttachProfile").attr('href', '../LinkedinManager/AuthenticateLinkedin');
+    }
+
+    function AddInstagramProfile() {
+        debugger;
+        $("#AttachProfile").html('Attach Instagram Profile');
+        $("#AttachProfile").attr('href', '../InstagramManager/AuthenticateInstagram');
+    }
+
+    function AddTumblerProfile() {
+        debugger;
+        $("#AttachProfile").html('Attach Tumbler Profile');
+        $("#AttachProfile").attr('href', '../TumblrManager/AuthenticateTumblr');
+    }
+
+    function AddYouTubeProfile() {
+        debugger;
+        $("#AttachProfile").html('Attach YouTube Profile');
+        $("#AttachProfile").attr('href', '../YoutubeManager/AuthenticateYoutube');
+    }
+	
+	function LoadMoreProfileSnapshot() {
+        debugger;
+        //$('#div_Home_ProfileSnapshot').append('<div id="ldr-home-profile"><center><img class="clsImageLoader" src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/loader.gif" /></center></div>');
+        $('#img-loader-profile').css("display", "block");
+		$.ajax({
+            type: 'GET',
+            url: '../Home/ProfileSnapshot?op=scroll',
+            success: function (msg) {
+                //$('#ldr-home-profile').remove();
+				$('#img-loader-profile').css("display", "none");
+                $('#div_Home_ProfileSnapshot').append(msg);
+            },
+			//async: false
+        });
+    }
+
+    $(document).ready(function (e) {
+        debugger
+		
+		 var throttled = _.throttle(LoadMoreProfileSnapshot, 3000);
+
+        $(window).scroll(throttled);
+		
+        var hint = getParameterByName("hint");
+        if (hint != "" || hint != null) {
+            if (hint == "fbpage") {
+                $.ajax({
+                    type: 'POST',
+                    url: '../FacebookManager/GetFBPage',
+                    success: function (msg) {
+
+                        if (msg==null || msg=="") {
+                            $('#fbpagebind').append("<center>No page found</center>");
+                        }else{
+                            var fbpagearr = msg.split('~');
+                            for (var i = 0; i < fbpagearr.length; i++) {
+                                var fbpageinfoarr = fbpagearr[i].split('`');
+                                try {
+                                    var imageSrc = "http://graph.facebook.com/" + fbpageinfoarr[1] + "/picture?type=small";
+                                    $('#fbpagebind').append('<div class="panel-box pull-left"><span class="col-md-2 padding-0"><img src=' + imageSrc + ' width="50"></span><span class="col-md-8 padding_lr">&nbsp&nbsp&nbsp' + fbpageinfoarr[0] + '<br><p>&nbsp&nbsp&nbsp' + fbpageinfoarr[4] + ' likes</p></span><span class="col-md-2 padding-0"><a style="cursor: pointer;" onclick="AddfbPage(\'' + fbpageinfoarr[0] + '\',\'' + fbpageinfoarr[1] + '\',\'' + fbpageinfoarr[2] + '\',\'' + fbpageinfoarr[3] + '\')"><img src="/Themes/Socioboard/Contents/img/plus.png"/></a></span></div>');
+                                } catch (e) {
+
+                                }
+                            }
+                        }
+                        $('#facebookpageinfo').css({ 'display': 'block' });
+                      //  jQuery.noConflict();
+                        $('#facebookpopup').modal('show');
+                    },
+                    async: false
+                });
+
+            }
+
+            else if (hint == "fbgrp") {
+                $.ajax({
+                    type: 'POST',
+                    url: '../FacebookManager/GetFBGroup',
+                    success: function (msg) {
+
+                        var fbgrouparr = msg.split('~');
+                        for (var i = 0; i < fbgrouparr.length; i++) {
+                            var fbgroupinfoarr = fbgrouparr[i].split('`');
+                            try {
+                                $('#fbgroupbind').append('<a style="cursor: pointer;margin-left:21px" onclick="AddfbGroup(\'' + fbgroupinfoarr[0] + '\',\'' + fbgroupinfoarr[1] + '\',\'' + fbgroupinfoarr[2] + '\',\'' + fbgroupinfoarr[3] + '\')">' + fbgroupinfoarr[0] + '</a><br />');
+                            } catch (e) {
+
+                            }
+                        }
+                       // jQuery.noConflict();
+                        $('#facebookgroupinfo').css({ 'display': 'block' });
+                        //jQuery.noConflict();
+                        $('#facebookpopup').modal('show');
+                    },
+                    async: false
+                });
+            }
+            else if (hint == "linpage") {
+                $.ajax({
+                    type: 'POST',
+                    url: '../LinkedinManager/GetLinkedinCompanyPage',
+                    success: function (msg) {
+                        if (msg == "Pages Not Found in this Account!") {
+                            $('#lipagebind').append(msg);
+                        }
+                        else {
+                            //alert(msg);
+                            var lipagearr = msg.split('~');
+                            for (var i = 0; i < lipagearr.length; i++) {
+                                var lipageinfoarr = lipagearr[i].split('`');
+                                try {
+                                
+                                $('#lipagebind').append('<a style="cursor: pointer;margin-left:21px" onclick="AddLinPage(\'' + lipageinfoarr[0] + '\',\'' + lipageinfoarr[1] + '\',\'' + lipageinfoarr[2] + '\')">' + lipageinfoarr[1] + '</a><br />');
+                            } catch (e) {
+
+                                }
+                            }
+                        }
+
+                        $('#linkedincompanypageinfo').css({ 'display': 'block' });
+                        //jQuery.noConflict();
+                        $('#linkedinpopup').modal('show');
+                    },
+                    async: false
+                });
+
+            }
+        }
+
+        $('#message').find('ul').remove();
+        $('#feeds').find('ul').remove();
+        $('#publishing').find('ul').remove();
+        $('#reports').find('ul').remove();
+        $('#group').find('ul').remove();
+
+        // alert('asdasda');
+        $(".partialContents").each(function (index, item) {
+            var url = $(item).data("url");
+            if (url && url.length > 0) {
+                $(item).load(url);
+            }
+        });
+
+        try {
+            debugger;
+            $("#DisplayCount").load($("#DisplayCount").data("url"));
+        } catch (e) {
+            alert(e);
+        }
+
+        // $('#groupsselection').change(function () {
+        //    // alert($("#groupsselection option:selected").text());
+        //     //alert($("#groupsselection").val());
+        //     var groupid = $("#groupsselection").val();
+        //     $.ajax
+        //({
+        //    type: "POST",
+        //    url: "../Home/ChangeGroup?groupid=" + groupid,
+        //    data: '',
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "html",
+        //    success: function (msg) {
+        //        window.location = self.location;
+        //    }
+        //});
+        // });
+        DisplayRemainingDaysMsg();
+
+        // Edited by Antima
+
+        debugger;
+        $.ajax({
+            type: 'GET',
+            url: '../Home/AddFirstProfile',
+            success: function (msg) {
+                if (msg == "AddProfile") {
+                    AddProfilepopUp();
+                }
+            }
+        });
+    });
+
+
+</script>
+
+<input type="hidden" id="acctype" value="@ViewBag.AccountType" />
+
+<script>
+
+    function SendTweet() {
+        debugger;
+
+        var message = $('#twtNotes').val();
+        //var allprofiles = '';
+        var curdate = new Date();
+        var curdaatetimetime = (curdate.getMonth() + 1) + "/" + curdate.getDate() + "/" + curdate.getFullYear() + " " + curdate.getHours() + ":" + curdate.getMinutes() + ":" + curdate.getSeconds();
+
+        $.ajax({
+            type: 'POST',
+            url: '../Home/ComposeMessageSend?message=' + encodeURIComponent(message) + '&allprofiles=' + allprofiles + '~twitter' + '&curdaatetimetime=' + curdaatetimetime,
+            //data: fd,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                debugger;
+                //alertify.set({ delay: 3000 });
+                //alertify.success("Tweeted Successfully");
+                try {
+                    //$('#twtModal').hide();
+                    $('#twtModal').modal('hide');
+                    //$('.modal-backdrop').hide();
+                } catch (e) {
+                    alert(e);
+                }
+
+            }
+
+        });
+    }
+    function SendFacebookMessage() {
+        debugger;
+
+        var message = $('#fbNotes').val();
+        //var allprofiles = '';
+        var curdate = new Date();
+        var curdaatetimetime = (curdate.getMonth() + 1) + "/" + curdate.getDate() + "/" + curdate.getFullYear() + " " + curdate.getHours() + ":" + curdate.getMinutes() + ":" + curdate.getSeconds();
+
+        $.ajax({
+            type: 'POST',
+            url: '../Home/ComposeMessageSend?message=' + encodeURIComponent(message) + '&allprofiles=' + allprofiles + '~facebook' + '&curdaatetimetime=' + curdaatetimetime,
+            //data: fd,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                debugger;
+                //alertify.set({ delay: 3000 });
+                //alertify.success("Tweeted Successfully");
+                try {
+                    //$('#fbModal').hide();
+                    $('#fbModal').modal('hide');
+                    //$('.modal-backdrop').hide();
+                } catch (e) {
+                    alert(e);
+                }
+
+            }
+
+        });
+    }
+
+    $(document).ready(function () {
+        if ($('#acctype').val() == "Premium") {
+            $('#PremiumAccount').hide();
+        }
+        //alert('(document).ready executed');
+
+        if (isShowFBModal == true) {
+            $('#fbModal').modal('show');
+        }
+        if (isShowTwtModal == true) {
+            debugger;
+            $('#twtModal').modal('show');
+        }
+       
+
+    });
+
+
+
+    var allprofiles = '';
+  
+    //*****************************Twitter Start***********************************//
+       @if (ViewBag.TwitterAccount != null)
+       {
+            <text>
+    allprofiles = @ViewBag.TwitterAccount.TwitterUserId
+        //alert('allprofiles = ' + allprofiles);
+     </text>
+       }
+   
+
+   
+    //*****************************Twitter End***********************************//
+
+
+    //*****************************Facebook Start***********************************//
+
+      @if (ViewBag.FacebookAccount != null)
+      {
+            <text>
+    allprofiles = @ViewBag.FacebookAccount.FbUserId
+        //alert('allprofiles = ' + allprofiles);
+     </text>
+       }
+
+
+    
+
+    //*****************************Facebook End***********************************//
+
+</script>
+
+@if (@ViewBag.IsFacebookAccountAdded == 1)
+{
+    @*<script src="~/Themes/Socioboard/Contents/js/jquery-1.9.1.min.js"></script>
+<script src="~/Themes/Socioboard/Contents/js/bootstrap.min.js"></script>*@
+    <script>
+
+       
+        isShowFBModal = true;
+        //alert('FbAccountadded');
+        //$('#fbModal').modal('show');
+
+
+        </script>
+}
+@if (@ViewBag.IsTwitterAccountAdded == 1)
+{
+    @*<script src="~/Themes/Socioboard/Contents/js/jquery-1.9.1.min.js"></script>
+<script src="~/Themes/Socioboard/Contents/js/bootstrap.min.js"></script>*@
+    <script>
+
+
+        isShowTwtModal = true;
+        //alert('twitterAccountadded');
+        //$('#fbModal').modal('show');
+
+
+        </script>
+}
+
+
+
+
+
+
+
+

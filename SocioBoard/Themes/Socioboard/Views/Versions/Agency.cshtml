@@ -1,0 +1,271 @@
+﻿@using Domain.Socioboard.Domain;
+@{
+    string path = @System.Configuration.ConfigurationManager.AppSettings["domain"];
+}
+
+<section class="services bg-primary" id="services">
+    <div class="container">
+
+        <div class="col-md-4">
+            <h2>@GlobusMultiLanguageLib.Resources.Versions_Agency_LeftHeader</h2>
+            <h4>@GlobusMultiLanguageLib.Resources.Versions_Agency_Benifits</h4>
+            <ul>
+                <li>@GlobusMultiLanguageLib.Resources.Versions_Agency_Benifit1</li>
+                <li>@GlobusMultiLanguageLib.Resources.Versions_Agency_Benifit2</li>
+                <li>@GlobusMultiLanguageLib.Resources.Versions_Agency_Benifit3</li>
+                <li>@GlobusMultiLanguageLib.Resources.Versions_Agency_Benifit4</li>
+                <li>@GlobusMultiLanguageLib.Resources.Versions_Agency_Benifit5</li>
+            </ul>
+            <p>@GlobusMultiLanguageLib.Resources.Versions_Agency_Interested</p>
+            <form role="form">
+                <div class="form-group input-group">
+                    <span class="input-group-addon">F</span>
+                    <input type="text" id="FirstName" placeholder="First Name" class="form-control">
+                </div>
+                <div class="form-group input-group">
+                    <span class="input-group-addon">L</span>
+                    <input type="text" id="LastName" placeholder="Last Name" class="form-control">
+                </div>
+                <div class="form-group input-group">
+                    <span class="input-group-addon">E</span>
+                    <input type="text" id="Emailid" placeholder="Email id" class="form-control">
+                </div>
+                <div class="form-group input-group">
+                    <span class="input-group-addon">C</span>
+                    <input type="text" id="Company" placeholder="Company" class="form-control">
+                </div>
+                <div class="form-group">
+                    <textarea id="Message" placeholder="Message" rows="3" class="form-control"></textarea>
+                </div>
+                <div class="form-group input-group">
+                    <span class="input-group-addon">P</span>
+                    <input type="text" id="Phone" placeholder="Phone" class="form-control">
+                </div>
+                <button class="btn btn-warning" id="submit" type="submit">@GlobusMultiLanguageLib.Resources.Versions_Agency_BtnSubmitInterested</button>
+                <button class="btn btn-default" type="reset">@GlobusMultiLanguageLib.Resources.Versions_Agency_BtnResetInterested</button>
+            </form>
+        </div>
+        <div class="col-md-8">
+            <h3>@GlobusMultiLanguageLib.Resources.Versions_Agency_AreyouanAgency</h3>
+            <p>
+                @GlobusMultiLanguageLib.Resources.SocioBoard_Versions_Agency_AgencysocioboardOffering
+            </p>
+            <img src="/Themes/@path/Contents/img/agency1.png" class="img-responsive">
+            <p>@GlobusMultiLanguageLib.Resources.Versions_Agency_AgencyWhiteLabel</p>
+
+            @*<p>The White Label version is priced at $2999 per annum. Click <a target="_blank" href="../Index/PaypalAgency">here</a> to buy the White label version now!</p>  *@
+
+        </div>
+        <div class="col-md-12" style="padding-top: 20px; margin-left: 120px">
+            <div class="" style="margin-left: 100px; margin-bottom: 33px">
+                <h3>@GlobusMultiLanguageLib.Resources.Versions_Agency_AgencyWhiteLabel3Version</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="service-item">
+                        <a href="">
+                            <span class="fa-stack fa-4x">
+                                <i>
+                                    <img src="/Themes/@path/Contents/img/Agency_icon1.png" style="height:100px"></i>
+                                @*<i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-bell fa-stack-1x text-primary"></i>*@
+                            </span>
+                        </a>
+                        <h4>
+                            <strong>@GlobusMultiLanguageLib.Resources.Versions_Agency_AgencyWhiteLabelversion1</strong>
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-md-9" style="margin-top: 29px; margin-left: -66px">
+                    <p><strong>Agency Lite is best suited for small agencies. You could put your logo and deploy it up.Click to buy agency lite of $999.</strong></p>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="hosted_button_id" value="SAAMHJ4UKC836">
+                        <input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="service-item">
+                        <a href="">
+                            <span class="fa-stack fa-4x">
+                                <i>
+                                    <img src="/Themes/@path/Contents/img/Agency_icon2.png" style="height:100px"></i>
+                                @* <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-bell-o fa-stack-1x text-primary"></i>*@
+                            </span>
+                        </a>
+                        <h4>
+                            <strong>@GlobusMultiLanguageLib.Resources.Versions_Agency_AgencyWhiteLabelversion2</strong>
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-md-9" style="margin-top: 29px; margin-left: -66px">
+                    <p><strong>Agency Pro allows you to deploy with your logo as well as your theme. It makes your customers feel at home.Click to buy agency pro of $1999.</strong></p>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="hosted_button_id" value="NBUQADZVRWYJQ">
+                        <input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="service-item">
+                        <a href="">
+                            <span class="fa-stack fa-4x">
+                                <i>
+                                    <img src="/Themes/@path/Contents/img/Agency_icon3.png" style="height:100px"></i>
+                                @*   <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-bell-slash-o fa-stack-1x text-primary"></i>*@
+                            </span>
+                        </a>
+                        <h4>
+                            <strong>@GlobusMultiLanguageLib.Resources.Versions_Agency_AgencyWhiteLabelversion3</strong>
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-md-9" style="margin-top: 29px; margin-left: -66px">
+                    <p><strong>Agency Premium offers full customization with your logo, theme and also iOS and Android apps. This is a full-fledged version suitable for scaling agencies. Click to buy agency pro of $2999.</strong></p>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="hosted_button_id" value="SVXVHGGPNKVFC">
+                        <input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+                    </form>
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-md-2">
+                    <div class="service-item">
+                        <a href="">
+                            <span class="fa-stack fa-4x">
+                                <i>
+                                    <img src="/Themes/@path/Contents/img/Agency_icon4.png" style="height:100px"></i>
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-bell-slash-o fa-stack-1x text-primary"></i>*@
+                               @* </span>
+                        </a>
+                        <h4>
+                            <strong>@GlobusMultiLanguageLib.Resources.Versions_Agency_AgencyWhiteLabelversion4</strong>
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-md-9" style="margin-top: 29px; margin-left: -66px">
+                    <p><strong>@GlobusMultiLanguageLib.Resources.Versions_Agency_AgencyWhiteLabelversion4DESC<a href="/index/contact" style="cursor: pointer"> @GlobusMultiLanguageLib.Resources.Versions_Agency_Click </a> @GlobusMultiLanguageLib.Resources.Versions_Agency_ClicktoContact</strong></p>
+                </div>
+            </div>*@
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#submit').click(function () {
+            debugger;
+            var FirstName = $('#FirstName').val();
+            var LastName = $('#LastName').val();
+            var EmailId = $('#Emailid').val();
+            var Company = $('#Company').val();
+            var Phoneno = $('#Phone').val();
+            var Message = $('#Message').val();
+
+            if (FirstName != "" || LastName != "" || EmailId != "" || Company != "" || Phoneno != "") {
+                if (validateFName(FirstName)) {
+                    if (validateFName(LastName)) {
+                        if (validateEmail(EmailId)) {
+                            if (validatePhone(Phoneno)) {
+                                // alert("Success");
+                                $.ajax({
+                                    url: "../Versions/SendAgencyMail?name=" + FirstName + "&lname=" + LastName + "&email=" + EmailId + "&Company=" + Company + "&Message=" + Message + "&phone=" + Phoneno,
+                                    type: "post",
+                                    data: '',
+                                    success: function (data) {
+                                        if (data == "Success") {
+                                            alertify.success('Mail has been sent successfully!');
+                                            $('#Fname').val('');
+                                            $('#Lname').val('');
+                                            $('#Email').val('');
+                                            $('#Company').val('');
+                                            $('#Messages').val('');
+                                            $('#Phone').val('');
+                                        }
+                                        else {
+                                            alertify.error("failure");
+                                            return false;
+                                        }
+                                    },
+                                    error: function () {
+                                        alert("failure");
+                                    }
+                                });
+                            }
+                            else {
+                                alert('Please enter valid Phone No.');
+                            }
+                        }
+                        else {
+                            alert('Please enter valid Last Name');
+                        }
+                    }
+                    else {
+                        alert('Please enter valid Email ID');
+                    }
+                }
+                else {
+                    alert('Please enter valid First Name');
+                }
+            }
+            else {
+                alert('Please Fill all the fields');
+            }
+        });
+    });
+
+    function AgencyPlan(e) {
+        debugger;
+        var PlanType = $(e).attr('id');
+        $.ajax({
+            type: 'POST',
+            url: '../Index/PaypalAgency?PlanType=' + PlanType,
+            success: function (msg) {
+                window.open(msg);
+            },
+            async: false
+        });
+    }
+
+
+    function validatePhone($Phoneno) {
+        var phoneReg = /^\d{10}$/;
+        if (!phoneReg.test($Phoneno)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function validateEmail($EmailId) {
+        var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+        if (!emailReg.test($EmailId)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function validateFName($FirstName) {
+        var fnameReg = /^[A-Z,a-z._]+$/;
+        if (!fnameReg.test($FirstName)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>

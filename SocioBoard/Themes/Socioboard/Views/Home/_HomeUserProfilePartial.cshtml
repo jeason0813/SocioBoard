@@ -1,0 +1,90 @@
+﻿@using Domain.Socioboard.Domain;
+
+@{ 
+    string path = System.Configuration.ConfigurationManager.AppSettings["domain"];
+    User objUser = (User)Session["User"];
+    if (objUser == null)
+    {
+        Response.Redirect("../Index/Index");
+    }
+    Socioboard.Api.Groups.Groups ApiobjGroups = new Socioboard.Api.Groups.Groups();
+    List<Domain.Socioboard.Domain.Groups> lstgroup = (List<Domain.Socioboard.Domain.Groups>)(new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize(ApiobjGroups.GetGroupDetailsByUserId(objUser.Id.ToString()), typeof(List<Domain.Socioboard.Domain.Groups>)));
+    string groupname = string.Empty;
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-bell fa-fw"></i> Social Profiles
+                       
+    </div>
+    <!-- /.panel-heading -->
+    <div class="row panel-body profilepartial" data-url="/Home/loadprofiles">
+        <center>
+            <img class="" src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/43px_on_transparent.gif" />
+        </center>
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-bar-chart-o fa-fw"></i> Team Members
+                       
+    </div>
+    <div class="panel-body">
+        <div class="btn-group">
+            <img class="img-responsive btn btn-default btn-block dropdown-toggle" src="/Themes/@path/Contents/img/invite.png" data-toggle="dropdown" />
+           <ul class="dropdown-menu slidedown">
+               @if(lstgroup.Count>1)
+               {
+                foreach (var item in lstgroup)
+                {
+                    if (item.GroupName != path)
+                    { 
+                    <li>
+                        <a style="Cursor:pointer" onclick="inviteteammember('@item.UserId','@item.Id')">
+                  @*      <a href="../UserGroup/Index">*@
+                            <i class="fa fa-plus fa-fw"></i>@item.GroupName
+                        </a>
+                    </li>
+                    }
+
+                }
+                }
+               else
+               {
+                   <li><i class="fa fa-plus fa-fw"></i>
+                       you have no group</li>
+               }
+
+            </ul>
+        </div>
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-bar-chart-o fa-fw"></i> Recent Followers
+    </div>
+    <div class="row panel-body profilepartial" data-url="/Home/RecentProfiles">
+       <center>
+                        <img class="" src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/43px_on_transparent.gif" />
+                    </center>
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->
+
+<script type="text/javascript">
+    $(document).ready(function (e) {
+        //alert('profilepartial');
+        $(".profilepartial").each(function (index, item) {
+            var url = $(item).data("url");
+            if (url && url.length > 0) {
+                $(item).load(url);
+            }
+        });
+        loadModal();
+    });
+</script>

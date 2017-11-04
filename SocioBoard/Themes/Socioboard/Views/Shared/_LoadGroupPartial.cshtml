@@ -1,0 +1,105 @@
+﻿@using Domain.Socioboard.Domain;
+@{ 
+    //System.Threading.Thread.Sleep(2*1000);
+    User objUser = (User)Session["User"];
+    if (objUser == null)
+    {
+        Response.Redirect("../Index/Index");
+    }
+    //Socioboard.Api.Groups.Groups objApiGroups = new Socioboard.Api.Groups.Groups();
+    //List<Domain.Socioboard.Domain.Groups> lstgroup = (List<Domain.Socioboard.Domain.Groups>)(new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize(objApiGroups.GetGroupDetailsByUserId(objUser.Id.ToString()), typeof(List<Domain.Socioboard.Domain.Groups>)));
+    
+    Socioboard.Api.Team.Team ApiobjTeam = new Socioboard.Api.Team.Team();
+    List<Domain.Socioboard.Domain.Groups> lstgroup = new List<Domain.Socioboard.Domain.Groups>();
+    try
+    {
+        lstgroup = (List<Domain.Socioboard.Domain.Groups>)(new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize(ApiobjTeam.GetTeamByUserId(objUser.Id.ToString()), typeof(List<Domain.Socioboard.Domain.Groups>)));
+
+    }
+    catch (Exception e) 
+    {
+        lstgroup = (List<Domain.Socioboard.Domain.Groups>)(new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize(ApiobjTeam.GetTeamByUserId(objUser.Id.ToString()), typeof(List<Domain.Socioboard.Domain.Groups>)));        
+    }
+    string groupname = string.Empty;
+    string groupId = string.Empty;
+}
+
+@*<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+  <i class="fa fa-chevron-down fa-fw"></i>
+</button>*@
+@if (Session["group"] == null)
+{
+    
+    @*<ul class="dropdown-menu slidedown">*@
+        <li style="cursor:not-allowed;"><div style="margin-left:17px"><b>@GlobusMultiLanguageLib.Resources.Shared_LoadGroupPartial_Groups</b></div></li>
+        foreach (Groups item in lstgroup)
+        {
+            try
+            {
+                if (item.GroupName.Equals(System.Configuration.ConfigurationManager.AppSettings["DefaultGroupName"].ToString()))
+            {
+                groupname = @item.GroupName;
+            <li>
+                <a href="#" class="groupclk"  style="background: #428bca;" grpid="@item.Id.ToString()" title="@item.GroupName Group">
+                    <i class="fa fa-users fa-2x fa-fw"></i>@item.GroupName
+                </a>
+            </li>
+                string groupid = item.Id.ToString();
+                HttpContext.Current.Session["group"] = groupid;
+            }
+            else
+            {
+            <li>
+                <a href="#" class="groupclk" grpid="@item.Id.ToString()" title="@item.GroupName Group">
+                    <i class="fa fa-users fa-2x fa-fw"></i>@item.GroupName
+                </a>
+            </li>
+                groupId = item.Id.ToString();
+            }
+            }
+            catch (Exception)
+            {
+                
+            }
+            
+
+        }
+        if (HttpContext.Current.Session["group"] == null &&!string.IsNullOrEmpty(groupId)) 
+        {
+            HttpContext.Current.Session["group"] = groupId;
+        }
+    @*</ul>
+     <div class="pull-right"><strong><i class="fa fa-fw"></i>Socioboard</strong></div>*@
+}
+else
+{
+    @*<ul class="dropdown-menu slidedown">*@
+        <li style="cursor:not-allowed;"><div style="margin-left:17px"><b>Groups</b></div></li>
+        foreach (Groups item in lstgroup)
+        {
+            if(item!=null)
+            {
+                if (item.Id.ToString() == (Session["group"].ToString()))
+                {
+                    groupname = @item.GroupName;
+                <li>
+                    <a href="#"  style="background: #428bca" class="groupclk" grpid="@item.Id.ToString()" title="@item.GroupName Group">
+                      <i class="fa fa-users fa-2x fa-fw"></i>@item.GroupName
+                    </a>
+                </li>
+                    HttpContext.Current.Session["group"] = item.Id;
+                }
+                else
+                {
+
+                <li>
+                    <a href="#" class="groupclk" grpid="@item.Id.ToString()" title="@item.GroupName Group">
+                        <i class="fa fa-users fa-2x fa-fw"></i>@item.GroupName
+                    </a>
+                </li>
+                }
+            }
+        }
+    @*</ul>
+     <div class="pull-right"><strong><i class="fa fa-fw"></i>@groupname</strong></div>*@
+}

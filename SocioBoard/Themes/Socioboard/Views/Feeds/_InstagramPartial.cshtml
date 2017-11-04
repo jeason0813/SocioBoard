@@ -1,0 +1,119 @@
+﻿@using Domain.Socioboard.Domain;
+@using Socioboard.Helper;
+@{
+    string path = @System.Configuration.ConfigurationManager.AppSettings["domain"];
+    string picurl = string.Empty;
+}
+@foreach (var dicitem in (Dictionary<string, Dictionary<object, List<object>>>)Model)
+{
+    if (dicitem.Key == "instagram")
+    {
+        foreach (var items in (Dictionary<object, List<object>>)dicitem.Value)
+        {
+            object obj = (object)items.Key;
+
+            Domain.Socioboard.MongoDomain.InstagramFeed item = (Domain.Socioboard.MongoDomain.InstagramFeed)obj;
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-2">
+                            @if (!string.IsNullOrEmpty(item.ImageUrl))
+                            {
+                                <img src="@item.ImageUrl" class="img-responsive img-circle" />
+                            }
+                            else
+                            {
+                                <img src="..\Themes\@path\Contents\img\anonymousUser.png" class="img-responsive img-circle" />
+                            }
+
+                        </div>
+                        <div class="col-md-7" style="margin-top: 4%;">
+                            <a href="http://instagram.com/@item.AdminUser" target="_blank"><b>@item.AdminUser</b></a>
+                        </div>
+                        <div class="col-md-3" style="margin-top: 4%;">
+                            @Socioboard.Helper.DateExtension.ToDateTime(DateTime.Now, (long)Convert.ToDouble(item.FeedDate)).CalculateTimeDiff()
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body" style="padding:0;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @if (item.Type == "video")
+                            {
+                                <video width="100%" poster="@item.FeedImageUrl" controls>
+                                    <source type="video/mp4" src="@item.VideoUrl" />
+                                </video>
+                            }
+                            else
+                            {
+                                <img src="@item.FeedImageUrl" class="img-responsive" width="100%" />
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b id="count_@item.FeedId">@item.LikeCount likes</b>
+                        </div>
+                        <div class="col-md-12" style="margin-top: 3%;">
+                            <a href="http://instagram.com/@item.AdminUser" target="_blank"><b>@item.AdminUser</b></a><p>@HttpUtility.HtmlDecode(item.Feed)</p>
+                        </div>
+
+                        @if (items.Value.Count > 0)
+                        {
+
+                            <div class="col-md-12" style="margin-top: 2%;" id="collapseFeed__@item.FeedId">
+                                <a data-toggle="collapse" data-target="#collapseExample_@item.FeedId" aria-expanded="false" aria-controls="collapseExample" style="cursor:pointer;">view all comments</a>
+                                <div class="collapse" id="collapseExample_@item.FeedId">
+                                    @foreach (Domain.Socioboard.MongoDomain.InstagramComment item_value in (List<object>)items.Value)
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <b><a href="http://instagram.com/@item_value.FromName" target="_blank">@item_value.FromName</a></b> @HttpUtility.HtmlDecode(item_value.Comment)
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-12" style="margin-top: 2%;display:none" id="collapseFeed__@item.FeedId">
+                                <a data-toggle="collapse" data-target="#collapseExample_@item.FeedId" aria-expanded="false" aria-controls="collapseExample" style="cursor:pointer;">view all comments</a>
+                                <div class="collapse" id="collapseExample_@item.FeedId">
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-1" style="padding: 10px;">
+                            <div style="cursor:pointer;">
+                                @if (item.IsLike == 0)
+                                {
+                                    <img id="myImage_@item.FeedId" status="0" class="img-responsive" onclick="LikeUnlikeInstagramPost('@item.LikeCount', '@item.FeedId', '@item.InstagramId')" src="http://i.imgur.com/5VSlTqW.png" width="50" height="50">
+                                }
+                                else
+                                {
+                                    <img id="myImage_@item.FeedId" status="1" class="img-responsive" onclick="LikeUnlikeInstagramPost('@item.LikeCount', '@item.FeedId', '@item.InstagramId')" src="http://i.imgur.com/Kt5N68n.png" width="50" height="50">
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-10" style="padding-left: 0px; padding-right: 0px;">
+                            <input class="form-control" placeholder="Add a comment..." id="@item.FeedId" onkeypress="if (event.keyCode == 13) { addinstagramcomment('@item.FeedId','@item.InstagramId'); return false; }" />
+                        </div>
+                        <div class="col-md-1" style="padding: 10px;">
+                            <a href="#">
+                                <img src="http://i.imgur.com/yo2Sfns.png" class="img-responsive" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}

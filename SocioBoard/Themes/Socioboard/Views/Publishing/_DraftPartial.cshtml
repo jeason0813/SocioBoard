@@ -1,0 +1,56 @@
+﻿@using Domain.Socioboard.Domain;
+@{
+    string path = @System.Configuration.ConfigurationManager.AppSettings["domain"];
+     Domain.Socioboard.Domain.User objuser = (Domain.Socioboard.Domain.User)Session["User"];
+}
+<thead>
+    <tr>
+        <th>User</th>
+        <th>Message</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>Schedule</th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in (List<Domain.Socioboard.Domain.Drafts>)Model)
+    {
+        item.CreatedDate = TimeZoneInfo.ConvertTimeFromUtc(item.CreatedDate,
+TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
+    <tr class="odd gradeX" id="@item.Id">
+        <td>
+            <div class="col-xs-6">
+                @{string imgurl = objuser.ProfileUrl;}
+                @if (!string.IsNullOrEmpty(imgurl))
+                {
+                    string[] profileUrl = objuser.ProfileUrl.Split(new string[] { "Socioboard" }, StringSplitOptions.None);
+                     imgurl = "/Themes/Socioboard" + profileUrl[1];
+                    <img src="@imgurl" class="img-circle profilePic" data-toggle="modal" data-target="#profileModal">
+                }
+                else 
+                {
+                    <img src="@imgurl" class="img-circle profilePic" data-toggle="modal" data-target="#profileModal">
+                }
+                
+            </div>
+            <div class="col-xs-6">
+                <span>@objuser.UserName<br>
+                    @item.CreatedDate</span>
+            </div>
+        </td>
+        <td>@item.Message</td>
+        <td>
+            <button  type="button" class="btn btn-warning btn-circle" onclick="editdraft('@item.Id','@item.Message')"><i class="fa fa-pencil"></i></button>
+        </td>
+        <td class="center ">
+                    <button onclick="deletedraftmsg('@item.Id')" class="btn btn-danger btn-circle" type="button"><i class="fa fa-times"></i></button>
+                </td>
+        <td class="center">
+            <a href="../Publishing/Index?Message=@item.Message"  class="btn btn-success btn-circle" type="button"><i class="fa fa-check"></i></a>
+        </td>
+    </tr>
+        
+    }
+
+</tbody>
+

@@ -1,0 +1,1769 @@
+﻿@using Domain.Socioboard.Domain
+@{
+    Layout = null;
+    string path = @System.Configuration.ConfigurationManager.AppSettings["domain"];
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A new fast growing, advanced, easy, open-source social media marketing tool to engage your audience with great features such as live chat, news feed, timeline, profiles, events, notifications, likes, analytics, insights and much more hit the digital media marketing lately.Most applications in this domain have a very narrow and limited approach towards end users, people feel caught up in a whirlpool of using the same features without customization and scaling up. Socioboard plans to help users out of this narrow limiting vision of the current social media dashboards today." />
+    <meta name="author" content="Socioboard Technologies" />
+    <link rel="shortcut icon" href="/Themes/@path/Contents/img/ivon.ico" type="image/x-icon" />
+
+
+
+    <title>SocioBoard</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/Themes/@path/Contents/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- MetisMenu CSS -->
+    @* <link href="/Themes/@path/Contents/css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">*@
+
+    <!-- Timeline CSS -->
+    <link href="/Themes/@path/Contents/css/plugins/timeline.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="/Themes/@path/Contents/css/sb-admin-2.css" rel="stylesheet" />
+
+    <!-- Morris Charts CSS -->
+    @* <link href="/Themes/@path/Contents/css/plugins/morris.css" rel="stylesheet">*@
+
+    <!-- Custom Fonts -->
+    <link href="/Themes/@path/Contents/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+
+    <!--datepicker css-->
+    <link href="/Themes/Socioboard/Contents/css/datepicker.css" rel="stylesheet" />
+    <link href="/Themes/Socioboard/Contents/css/datepicker3.css" rel="stylesheet" />
+
+
+    <link href="/Themes/Socioboard/Contents/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/Themes/@path/Contents/js/jquery-1.9.1.min.js"></script>
+
+    <script src="/Themes/@path/Contents/js/Home.js" type="text/javascript"></script>
+
+
+    @*Edited by Antima*@
+    @*<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>*@
+
+    <script src="/Themes/@path/Contents/js/alertify.min.js" type="text/javascript"></script>
+    <script src="/Themes/@path/Contents/js/ads.js" type="text/javascript"></script>
+    <link href="/Themes/@path/Contents/css/alertify.core.css" rel="stylesheet" type="text/css" />
+    <link href="/Themes/@path/Contents/css/alertify.default.css" rel="stylesheet" type="text/css" id="toggleCSS" />
+    <link href="/Themes/@path/Contents/css/plugins/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
+
+    <style>
+        .badge.pull-right {
+            margin-right: 5% !important;
+           }
+    </style>
+
+    <!--Edit by Vikas-->
+    @*<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>*@
+    <script src="/Themes/Socioboard/Contents/js/jasny-bootstrap.min.js"></script>
+    <link href="/Themes/Socioboard/Contents/css/jasny-bootstrap.min.css" rel="stylesheet" />
+    @*<script type="text/javascript" src="/Themes/Socioboard/Contents/js/exporting.js"></script>*@
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+            @*<div class="btn-group pull-right btn" id="groupsselection" style="display:none;">
+                @Html.Partial("_LoadGroupPartial")
+            </div>*@
+            @{ User objUser = (User)Session["User"];}
+          @*  <div class="pull-right" id="PremiumAccount"><a href="../PersonalSetting/Index">Get Premium Account<i class="fa fa-fw"></i></a></div>*@
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../Home/Index">
+                    <img src="/Themes/@path/Contents/img/logo.png" alt="Socio Board" style="margin-top: -14px; height: 50px;" /></a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a title="Home" class="active" href="../Home/Index"><i class="fa fa-home fa-2x"></i></a>
+                </li>
+               @*  Edited by Antima[20/12/2014]*@
+               @* <li class="dropdown">
+                    <a id="notificationlist" title="Notifications" data-toggle="dropdown" href="#"><i class="fa fa-bell fa-2x"></i></a>
+                    <div id="TicketsNotification" class="dropdown-menu dropdown-user" style="right: -100px; position: absolute;">
+                    </div>
+                </li>*@
+                <li class="dropdown">
+                    <a title="Search Contact" data-toggle="modal" data-target="#SearchModal" style="margin-top: 10px;cursor: pointer;" id="search_contact"><i class="fa fa-search fa-2x"></i></a>
+                </li>
+                @* <li class="dropdown">
+                    <a title="Search Feeds" data-toggle="modal" data-target="#FeedsSearchModal" style="margin-top: 10px;cursor: pointer;" id="search_Feeds"><i class="fa fa-search fa-2x"></i></a>
+                </li>*@
+                <li class="dropdown">
+                    <a title="Compose Message" data-toggle="modal" data-target="#myModal" style="margin-top: 10px;cursor: pointer;" id="compose_message"><i class="fa fa-pencil fa-2x"></i></a>
+                </li>
+               @* <li class="dropdown">
+                        <a title="Groups" href="../Group/Index" style="margin-top: 10px;cursor: pointer;"><i class="fa fa-group fa-2x"></i></a>
+                </li>*@
+                 <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-users fa-2x fa-fw"></i><i class="fa fa-caret-down fa-2x"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user" id="groupsselection">
+                         @Html.Partial("_LoadGroupPartial")
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                       @if (!string.IsNullOrEmpty(objUser.ProfileUrl))
+                       {
+                           string imgurl = "";
+
+                           try
+                           {
+                               string[] profileUrl = objUser.ProfileUrl.Split(new string[] { "Socioboard" }, StringSplitOptions.None);
+                               imgurl = "/Themes/Socioboard" + profileUrl[2];
+                               //imgurl=profileUrl[1];
+                           }
+                           catch (Exception ex)
+                           {
+                               imgurl = "../Themes/Socioboard/Contents/img/anonymousUser.jpg";
+                           }
+
+                        <strong> @User.Identity.Name </strong><img src="@imgurl" class=" headerProfilePic" /><i class="fa fa-fw fa-caret-down fa-2x"></i>
+                       }
+                       else
+                       {
+                        <strong> @User.Identity.Name </strong><img src="..\Themes\Socioboard\Contents\img\anonymousUser.jpg" class=" headerProfilePic"><i class="fa fa-fw fa-caret-down fa-2x"></i>                           
+                       }
+                    </a>
+                    @*<ul class="dropdown-menu dropdown-user">
+                        <li><a href="../UserGroup/Index"><img src="/Themes/@path/Contents/img/group.png">User and Group</a>
+                        </li>
+                         <li class="divider"></li>
+                        <li><a href="../BusinessSetting/Index"><img src="/Themes/@path/Contents/img/buisness icon.png">Buisness Setting</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="../PersonalSetting/Index"><i class="fa fa-gear fa-fw fa-2x"></i>Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="../Index/Logout"><i class="fa fa-sign-out fa-fw fa-2x"></i>Logout</a>
+                        </li>
+                    </ul>*@
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="../UserGroup/Index"><i class="fa fa-user fa-2x"></i><span class="" style="margin-left:8px">@GlobusMultiLanguageLib.Resources.Shared_Site_UsersandGroups</span></a>
+                        </li>
+                         <li class="divider"></li>
+                        <li><a href="../BusinessSetting/Index"><i class="fa fa-briefcase fa-2x" style="margin-left:-5px"></i><span style="margin-left:8px">@GlobusMultiLanguageLib.Resources.Shared_Site_BusinessSettings</span></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="../PersonalSetting/Index"><i class="fa fa-gear fa-2x"></i><span style="margin-left:8px">@GlobusMultiLanguageLib.Resources.Shared_Site_Settings</span></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="../Index/Logout"><i class="fa fa-sign-out fa-2x"></i><span style="margin-left:8px">@GlobusMultiLanguageLib.Resources.Shared_Site_LogOut</span></a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+
+
+            <div class="navbar-default sidebar" role="navigation" id="left_sidebar">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li id="dashboard">
+                            <a class="active" href="../Home/Index"><i class="fa fa-dashboard fa-fw fa-2x"></i><span class="tweaked-margin">@GlobusMultiLanguageLib.Resources.Shared_Site_DashBoard</span></a>
+                        </li>
+                        <li id="message">
+                            <a href="../Messages/Index"><i class="fa fa-fw fa-envelope fa-2x"></i><span class="tweaked-margin">@GlobusMultiLanguageLib.Resources.Shared_Site_Messages</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                               <li>
+                                    <a href="../Messages/Index" id="msg-index">@GlobusMultiLanguageLib.Resources.Shared_Site_SmartInbox</a>
+                                </li>
+								 <li>
+                                    <a href="../Messages/Inbox" id="msg-index">Inbox Message</a>
+                                </li>
+                                <li>
+                                    <a href="../Messages/Task" id="msg-task">@GlobusMultiLanguageLib.Resources.Shared_Site_MyTasks</a>
+                                </li>
+                                <li>
+                                    <a href="../Messages/sentmsg" id="msg-sentmsg">@GlobusMultiLanguageLib.Resources.Shared_Site_SentMessages</a>
+                                </li>
+                                 <!-- <li>
+                                    <a href="../Messages/Archive" id="msg-archive">@GlobusMultiLanguageLib.Resources.Shared_Site_ArchivedMessages</a>
+                                </li>-->
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li id="feeds">
+                            <a href="../Feeds/Index" class="left-side-menu"><i class="fa fa-rss fa-fw fa-2x"></i><span class="tweaked-margin">@GlobusMultiLanguageLib.Resources.Shared_Site_Feeds</span><i class="fa arrow"></i></a>
+
+                        </li>
+                        <li id="Shareaton" class="">
+                            <a href="../shareathon/Groupindex">
+                                <i class="fa fa-share-square fa-2x"></i><span class="tweaked-margin">Shareathon</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="../shareathon/Groupindex">Group Shareathon</a>
+                                </li>
+                                <li>
+                                    <a href="../shareathon/index">Page Shareathon</a>
+                                </li>
+
+                            </ul>
+
+                            </a>
+                        </li>
+                        <li id="publishing">
+                            <a href="../Publishing/Index" class="left-side-menu"><i class="fa fa-upload fa-fw fa-2x"></i><span class="tweaked-margin">@GlobusMultiLanguageLib.Resources.Shared_Site_Publishing</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li id="scheduledmsg">
+                                    <a href="../Publishing/Index" id="publishing-SecheduleMessages">@GlobusMultiLanguageLib.Resources.Shared_Site_SecheduleMessages</a>
+                                </li>
+                                <li id="socioqueue">
+                                    <a href="../Publishing/Socioqueue" id="publishing-SocioQueue">@GlobusMultiLanguageLib.Resources.Shared_Site_SocioQueue</a>
+                                </li>
+                                <li id="draft">
+                                    <a href="../Publishing/Draft" id="publishing-draft">@GlobusMultiLanguageLib.Resources.Shared_Site_Drafts</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li id="discovery">
+                            <a href="../Discovery/Index" class="left-side-menu"><i class="fa fa-globe fa-fw fa-2x"></i><span class="tweaked-margin">@GlobusMultiLanguageLib.Resources.Shared_Site_Discovery</span></a>
+                        </li>
+                        <li id="reports" class="left-side-menu">
+                            <a href="../Report/Index"><i class="fa fa-file-excel-o fa-fw fa-2x"></i><span class="tweaked-margin">@GlobusMultiLanguageLib.Resources.Shared_Site_Reports</span><span class="fa arrow"></span>
+                                <span class="badge pull-right">Beta</span>
+                            </a>
+                            
+                            @*<ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">Group Report</a>
+                                </li>
+                                <li>
+                                    <a href="#">Twitter Report</a>
+                                </li>
+                                <li>
+                                    <a href="#">Team Report</a>
+                                </li>
+
+                            </ul>*@
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        @*<li id="rssfeed1">
+                            <a href="../RssFeed/Index"><i class="fa fa-users fa-2x"></i><span class="tweaked-margin">Auto RssFeed</span></a>
+                            <ul class="nav nav-second-level">
+                                <li id="rssfeed">
+                                    <a href="../RssFeed/Index">RssFeed</a>
+                                </li>
+                                <li id="rssqueue">
+                                    <a href="../RssFeed/RssQueue">RssQueue</a>
+                                </li>
+                                <li id="rssfeedinfo">
+                                    <a href="../RssFeed/RssFeedInfo">RssFeedInfo</a>
+                                </li>
+                            </ul>
+                        </li>*@
+                     @*   <li id="group">
+        <a href="../Group/Index"><i class="fa fa-fw fa-users fa-2x"></i><span class="tweaked-margin">@GlobusMultiLanguageLib.Resources.Shared_Site_SocialGroups</span></a>
+
+        <!-- /.nav-second-level -->
+    </li>*@
+						  <li id="ewallet">
+                            <a href="../MyStuff/Ewallet"><i class="fa fa-google-wallet fa-2x fa-fw"></i><span class="tweaked-margin">@GlobusMultiLanguageLib.Resources.Shared_Site_Ewallet</span></a>
+                        </li>
+                        <li id="affiliates">
+                            <a href="../MyStuff/Affiliates"><i class="fa fa-link fa-2x fa-fw"></i><span class="tweaked-margin">@GlobusMultiLanguageLib.Resources.Shared_Site_Affiliates</span></a>
+                        </li>
+						<li id="board">
+                            <a href="../Boards/boardslist"><i class="fa fa-fw fa-ils fa-2x"></i><span class="tweaked-margin">Board Me</span></a>
+                        </li>
+                         @*Edited by Antima[20/12/2014]*@
+                       @* <li id="Tickets">
+                            <a href="../Home/Tickets" class="left-side-menu"><i class="fa fa-ticket fa-fw fa-2x"></i>@GlobusMultiLanguageLib.Resources.Shared_Site_SocialTickets</a>
+                        </li>*@
+                      
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">@GlobusMultiLanguageLib.Resources.Shared_Site_Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">@GlobusMultiLanguageLib.Resources.Shared_Site_NewMessages</h4>
+                    </div>
+                    <div class="modal-body col-md-12">
+                        <div class="col-md-3">
+                            @*  <img src="https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-xap1/t31.0-8/s960x960/1523017_786750101350785_664146563_o.jpg" alt="" class="img-circle" style="height: 80px; width: 80px;">
+                            <hr class="small">*@
+                            <!-- Split button -->
+                            @*<div class="btn-group">
+                                <button type="button" class="btn btn-warning">@GlobusMultiLanguageLib.Resources.Shared_Site_Profile</button>
+                                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" id="binduserinul">
+                                    <li><a href="#">fb</a></li>
+                                    <li><a href="#">tweeter</a></li>
+                                    <li><a href="#">gplus</a></li>
+                                </ul>
+                            </div>*@
+                            <!-- Single button -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @GlobusMultiLanguageLib.Resources.Shared_Site_Profile <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" id="binduserinul">
+                                    <li><a href="#">fb</a></li>
+                                    <li><a href="#">tweeter</a></li>
+                                    <li><a href="#">gplus</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            @*<div class="input-group col-md-12">
+                                <textarea rows="3" class="form-control" id="textareavaluetosendmessage" style="width: 390px; height: 100px;resize: none;"></textarea>
+                            </div>*@
+                            <div class="row">
+                                <div class="input-group col-md-9" style="float: left;">
+                                    <textarea id="textareavaluetosendmessage" class="form-control" rows="3" style="width: 390px; height: 100px; resize: none;"></textarea>
+                                </div>
+                                <div style="float: left; padding: 2px;" class="input-group col-md-3">
+                                    <div id="messageCount" class="counter_bg"></div>
+                                </div>
+
+                                @*Edited by Antima*@
+
+                                <div class="col-md-11 input-group custom-search-form">
+                                    <input type="text" id="textareavaluetoshrinkUrl" class="form-control" placeholder="Write URL to shrink">
+                                    <span class="input-group-btn">
+                                        <button id="btn_URLShortened" class="btn btn-success" type="button">
+                                            <i class="fa fa"></i>@GlobusMultiLanguageLib.Resources.Shared_Site_URLShrink
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <br />
+                                <div id="showRemoveImage" class="upload_data btn btn-info btn-sm" style=" border: 1px solid rgb(0, 0, 0); color: rgb(255, 255, 255); float: left; border-radius: 5px; margin-right: 6px; display: none;" onclick="RemoveImage()">
+                                    <span style="float: right; margin-left: 5px"></span>
+                                    <label style="float: right; font-size: small; display: block;">Remove Image x </label>
+                                </div>
+                                <div>
+                                    <input type="file" id="fileuploadImage" name="" onchange="AddImageComposeMessage()" class="btn btn-default col-md-6" accept="image/*">
+                                   @* <button class="btn btn-default col-md-5" id="btn_dropbox" style="margin-left: 10px;">@GlobusMultiLanguageLib.Resources.Shared_Site_DropBox</button>*@
+                                </div>
+                            </div>
+                        </div>
+                        <div id="binduserprofiles">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="sendMessageBtn" type="button" class="btn btn-primary">@GlobusMultiLanguageLib.Resources.Shared_Site_Send</button>
+                        <button id="closeMessaegBtn" type="button" class="btn btn-default" data-dismiss="modal">@GlobusMultiLanguageLib.Resources.Shared_Site_Close</button>
+                        <div style="height: auto; display: none; padding: 10px; border: medium ridge; margin-top: 10px;" class="dropbox_file col-md-12"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--end of model-->
+
+
+        <!-- Modal SearchModal-->
+        <div class="modal fade" id="SearchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">@GlobusMultiLanguageLib.Resources.Shared_Site_Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">@GlobusMultiLanguageLib.Resources.Shared_Site_ContactSearch</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group custom-search-form">
+                            <input id="txtsearchcontact" type="text" class="form-control" placeholder="Enter Keyword or contact to search...">
+                            <span class="input-group-btn">
+                                <button id="btncontactsearch" class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <div class="chat-panel panel panel-default">
+
+                            @*Edited by Antima*@
+                            @* <div class="panel-heading">
+                                <i class="fa fa-search fa-fw"></i>
+                                Search Result
+                            </div>*@
+
+                            <div class="panel-heading" id="SearchContact">
+                            </div>
+
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                @* <button type="button" class="btn btn-primary btn-md btn-block"><i class="fa fa-facebook-square fa-2x fa-fw"></i><strong>Chanchal Santra</strong><i class="fa fa-clock-o fa-fw"></i></button>
+                            <button type="button" class="btn btn-default btn-md btn-block"><i class="fa fa-linkedin-square fa-fw"></i>Chanchal Santra<i class="fa fa-clock-o fa-fw pull-right"></i></button>*@
+                                <div class="well well-sm blue"><i class="fa fa-twitter"></i><b>twitter</b></div>
+                                <div id="twittersearch">
+                                </div>
+                                <div class="well well-sm blue"><i class="fa fa-facebook-square fa-fw"></i><b>facebook</b></div>
+                                <div id="facebooksearch">
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end of model-->
+
+
+         <!-- Modal Feeds SearchModal-->
+        <div class="modal fade" id="FeedsSearchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">@GlobusMultiLanguageLib.Resources.Shared_Site_Close</span></button>
+                        <h4 class="modal-title" id="myFeedsSearchModalLabel">Feeds Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group custom-search-form">
+                            <input id="txtsearchcontact_FeedsSearchModal" type="text" class="form-control" placeholder="Enter Keyword or contact to search...">
+                            <span class="input-group-btn">
+                                <button id="btncontactsearch_FeedsSearchModal" class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                              <input id="chk_NewsFeeds" type="checkbox"> News Feeds
+                            </label>
+                          </div>
+                          <div class="checkbox">
+                            <label>
+                              <input id="chk_Posts" type="checkbox"> Posts
+                            </label>
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end of model-->
+
+        @RenderBody();
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="/Themes/@path/Contents/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/Themes/@path/Contents/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script type="text/javascript" src="/Themes/@path/Contents/js/plugins/metisMenu/metisMenu.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script type="text/javascript" src="/Themes/@path/Contents/js/plugins/morris/raphael.min.js"></script>
+    <script type="text/javascript" src="/Themes/@path/Contents/js/plugins/morris/morris.min.js"></script>
+    @*<script src="/Themes/@path/Contents/js/plugins/morris/morris-data.js"></script>*@
+    @*   <script src="https://raw.githubusercontent.com/dinbror/bpopup/master/jquery.bpopup.min.js"></script>*@
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/Themes/@path/Contents/js/sb-admin-2.js"></script>
+    <script src="/Themes/@path/Contents/js/Message.js"></script>
+    <script src="/Themes/Socioboard/Contents/js/bootstrap-datepicker.js"></script>
+    <!-- DataTables JavaScript -->
+    <script src="/Themes/Socioboard/Contents/js/jquery.dataTables.js"></script>
+    <script src="/Themes/Socioboard/Contents/js/dataTables.bootstrap.js"></script>
+
+
+    <script src="/Themes/Socioboard/Contents/js/bootstrap-timepicker.min.js"></script>
+    <script src="../../Themes/@path/Contents/js/googleanalytics.js" type="text/javascript"></script>
+    <script src="/Themes/@path/Contents/js/feeds.js"></script>
+
+<!-- Start of StatCounter Code for Default Guide -->
+@*<script type="text/javascript">
+var sc_project=9930597; 
+var sc_invisible=1; 
+var sc_security="3850c63d"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="shopify site
+analytics" href="http://statcounter.com/shopify/"
+target="_blank"><img class="statcounter"
+src="http://c.statcounter.com/9930597/0/3850c63d/1/"
+alt="shopify site analytics"></a></div></noscript>*@
+<!-- End of StatCounter Code for Default Guide -->
+
+    <script type="text/javascript">
+
+        var arrbindusermaster = [];
+        var re_url = '';
+        function bindcomposemessagemaster() {
+            $.ajax({
+                type: 'POST',
+                url: '../Home/ComposeMessage',
+                success: function (msg) {
+                    //alert(msg);
+                    $('#binduserinul').html(msg);
+                },
+                async: true,
+            });
+        };
+
+        // Edited by Antima[20/12/2014]
+
+        function bindNotificationTickets() {
+            //$.ajax({
+              //  type: 'POST',
+             //   url: '../Home/NotificationTickets',
+             //   success: function (msg) {
+             //       // alert(msg);
+              //      $('#TicketsNotification').html(msg);
+              //  },
+              //  //async: false
+             //   async: true
+            //});
+
+        }
+
+        function checkisuserexistmaster(profileidwithnetwork) {
+            if (jQuery.inArray(profileidwithnetwork, arrbindusermaster) === -1) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        function removebindfrofilesmaster(profileid, network) {
+            debugger;
+            $('#' + profileid).hide(250, function () {
+                $('#' + profileid).remove();
+            });
+            var i = arrbindusermaster.indexOf(profileid + "~" + network);
+            if (i != -1) {
+                arrbindusermaster.splice(i, 1);
+            }
+            //arrbindusermaster.pop(profileid + "~" + network);
+            //alert(profileid + "~" + network);
+        }
+
+        function bindfrofilesmaster(network, name, profileid) {
+            debugger;
+            var totalmessagewords = 0;
+            if (checkisuserexistmaster(profileid + "~" + network) == false) {
+                arrbindusermaster.push(profileid + "~" + network);
+                //alert(profileid + "~" + network);
+                $('#binduserprofiles').append('<span style="display:none" class="pull-right btn btn-default bindprof userpictiny" onclick="removebindfrofilesmaster(\'' + profileid + '\',\'' + network + '\')" id=' + profileid + ' data-toggle="tooltip" data-placement="right" title="click to remove"><div class="delet_icon" onclick="removebindfrofilesmaster(\'' + profileid + '\',\'' + network + '\')" style="margin-left: 83px;"></div><i class="fa fa-' + network + ' fa-fw"></i>' + name + '</span>');
+                $('#' + profileid).fadeIn(250);
+                totalmessagewords = BindChracterAccordingProfile(network);
+                totalmessagewords = totalmessagewords - $("#textareavaluetosendmessage").val().length;
+                $('#messageCount').html(totalmessagewords);
+
+
+                $('#textareavaluetosendmessage').bind('keyup', function () {
+
+                    debugger;
+                    var totalmessagewords = 0;
+                    var last = arrbindusermaster.slice(-1)[0]
+                    var strarr = last.split('~');
+                    var Network = strarr[1];
+
+                    totalmessagewords = BindChracterAccordingProfile(Network);
+
+                    var charactersUsed = $(this).val().length;
+
+                    if (charactersUsed > totalmessagewords) {
+                        charactersUsed = totalmessagewords;
+                        $(this).val($(this).val().substr(0, totalmessagewords));
+                    }
+
+                    var charactersRemaining = totalmessagewords - charactersUsed;
+
+                    $('#messageCount').html(charactersRemaining);
+
+                });
+            }
+            else {
+                alertify.set({ delay: 1000 });
+                alertify.error('This Account Already Added')
+            }
+
+        };
+
+        function removesearch(id) {
+            $('#' + id).hide(750, function () {
+                $('#' + id).remove();
+            });
+        }
+        var networkAcceptLength = [{ name: "twitter", value: 140 }, { name: "linkedin", value: 600 }, { name: "facebook", value: 5000 }];
+        function getnetworkMaxAcceptLength(network) {
+            for (var i = 0; i < networkAcceptLength.length; i++) {
+                if (networkAcceptLength[i].name == network) {
+                    return networkAcceptLength[i].value;
+                }
+            }
+        }
+
+        function getMinAcceptLenfromArray() {
+            var length = getnetworkMaxAcceptLength(arrbindusermaster[0].split('~')[1]);
+            for (var i = 0; i < arrbindusermaster.length; i++) {
+                var netlength = getnetworkMaxAcceptLength(arrbindusermaster[i].split('~')[1])
+                if (length > parseInt(netlength)) {
+                    length = netlength;
+                }
+            }
+            return length;
+
+        }
+
+
+
+        function BindChracterAccordingProfile(network) {
+            var totalmessagewords = getnetworkMaxAcceptLength(network);
+            if (arrbindusermaster.length == 0) {
+                if (network == "facebook") {
+                    totalmessagewords = 5000;
+                }
+                if (network == "twitter") {
+                    totalmessagewords = 140;
+                }
+                if (network == "linkedin") {
+                    totalmessagewords = 600;
+                }
+
+
+            }
+            else {
+                var maxlen = getnetworkMaxAcceptLength(network);
+                var minlen = getMinAcceptLenfromArray();
+                if (parseInt(maxlen) < parseInt(minlen)) {
+                    totalmessagewords = maxlen;
+                }
+                else {
+                    totalmessagewords = minlen;
+
+                }
+            }
+            return totalmessagewords;
+        }
+
+
+
+
+        $(document).ready(function () {
+            // alert('sitemaster');
+            $('.close').click(function () {
+                $('#txtsearchcontact').val('');
+                $('#twittersearch').html('');
+                $('#facebooksearch').html('');
+                $('#SearchContact').html('');                            // Edited by Antima
+
+            });
+            (function ($) {
+
+                $('#side-menu').metisMenu();
+
+            })(jQuery);
+
+
+            bindcomposemessagemaster();
+
+            //bindNotificationTickets();
+            $('.groupclk').click(function () {
+                var groupid = $(this).attr('grpid');
+                //alert(grpid);
+                $('#groupsselection').removeClass('open');
+                // return false;
+                //var groupid = $("#groupsselection").val();
+                $.ajax
+           ({
+               type: "POST",
+               url: "../Home/ChangeGroup?groupid=" + groupid,
+               data: '',
+               contentType: "application/json; charset=utf-8",
+               dataType: "html",
+			   
+               success: function (msg) {
+                   debugger;
+                   //   alert(msg);
+                   //window.location = self.location;
+                   location.reload(true);
+               },
+			   async: true,
+           });
+            });
+            function searchconcact(txtsearch) {
+                debugger;
+                $.ajax({
+                    type: 'POST',
+                    url: '../Home/ContactSearchFacebook?keyword=' + txtsearch,
+                    success: function (msg) {
+                        //alert(msg);
+                        $('#facebooksearch').html(msg);
+                    },
+					async: true,
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: '../Home/ContactSearchTwitter?keyword=' + txtsearch,
+                    success: function (msg) {
+                        //alert(msg);
+                        $('#twittersearch').html(msg);
+                    }
+                });
+            }
+
+            function search_FeedsSearch(txtsearch) {
+                debugger;
+                $.ajax({
+                    type: 'POST',
+                    url: '../Feeds/SearchFacebookFeeds?keyword=' + txtsearch,
+                    success: function (msg) {
+                        //alert(msg);
+                        $('#facebooksearch_FeedsSearchModal').html(msg);
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: '../Feeds/SearchTwitterFeeds?keyword=' + txtsearch,
+                    success: function (msg) {
+                        //alert(msg);
+                        $('#twittersearch_FeedsSearchModal').html(msg);
+                    }
+                });
+            }
+
+            // Edited by Antima
+
+            $('#btncontactsearch').click(function () {
+                //searchconcact($('#txtsearchcontact').val());
+                debugger;
+                var Tosearch = $('#txtsearchcontact').val();
+                if (Tosearch != "") {
+                    searchconcact(Tosearch);
+                    var html = "<i class=\"fa fa-search fa-fw\"></i>Search Result";
+                    $('#SearchContact').html('');
+                    $('#SearchContact').append(html);
+                }
+                else {
+                    alert('Please enter a contact to search');
+                }
+            });
+
+            $('#btncontactsearch_FeedsSearchModal').click(function () {
+                //searchconcact($('#txtsearchcontact').val());
+
+                var Tosearch = $('#txtsearchcontact_FeedsSearchModal').val();
+                if (Tosearch != "") {
+
+                    //search_FeedsSearch(Tosearch);
+
+                    //Check conditions checkbox
+                    if ($('#chk_Posts input:checked')) {
+                        FacebookUserFeeds_FeedsSearch(Tosearch);
+                        refreshWallpostFacebook_FeedsSearch(Tosearch);
+                    }
+                    if ($('#chk_NewsFeeds input:checked')) {
+                        refreshFeedsFacebook_FeedsSearch(Tosearch);
+                    }
+                    if (!$('#chk_Posts input:checked') && !$('#chk_NewsFeeds input:checked'))
+                    {
+                        FacebookUserFeeds_FeedsSearch(Tosearch);
+                        refreshFeedsFacebook_FeedsSearch(Tosearch);
+                        refreshWallpostFacebook_FeedsSearch(Tosearch);
+                    }
+                   
+                   
+                   
+                    
+
+                    var html = "<i class=\"fa fa-search fa-fw\"></i>Search Result";
+                    $('#SearchContact').html('');
+                    $('#SearchContact').append(html);
+
+                    $('.close').click();
+                }
+                else {
+                    alert('Please enter a contact to search');
+                }
+            });
+
+            var message1 = "";
+
+            $('#sendMessageBtn').click(function () {
+                var message = '';
+                var allprofiles = '';
+                var curdate = new Date();
+                var curdaatetimetime = (curdate.getMonth() + 1) + "/" + curdate.getDate() + "/" + curdate.getFullYear() + " " + curdate.getHours() + ":" + curdate.getMinutes() + ":" + curdate.getSeconds();
+                var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+                var fd = new FormData();
+                var filesimage = document.getElementById('fileuploadImage').files[0];
+                if (filesimage != null) {
+                    if (hasExtension('fileuploadImage', fileExtension)) {
+                        fd.append('file', filesimage);
+                    }
+                    else {
+                        alertify.set({ delay: 3000 });
+                        alertify.error("File Extention is not current. Please upload any image file");
+                        return;
+                    }
+                }
+                if (arrbindusermaster.length < 1) {
+                    alertify.set({ delay: 3000 });
+                    alertify.error("Please Select atleast a Profile");
+                    return;
+                }
+
+
+                // Edited by Antima
+
+                if (message1 == "") {
+                    message = $("#textareavaluetosendmessage").val().trim();
+                }
+                else {
+                    //var message = $("#textareavaluetosendmessage").val().trim();
+                    message = message1;
+                }
+
+                //  var message = $("#textareavaluetosendmessage").val().trim();
+                for (var i = 0; i < arrbindusermaster.length; i++) {
+                    allprofiles += arrbindusermaster[i] + "<:>";
+                    //alert(arrbindusermaster[i]);
+                }
+
+                for (var i = 0; i < arrbindusermaster.length; i++) {
+                    var account = arrbindusermaster[i];
+                    var strarray = account.split('~');
+                    var ProfileType = strarray[1];
+                    if (ProfileType == 'facebook' || ProfileType == 'facebook_page') {
+                        if (message.length > 5000) {
+                            alertify.error("Facebook Not Support more than 5000 characters");
+                            return;
+                        }
+                    }
+                    if (ProfileType == 'twitter') {
+                        if (message.length > 140) {
+                            alertify.error("Twitter Not Support more than 140 characters");
+                            return;
+                        }
+                    }
+                    if (ProfileType == 'linkedin') {
+                        if (message.length > 600) {
+                            alertify.error("Linkedin Not Support more than 600 characters");
+                            return;
+                        }
+                    }
+
+                }
+
+                // Get File path thru added by Dropbox
+                try {
+                    debugger;
+                    var selected = [];
+                    $('.dropbox_file input:checked').each(function () {
+                        var src1 = $(this).parent().next().attr('src');
+                        selected.push(src1);
+                    });
+                    if (selected != null && selected != 'undefined') {
+                        fd.append('DropboxImg', selected.join(','));
+                    }
+
+                }
+                catch (e) {
+
+                }
+
+                debugger;
+                allprofiles = allprofiles.substr(0, allprofiles.length - 3);
+                //jQuery.noConflict();
+                //$('#myModal').modal('hide');
+                $.ajax({
+                    type: 'POST',
+                    url: '../Home/ComposeMessageSend?message=' + encodeURIComponent(message) + '&allprofiles=' + allprofiles + '&curdaatetimetime=' + curdaatetimetime,
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        debugger;
+                        alertify.set({ delay: 3000 });
+                        alertify.success("Message Sent Successfully");
+                        $("#textareavaluetosendmessage").val('');
+                        $('#showRemoveImage').css('display', 'none');
+                        $('#fileuploadImage').val('');
+                        //      $('#binduserprofiles').css('display', 'none');
+                        //      $('#binduserprofiles').html('');
+
+                        // Edited by Antima[15/12/2014]
+
+                        for (var i = 0; i < arrbindusermaster.length; i++) {
+                            var account = arrbindusermaster[i];
+                            var strarray = account.split('~');
+                            var ProfileId = strarray[0];
+                            var ProfileType = strarray[1];
+                            removebindfrofilesmaster(ProfileId, ProfileType);
+                        }
+
+                        $('#myModal').modal('hide');
+                    }
+
+                });
+
+
+            });
+
+            $('#closeMessaegBtn').click(function () {
+                $("#textareavaluetosendmessage").val('');
+                $('#showRemoveImage').css('display', 'none');
+                $('#fileuploadImage').val('');
+                //     $('#binduserprofiles').css('display', 'none');
+                //window.location.href = '../Home/Index';
+            });
+
+            $("#btn_dropbox").click(function () {
+                debugger;
+                DropBoxData();
+            });
+
+            // Edited by Antima
+
+            $("#btn_URLShortened").click(function () {
+                debugger;
+				var rawURL = $("#textareavaluetoshrinkUrl").val().trim();
+                var ToshrinkUrl = encodeURIComponent($("#textareavaluetoshrinkUrl").val().trim());
+                var text = $("#textareavaluetosendmessage").val().trim();
+
+                if (ToshrinkUrl == "") {
+                    alertify.error("Please enter a URL to shrink");
+                }
+                else {
+                    if ((ToshrinkUrl.indexOf("www") > -1) || (ToshrinkUrl.indexOf("http") > -1) || (ToshrinkUrl.indexOf("https") > -1)) {
+                        var longUrl = ToshrinkUrl;
+                        var shortUrl = $("#textareavaluetoshrinkUrl");
+                        shortUrl.html("Loading...");
+                        var defaults = {
+                            version: '2.0.1',
+                            apiKey: 'R_f4aefd23995c4455b90433d700b50a3c',
+                            login: 'avinash12verma',
+                            history: '0',
+                            longUrl: longUrl
+                        };
+
+                        //Build the URL to query
+                        var daurl = "http://api.bit.ly/shorten?"
+                                            + "version=" + defaults.version
+                                            + "&longUrl=" + defaults.longUrl
+                                            + "&login=" + defaults.login
+                                            + "&apiKey=" + defaults.apiKey
+                                            + "&history=" + defaults.history
+                                            + "&format=json&callback=?";
+
+                        // Utilize the bit.ly API
+
+                        $.ajax({
+
+                            type: 'GET',
+                            url: daurl,
+                            dataType: "jsonp",
+                            processData: false,
+                            crossDomain: true,
+                            success: function (data) {
+                                debugger;
+                                //    alert(data.results[longUrl].shortUrl);
+                                var ShrinkedUrl = data.results[rawURL].shortUrl.toString();
+                                if (text != "") {
+                                    ShrinkedUrl = text + " " + ShrinkedUrl;
+                                    //  alert(ShrinkedUrl);
+                                }
+                                //$("#textareavaluetosendmessage").append(ShrinkedUrl);
+                                $("#textareavaluetosendmessage").val(ShrinkedUrl);
+                                $("#textareavaluetoshrinkUrl").val('');
+
+                                message1 = ShrinkedUrl;
+                            },
+                            error: function (err) {
+                                debugger;
+                                alert("error");
+                            }
+                        });
+
+                    }
+                    else {
+                        alertify.error("please Check the URL you entered is correct");
+                    }
+                }
+            });
+
+        });
+
+        function facebookpopup() {
+            //jQuery.noConflict();
+            $('#facebookpopup').modal('show');
+        }
+        function linkedinpopup() {
+            //jQuery.noConflict();
+            $('#linkedinpopup').modal('show');
+        }
+
+        function ytvideo(check) {
+            debugger;
+            //$("#popupimagesyt").attr('src', 'https://localhost:9821');
+            var arr = check.split('/');
+
+            var videolink = arr[arr.length - 2];
+            if (videolink == "img") {
+                alert('opps video not found');
+            }
+            else {
+                $("#popupimagesyt").attr('src', 'https://www.youtube.com/embed/' + videolink);
+                //jQuery.noConflict();
+                $('#profileModal').modal('show');
+            }
+        };
+
+        function getfacebookpage() {
+            debugger;
+            $('#getfacebookpage_loader').html('<img src="../Themes/Socioboard/Contents/img/360.gif" />');
+             $.ajax({
+                type: 'POST',
+                url: '../FacebookManager/AuthenticateFacebook?op=page',
+                success: function (msg) {
+                    window.location = msg;
+                    $('#getfacebookpage_loader').html('');
+                },
+                async: false
+            });
+        }
+
+        function getfacebookgroup() {
+            $.ajax({
+                type: 'POST',
+                url: '../FacebookManager/AuthenticateFacebook?op=fbgroup',
+                success: function (msg) {
+                    window.location = msg;
+                },
+                async: false
+            });
+        }
+
+        function getlinkedincompanypage() {
+            $.ajax({
+                type: 'POST',
+                url: '../LinkedinManager/linPage_connect',
+                success: function (msg) {
+                    window.location = msg;
+                },
+                async: false
+            });
+        }
+
+        //function Addfacebookpagebyurl() {
+
+        //    var texturl = $("#_txtinputurl").val();
+
+        //    var url = texturl.split('com/')[1];
+
+        //    var name = url;
+
+        //    url = "https://graph.facebook.com/" + url;
+
+        //    var type = "fanpage"
+
+        //    $.ajax({
+        //        type: 'POST',
+        //        url: "../FacebookManager/Addfacebookpagebyurl?type=" + type + "&url=" + url + "&name=" + name,
+        //        success: function (msg) {
+        //            window.location = msg;
+        //        },
+        //        async: false
+        //    });
+
+
+
+        //}
+        function Addfacebookpagebyurl() {
+            debugger;
+            var texturl = $("#_txtinputurl").val();
+
+            if (texturl != "" && texturl.indexOf('facebook') > 0) {
+                $('#loaderpopup').modal({
+                    Zindex: '70000'
+                });
+
+                var url = texturl.split('com/')[1];
+
+                var name = url;
+
+                url = "https://graph.facebook.com/" + url;
+
+                var type = "fanpage"
+                // $('#facebookpopup').hide('50');
+                $.ajax({
+                    type: 'POST',
+                    url: "../FacebookManager/Addfacebookpagebyurl?type=" + type + "&url=" + url + "&name=" + name,
+                    success: function (msg) {
+                        $('#loaderpopup').hide('50');
+                        window.location = msg;
+                    },
+                    async: false
+                });
+            }
+            else {
+                alert("Please Enter a valid url");
+            }
+
+
+
+        }
+
+        function DropBoxData() {
+            $.ajax
+                ({
+                    type: "GET",
+                    url: "../DropboxManager/DropBox",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (msg) {
+                        debugger
+                        if (msg.indexOf('authorize') > 0) {
+                            if (re_url != '') {
+                                DropBoxData();
+                            }
+                            else {
+                                re_url = msg;
+                                var wnd = window.open(msg, "myWindowName", "width=500, height=600");
+                                debugger;
+
+                                var timepool = window.setInterval(function () {
+                                    if (wnd.closed) {
+                                        window.clearInterval(timepool);
+                                        DropBoxData();
+                                    } else {
+                                        //alert("just refreshed");
+                                    }
+                                }, 500);
+
+                            }
+                        }
+                        else {
+                            $(".dropbox_file").html('');
+                            $(".dropbox_file").css('display', 'block');
+                            $(".dropbox_file").html(msg);
+                        }
+                    },
+                    error: function (err) {
+                        debugger;
+                        alert(err);
+                    }
+                });
+
+        }
+
+        //----------vikash-----------//
+
+        function AddImageComposeMessage() {
+            debugger;
+            var filesinput = $('#fileuploadImage');
+            var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+            if (filesinput != undefined && filesinput[0].files[0] != null) {
+                if (hasExtension('fileuploadImage', fileExtension)) {
+                    $('#showRemoveImage').css('display', 'block');
+                }
+                else {
+                    alertify.set({ delay: 3000 });
+                    alertify.error("File Extention is not current. Please upload any image file");
+                    $('#fileuploadImage').val('');
+                    return;
+                }
+
+            }
+        }
+
+        function RemoveImage() {
+
+            try {
+                var filesinput = $('#fileuploadImage');
+
+                debugger;
+
+                if (filesinput !== 'undefined') {
+                    $('#showRemoveImage').css('display', 'none');
+                    document.getElementById('fileuploadImage').value = "";
+
+                }
+            } catch (e) {
+
+            }
+        }
+
+
+    </script>
+
+   
+
+    @*Edited by Antima*@
+
+    <script type="text/javascript">
+
+        $('#txtsearchcontact').keypress(function (e) {
+            debugger;
+            var key = e.which;
+            if (key == 13)  // the enter key code
+            {
+                $("#btncontactsearch").click();
+            }
+        });
+        var groupid = '';
+        function inviteteammember(UserId, GroupId) {
+            groupid = GroupId;
+            debugger;
+            $.ajax({
+
+                type: 'POST',
+                url: '../UserGroup/CheckprofileToCurrentGroup?UserId=' + UserId + '&GroupId=' + GroupId,
+                success: function (msg) {
+                    if (msg == "Success") {
+                        //jQuery.noConflict();
+                        $('#inviteteammember').modal('show');
+                        $('#usergroupname').html(" " + $('#invitationmember').attr('usergroupname'))
+                    }
+                    else {
+                        alert("Please Add a profile to Invite a Member !!");
+                        window.location = "../UserGroup/Index";
+                    }
+                },
+                async: false
+            });
+
+
+        }
+
+        var EMailarray = [];
+        function addteam() {
+            debugger;
+            //if (typeof EMailarray[0] == 'undefined') {
+            //    EMailarray = $('#exampleInputEmail').val();
+            //    if (EMailarray == "") {
+            //            alertify.error("Please enter your friend email")
+            //            return false;
+            //    }
+            //}
+            //    else {
+            //alert(EMailarray);
+            $.ajax({
+                type: 'POST',
+                //     url: '../UserGroup/AddTeamMember?email=' + EMailarray,
+                url: "../UserGroup/AddTeamMember?email=" + EMailarray + '&groupid=' + groupid,
+                success: function (msg) {
+				$("#btnaddteam").prop('disabled', true);
+                    $('#inviteteammember').modal('hide');
+                    if (msg != "") {
+                        while (EMailarray.length > 0) {
+                            EMailarray.pop();
+                        }
+                        $("#invitetablebody").html("");
+                        //alertify.success('Mail send successfully');
+
+                        //alert('SentMails : ' + jQuery.parseJSON(msg).SentMails);
+                        //alert('Already Sent Mails : ' + jQuery.parseJSON(msg).NotSentMails);
+
+                        if (jQuery.parseJSON(msg).SentMails == "" && jQuery.parseJSON(msg).NotSentMails != "") {
+                            alertify.success('Mail already send');
+                        }
+                        else {
+                            alertify.success('Mail sent successfully');
+                        }
+
+                    }
+                    else {
+                        while (EMailarray.length > 0) {
+                            EMailarray.pop();
+                        }
+                        $("#invitetablebody").html("");
+                        alertify.success('Mail already sent');
+                    }
+
+                },
+                async: false
+            });
+        }
+
+        function invitemember() {
+            debugger;
+            // alert(success);
+            $("#btnaddteam").prop('disabled', false);
+            var FName = $('#exampleInputFname').val();
+            var LName = $('#exampleInputLname').val();
+            var EMailId = $('#exampleInputEmail').val();
+
+            if (FName != '' || LName != '' || EMailId != '') {
+                if (!validateFName(FName)) {
+                    alert('Please enter valid First Name');
+                    return false;
+                }
+                if (!validateFName(LName)) {
+                    alert('Please enter valid Last Name');
+                    return false;
+                }
+                if (!validateEmail(EMailId)) {
+                    alert('Please enter valid EmailId');
+                    return false;
+                }
+                //var html = "<div><div class=\"col-md-10\"><table class=\"table table-striped pull-left\"><tbody><tr><td>" + FName + "</td><td>" + LName + "</td><td>" + EMailId + "</td></tr></tbody></table></div><div class=\"col-md-2\"<button type=\"submit\" class=\"btn btn-default\"></button><button class=\"btn btn-default col-md-8\" type=\"submit\" onclick=\"removemember(this)\"><i class=\"fa fa-minus\"></i></button></div></div>";
+                //$('#inviteadded').append(html);
+                //var html = "<tr><td>" + FName + "</td><td>" + LName + "</td><td>" + EMailId + "</td><td><button class=\"btn btn-default col-md-8\"  onclick=\"removemember(this)\"><i class=\"fa fa-minus\"></i></button></td></tr>";
+                //suresh
+                var table = document.getElementById("invitetablebody");
+                var row = table.insertRow(-1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+
+                cell1.innerHTML = FName;
+                cell2.innerHTML = LName;
+                cell3.innerHTML = EMailId;
+                cell4.innerHTML = "<button class=\"btn btn-default col-md-8\"  onclick=\"removemember(this)\"><i class=\"fa fa-minus\"></i></button>";
+
+                EMailarray.push(EMailId + ":" + FName + ":" + LName);
+                $('#exampleInputFname').val('');
+                $('#exampleInputLname').val('');
+                $('#exampleInputEmail').val('');
+            }
+            else {
+                alert('Please fill all the fields');
+            }
+        }
+
+        function validateEmail($Email) {
+            var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+            if (!emailReg.test($Email)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function validateFName($Fname) {
+            var fnameReg = /^[A-Z,a-z._]+$/;
+            if (!fnameReg.test($Fname)) {
+                return false;
+            } else {
+                return true;
+            }
+            //checks weather the email  is admin email or not if it is admin email return false
+            if (teamemail == $('#UserEmailAddress').val()) {
+                alert('Not valid email ! Please enter valid email');
+                $('#txtteamemail').val('');
+                return false;
+            }
+            else {
+                alertify.confirm("Confirm Email Id : " + teamemail, function (e) {
+                    if (e) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '../UserGroup/AddTeamMember?email=' + teamemail,
+                            success: function (msg) {
+                                $('#inviteteammember').modal('hide');
+                                if (msg == "success") {
+                                    alertify.success('Mail send successfully');
+                                    $('#txtteamemail').val('');
+                                }
+                                else {
+                                    alertify.error(msg);
+                                }
+                            },
+                            async: false
+                        });
+                    } else { }
+                });
+            }
+        }
+
+        function removemember(ele) {
+            var i = ele.parentNode.parentNode.rowIndex;
+            EMailarray.splice(i, 1);
+            document.getElementById("invitetablebody").deleteRow(i);
+
+        }
+
+    </script>
+
+    @*  <script type="text/javascript">
+        //Disable Back Button In All Browsers.
+        function disableBackButtonAllBrowsers() {
+            window.history.forward()
+        };
+
+        window.onload = disableBackButtonAllBrowsers();
+        window.onpageshow = function (evts) {
+            if (evts.persisted) {
+                disableBackButtonAllBrowsers();
+            }
+        };
+
+        window.onunload = function () {
+            void (o)
+        };
+
+    </script>*@
+    <!-- ProfileModal -->
+    <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">@GlobusMultiLanguageLib.Resources.Shared_Site_Close</span></button>
+                    <h4 class="modal-title" id="yt_model">@GlobusMultiLanguageLib.Resources.Shared_Site_ProfileSummary</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="embed-responsive embed-responsive-4by3">
+                        <iframe id="popupimagesyt" class="embed-responsive-item" src=""></iframe>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    @*<div class="modal fade" id="facebookpopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 id="myModalLabel" class="modal-title">Add Account</h4>
+            </div>
+            <div class="modal-body col-md-12">
+
+                <a style="cursor: pointer" href="../FacebookManager/AuthenticateFacebook">
+                    <i class="fa fa-facebook-square fa-2x fa-fw"></i>Facebook account</a>
+
+                <br />
+                <br />
+                <a style="cursor: pointer" onclick="getfacebookpage()">
+                    <i class="fa fa-facebook-square fa-2x fa-fw"></i>Facebook FanPage</a>
+                 <div class="panel-body">
+                    <div id="facebookpageinfo" style="height: 200px; overflow: auto; border: 5px inset grey; padding: 3px; display: none">
+                        <div id="fbpagebind" style="margin-top: 11px">
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+
+                <a style="cursor: pointer">
+                    <i class="fa fa-facebook-square fa-2x fa-fw"></i>
+                    Add Facebook FanPage
+                
+                    <input id="_txtinputurl" type="text" placeholder="FanPage Url ex-http://www.facebook.com/socioboard">
+                    <br />
+                    <input type="submit" onclick="Addfacebookpagebyurl()">
+                </a>
+                <br />
+                <br />
+
+                <a style="cursor: pointer" onclick="getfacebookgroup()">
+                    <i class="fa fa-facebook-square fa-2x fa-fw"></i>Facebook Group</a>
+                <br />
+
+
+                <div class="panel-body">
+                    <div id="facebookgroupinfo" style="height: 200px; overflow: auto; border: 5px inset grey; padding: 3px; display: none">
+                        <div id="fbgroupbind" style="margin-top: 11px">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+            </div>
+        </div>
+
+
+    </div>
+</div>*@
+
+    <div class="modal fade" id="facebookpopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">@GlobusMultiLanguageLib.Resources.Shared_Site_Close</span></button>
+                    <h4 id="myModalLabel" class="modal-title">Facebook</h4>
+                </div>
+                <div class="modal-body col-md-12" id="getfacebookpage_loader">
+
+                    <a style="cursor: pointer" href="../FacebookManager/AuthenticateFacebook">
+                        <i class="fa fa-facebook-square fa-2x fa-fw"></i>@GlobusMultiLanguageLib.Resources.Shared_Site_AddFacebookProfile</a>
+
+                    <br />
+                    <br />
+                    <a style="cursor: pointer" onclick="getfacebookpage()">
+                        <i class="fa fa-facebook-square fa-2x fa-fw"></i>@GlobusMultiLanguageLib.Resources.Shared_Site_AddFacebookPage</a>
+                    <br />
+                    <br />
+                    <div style="float: left">
+                        <a style="cursor: pointer" title="Get smart exportable analytics for any Facebook fanpage">
+                            <i class="fa fa-facebook-square fa-2x fa-fw"></i>@GlobusMultiLanguageLib.Resources.Shared_Site_GetFacebookPageAnalytics
+                        </a>
+                        <div style="float: left; padding-left: 5px; margin-top: 8px; margin-bottom: 12px" class="col-md-8">
+                            <input type="text" class="form-control" id="_txtinputurl" placeholder="Ex : http://www.facebook.com/socioboard">
+                        </div>
+                        <div style="float: left; margin-top: 9px">
+                            <button class="btn btn-primary btn-sm" onclick="Addfacebookpagebyurl()" type="submit">@GlobusMultiLanguageLib.Resources.Shared_Site_Submit</button>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+
+                    
+
+
+                    <div class="panel-body" style="margin-top: 50px">
+                        <div id="facebookpageinfo" style="height: 200px; overflow: auto; border: 5px inset grey; padding: 3px; display: none">
+                            <div id="fbpagebind" style="margin-top: 11px">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">@GlobusMultiLanguageLib.Resources.Shared_Site_AddFacebookClose</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="linkedinpopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">@GlobusMultiLanguageLib.Resources.Shared_Site_Close</span></button>
+                    <h4 id="myModalLabel" class="modal-title">Linkedin</h4>
+                </div>
+                <div class="modal-body col-md-12">
+
+                    <a style="cursor: pointer" href="../LinkedinManager/AuthenticateLinkedin">
+                        <i class="fa fa-linkedin-square fa-2x fa-fw"></i>@GlobusMultiLanguageLib.Resources.Shared_Site_AddLinkedinProfile</a>
+
+                    <br />
+                    <br />
+                    <a style="cursor: pointer" onclick="getlinkedincompanypage()">
+                        <i class="fa fa-linkedin-square fa-2x fa-fw"></i>@GlobusMultiLanguageLib.Resources.Shared_Site_AddLinkedinCompanyPage</a>
+                    <br />
+                    <div class="panel-body">
+                        <div id="linkedincompanypageinfo" style="height: 200px; overflow: auto; border: 5px inset grey; padding: 3px; display: none">
+                            <div id="lipagebind" style="margin-top: 11px">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">@GlobusMultiLanguageLib.Resources.Shared_Site_AddLinkedinClose</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="ProfileDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">@GlobusMultiLanguageLib.Resources.Shared_Site_Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">@GlobusMultiLanguageLib.Resources.Shared_Site_Profile</h4>
+                </div>
+                <div id="ProfileDetailBody" class="modal-body col-md-12">
+                    @*  <div class="col-md-12" style="text-align: center; background: linear-gradient(to bottom, transparent 0px, rgba(0, 0, 0, 0.73) 100%) repeat scroll 0px 0px transparent; padding: 15px;">
+                                    <img src="/Themes/@path/Contents/img/apple-touch-icon-72-precomposed.png" class="img-thumbnail" />
+                                    <p><h2>abhay mondal</h2></p>
+                                    <p>abhaymondal3</p>
+                                    <p>iPhone6</p>
+                                </div>
+                                <div class="col-md-12">
+                                    <ul class="list-inline">
+                                        <li style="border-right: 1px solid #eeeeee;float: left;padding: 11px 7px 6px;text-align: center;width: 78px;">
+                                            <a style="text-decoration:none;">
+                                                <strong>73</strong>
+                                                <span>Following</span>
+                                            </a>
+                                        </li>
+                                        <li style="border-right: 1px solid #eeeeee;float: left;padding: 11px 7px 6px;text-align: center;width: 78px;">
+                                            <a style="text-decoration:none;">
+                                                <strong>15</strong>
+                                                <span>Followers</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-12" style="text-align:center;">
+                                    <a href="#">Go to full profile →</a>
+                                </div>*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger " data-dismiss="modal">@GlobusMultiLanguageLib.Resources.Shared_Site_Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end of model-->
+
+    <!--end of ProfileModel-->
+    <div class="modal fade" id="loaderpopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-top: 250px; margin-left: 600px">
+
+            <div>
+                <img src="/Themes/@path/Contents/img/328.gif"/>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Invite Team Member Modal -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="inviteteammember" class="modal fade" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">@GlobusMultiLanguageLib.Resources.Shared_Site_Close</span></button>
+                    <h4 id="myModalLabel" class="modal-title">@GlobusMultiLanguageLib.Resources.Shared_Site_InviteFreinds<span id="usergroupname"></span></h4>
+                </div>
+                <div class="modal-body">
+                    @* <p>Groups help you organize your social profiles and team members. Name your group and you can begin connecting social profiles and adding team members to it. Twitter or Facebook required to create a group.</p>*@
+                    <p>@GlobusMultiLanguageLib.Resources.SocioBoard_Shared_Site_InvideFreindsDescription</p>
+                    <div class="col-md-12 column">
+                        <div id="inviteadded" class="row">
+                            <table id="invitetablebody" class="table table-striped">
+                            </table>
+                        </div>
+                        <div id="invitemembertoadd">
+                            <form class="form-horizontal row" role="form">
+                                <div class="form-group col-md-3" style="margin-right: 6px;">
+                                    <label for="exampleInputFname">@GlobusMultiLanguageLib.Resources.Shared_Site_FirstName</label><input type="text" id="exampleInputFname" class="form-control">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="exampleInputLname">@GlobusMultiLanguageLib.Resources.Shared_Site_LastName</label><input type="text" id="exampleInputLname" class="form-control">
+                                </div>
+                                <div class="form-group col-md-5" style="margin-left: 7px;">
+                                    <label for="exampleInputEmail">@GlobusMultiLanguageLib.Resources.Shared_Site_Email</label><input type="email" id="exampleInputEmail" class="form-control">
+                                </div>
+                                <button class="btn btn-default col-md-1" type="button" style="margin-top: 24px; margin-left: 13px;" onclick="invitemember()"><i class="fa fa-plus"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border-top: none;">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">@GlobusMultiLanguageLib.Resources.Shared_Site_InviteFreindsClose</button>
+                    <button onclick="addteam()" id="btnaddteam" class="btn btn-primary" type="button" disabled="disabled">@GlobusMultiLanguageLib.Resources.Shared_Site_InviteFreindsSubmit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end of addgroup modal-->
+    @RenderSection("Scripts", false)
+      
+
+
+    <script src="/Themes/Socioboard/Contents/js/arrow24.js"></script>
+    <script src="/Themes/Socioboard/Contents/js/carhartl-jquery-cookie-92b7715/jquery.cookie.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            var timezone_cookie = "timezoneoffset";
+            // jQuery.noConflict();
+            if (!$.cookie(timezone_cookie)) { // if the timezone cookie not exists create one.
+
+                // check if the browser supports cookie
+                var test_cookie = 'test cookie';
+                $.cookie(test_cookie, true);
+
+                if ($.cookie(test_cookie)) { // browser supports cookie
+
+                    // delete the test cookie.
+                    $.cookie(test_cookie, null);
+
+                    // create a new cookie
+                    $.cookie(timezone_cookie, new Date().getTimezoneOffset());
+
+                    location.reload(); // re-load the page
+                }
+            }
+            else { // if the current timezone and the one stored in cookie are different then
+                // store the new timezone in the cookie and refresh the page.
+
+                var storedOffset = parseInt($.cookie(timezone_cookie));
+                var currentOffset = new Date().getTimezoneOffset();
+
+                if (storedOffset !== currentOffset) { // user may have changed the timezone
+                    $.cookie(timezone_cookie, new Date().getTimezoneOffset());
+                    location.reload();
+                }
+            }
+        });
+
+
+
+    </script>
+</body>
+
+
+</html>

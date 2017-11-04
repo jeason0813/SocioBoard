@@ -1,0 +1,1375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="CreateNewTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="task" type="tns:Tasks" />
+            <s:element minOccurs="0" maxOccurs="1" name="assigntoId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Tasks">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="GroupId" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaskMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="AssignTaskTo" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="TaskStatus" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="AssignDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompletionDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReadStatus" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TaskMessageDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateNewTaskResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateNewTaskForAnroid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="assigntoId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateNewTaskForAnroidResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllTasks">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="custid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllTasksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllTasksResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTasksByUserIdTaskId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="taskMessage" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="assignTaskTo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="taskStatus" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="assignDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="taskId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTasksByUserIdTaskIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateTasksByUserIdTaskIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllTasksOfUserList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllTasksOfUserListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAllTasksOfUserListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllTaskByUserIdAndGroupId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="profileurl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="days" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllTaskByUserIdAndGroupIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllTaskByUserIdAndGroupIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllTasksCommentOfUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="taskid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllTasksCommentOfUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAllTasksCommentOfUserResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllTasksCommentOfUserList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="taskid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllTasksCommentOfUserListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAllTasksCommentOfUserListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="addTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="task" type="tns:Tasks" />
+            <s:element minOccurs="0" maxOccurs="1" name="assigntoId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comment" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AssignDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="addTaskResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="AddNewTaskWithGroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="messagedate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="task" type="tns:Tasks" />
+            <s:element minOccurs="0" maxOccurs="1" name="assigntoId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comment" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AssignDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddNewTaskWithGroupResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="AddNewTaskWithGroupForApps">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="messagedate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="assigntoId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comment" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddNewTaskWithGroupForAppsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddNewTaskWithGroupForAppsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeTaskStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TaskId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeTaskStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChangeTaskStatusResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TaskId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteTaskResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteTaskResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTaskReadStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TaskId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GroupId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTaskReadStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateTaskReadStatusResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllIncompleteTaskofUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllIncompleteTaskofUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllIncompleteTaskofUserResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllCompleteTaskofUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllCompleteTaskofUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllCompleteTaskofUserResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllTeamTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllTeamTaskResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllTeamTaskResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CreateNewTaskSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateNewTask" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewTaskSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateNewTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewTaskForAnroidSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateNewTaskForAnroid" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewTaskForAnroidSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateNewTaskForAnroidResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTasksSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllTasks" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTasksSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllTasksResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTasksByUserIdTaskIdSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateTasksByUserIdTaskId" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTasksByUserIdTaskIdSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateTasksByUserIdTaskIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksOfUserListSoapIn">
+    <wsdl:part name="parameters" element="tns:getAllTasksOfUserList" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksOfUserListSoapOut">
+    <wsdl:part name="parameters" element="tns:getAllTasksOfUserListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTaskByUserIdAndGroupIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllTaskByUserIdAndGroupId" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTaskByUserIdAndGroupIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllTaskByUserIdAndGroupIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksCommentOfUserSoapIn">
+    <wsdl:part name="parameters" element="tns:getAllTasksCommentOfUser" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksCommentOfUserSoapOut">
+    <wsdl:part name="parameters" element="tns:getAllTasksCommentOfUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksCommentOfUserListSoapIn">
+    <wsdl:part name="parameters" element="tns:getAllTasksCommentOfUserList" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksCommentOfUserListSoapOut">
+    <wsdl:part name="parameters" element="tns:getAllTasksCommentOfUserListResponse" />
+  </wsdl:message>
+  <wsdl:message name="addTaskSoapIn">
+    <wsdl:part name="parameters" element="tns:addTask" />
+  </wsdl:message>
+  <wsdl:message name="addTaskSoapOut">
+    <wsdl:part name="parameters" element="tns:addTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddNewTaskWithGroupSoapIn">
+    <wsdl:part name="parameters" element="tns:AddNewTaskWithGroup" />
+  </wsdl:message>
+  <wsdl:message name="AddNewTaskWithGroupSoapOut">
+    <wsdl:part name="parameters" element="tns:AddNewTaskWithGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddNewTaskWithGroupForAppsSoapIn">
+    <wsdl:part name="parameters" element="tns:AddNewTaskWithGroupForApps" />
+  </wsdl:message>
+  <wsdl:message name="AddNewTaskWithGroupForAppsSoapOut">
+    <wsdl:part name="parameters" element="tns:AddNewTaskWithGroupForAppsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangeTaskStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangeTaskStatus" />
+  </wsdl:message>
+  <wsdl:message name="ChangeTaskStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangeTaskStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteTaskSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteTask" />
+  </wsdl:message>
+  <wsdl:message name="DeleteTaskSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTaskReadStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateTaskReadStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTaskReadStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateTaskReadStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllIncompleteTaskofUserSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllIncompleteTaskofUser" />
+  </wsdl:message>
+  <wsdl:message name="GetAllIncompleteTaskofUserSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllIncompleteTaskofUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCompleteTaskofUserSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllCompleteTaskofUser" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCompleteTaskofUserSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllCompleteTaskofUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTeamTaskSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllTeamTask" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTeamTaskSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllTeamTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewTaskForAnroidHttpGetIn">
+    <wsdl:part name="description" type="s:string" />
+    <wsdl:part name="userid" type="s:string" />
+    <wsdl:part name="assigntoId" type="s:string" />
+    <wsdl:part name="comment" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewTaskForAnroidHttpGetOut" />
+  <wsdl:message name="GetAllTasksHttpGetIn">
+    <wsdl:part name="custid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTasksHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTasksByUserIdTaskIdHttpGetIn">
+    <wsdl:part name="taskMessage" type="s:string" />
+    <wsdl:part name="assignTaskTo" type="s:string" />
+    <wsdl:part name="taskStatus" type="s:string" />
+    <wsdl:part name="assignDate" type="s:string" />
+    <wsdl:part name="taskId" type="s:string" />
+    <wsdl:part name="userId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTasksByUserIdTaskIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksOfUserListHttpGetIn">
+    <wsdl:part name="userid" type="s:string" />
+    <wsdl:part name="groupid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksOfUserListHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTaskByUserIdAndGroupIdHttpGetIn">
+    <wsdl:part name="userid" type="s:string" />
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="profileurl" type="s:string" />
+    <wsdl:part name="days" type="s:string" />
+    <wsdl:part name="groupid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTaskByUserIdAndGroupIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksCommentOfUserHttpGetIn">
+    <wsdl:part name="taskid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksCommentOfUserHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksCommentOfUserListHttpGetIn">
+    <wsdl:part name="taskid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksCommentOfUserListHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AddNewTaskWithGroupForAppsHttpGetIn">
+    <wsdl:part name="description" type="s:string" />
+    <wsdl:part name="messagedate" type="s:string" />
+    <wsdl:part name="userid" type="s:string" />
+    <wsdl:part name="assigntoId" type="s:string" />
+    <wsdl:part name="comment" type="s:string" />
+    <wsdl:part name="groupid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddNewTaskWithGroupForAppsHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ChangeTaskStatusHttpGetIn">
+    <wsdl:part name="UserId" type="s:string" />
+    <wsdl:part name="TaskId" type="s:string" />
+    <wsdl:part name="Status" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ChangeTaskStatusHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DeleteTaskHttpGetIn">
+    <wsdl:part name="TaskId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DeleteTaskHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTaskReadStatusHttpGetIn">
+    <wsdl:part name="TaskId" type="s:string" />
+    <wsdl:part name="UserId" type="s:string" />
+    <wsdl:part name="GroupId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTaskReadStatusHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllIncompleteTaskofUserHttpGetIn">
+    <wsdl:part name="userid" type="s:string" />
+    <wsdl:part name="groupid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllIncompleteTaskofUserHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCompleteTaskofUserHttpGetIn">
+    <wsdl:part name="userid" type="s:string" />
+    <wsdl:part name="groupid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCompleteTaskofUserHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTeamTaskHttpGetIn">
+    <wsdl:part name="userid" type="s:string" />
+    <wsdl:part name="groupid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTeamTaskHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewTaskForAnroidHttpPostIn">
+    <wsdl:part name="description" type="s:string" />
+    <wsdl:part name="userid" type="s:string" />
+    <wsdl:part name="assigntoId" type="s:string" />
+    <wsdl:part name="comment" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewTaskForAnroidHttpPostOut" />
+  <wsdl:message name="GetAllTasksHttpPostIn">
+    <wsdl:part name="custid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTasksHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTasksByUserIdTaskIdHttpPostIn">
+    <wsdl:part name="taskMessage" type="s:string" />
+    <wsdl:part name="assignTaskTo" type="s:string" />
+    <wsdl:part name="taskStatus" type="s:string" />
+    <wsdl:part name="assignDate" type="s:string" />
+    <wsdl:part name="taskId" type="s:string" />
+    <wsdl:part name="userId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTasksByUserIdTaskIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksOfUserListHttpPostIn">
+    <wsdl:part name="userid" type="s:string" />
+    <wsdl:part name="groupid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksOfUserListHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTaskByUserIdAndGroupIdHttpPostIn">
+    <wsdl:part name="userid" type="s:string" />
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="profileurl" type="s:string" />
+    <wsdl:part name="days" type="s:string" />
+    <wsdl:part name="groupid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTaskByUserIdAndGroupIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksCommentOfUserHttpPostIn">
+    <wsdl:part name="taskid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksCommentOfUserHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksCommentOfUserListHttpPostIn">
+    <wsdl:part name="taskid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllTasksCommentOfUserListHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AddNewTaskWithGroupForAppsHttpPostIn">
+    <wsdl:part name="description" type="s:string" />
+    <wsdl:part name="messagedate" type="s:string" />
+    <wsdl:part name="userid" type="s:string" />
+    <wsdl:part name="assigntoId" type="s:string" />
+    <wsdl:part name="comment" type="s:string" />
+    <wsdl:part name="groupid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddNewTaskWithGroupForAppsHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ChangeTaskStatusHttpPostIn">
+    <wsdl:part name="UserId" type="s:string" />
+    <wsdl:part name="TaskId" type="s:string" />
+    <wsdl:part name="Status" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ChangeTaskStatusHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DeleteTaskHttpPostIn">
+    <wsdl:part name="TaskId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DeleteTaskHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTaskReadStatusHttpPostIn">
+    <wsdl:part name="TaskId" type="s:string" />
+    <wsdl:part name="UserId" type="s:string" />
+    <wsdl:part name="GroupId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTaskReadStatusHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllIncompleteTaskofUserHttpPostIn">
+    <wsdl:part name="userid" type="s:string" />
+    <wsdl:part name="groupid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllIncompleteTaskofUserHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCompleteTaskofUserHttpPostIn">
+    <wsdl:part name="userid" type="s:string" />
+    <wsdl:part name="groupid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCompleteTaskofUserHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTeamTaskHttpPostIn">
+    <wsdl:part name="userid" type="s:string" />
+    <wsdl:part name="groupid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTeamTaskHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="TasksSoap">
+    <wsdl:operation name="CreateNewTask">
+      <wsdl:input message="tns:CreateNewTaskSoapIn" />
+      <wsdl:output message="tns:CreateNewTaskSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewTaskForAnroid">
+      <wsdl:input message="tns:CreateNewTaskForAnroidSoapIn" />
+      <wsdl:output message="tns:CreateNewTaskForAnroidSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTasks">
+      <wsdl:input message="tns:GetAllTasksSoapIn" />
+      <wsdl:output message="tns:GetAllTasksSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTasksByUserIdTaskId">
+      <wsdl:input message="tns:UpdateTasksByUserIdTaskIdSoapIn" />
+      <wsdl:output message="tns:UpdateTasksByUserIdTaskIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksOfUserList">
+      <wsdl:input message="tns:getAllTasksOfUserListSoapIn" />
+      <wsdl:output message="tns:getAllTasksOfUserListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTaskByUserIdAndGroupId">
+      <wsdl:input message="tns:GetAllTaskByUserIdAndGroupIdSoapIn" />
+      <wsdl:output message="tns:GetAllTaskByUserIdAndGroupIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksCommentOfUser">
+      <wsdl:input message="tns:getAllTasksCommentOfUserSoapIn" />
+      <wsdl:output message="tns:getAllTasksCommentOfUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksCommentOfUserList">
+      <wsdl:input message="tns:getAllTasksCommentOfUserListSoapIn" />
+      <wsdl:output message="tns:getAllTasksCommentOfUserListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="addTask">
+      <wsdl:input message="tns:addTaskSoapIn" />
+      <wsdl:output message="tns:addTaskSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddNewTaskWithGroup">
+      <wsdl:input message="tns:AddNewTaskWithGroupSoapIn" />
+      <wsdl:output message="tns:AddNewTaskWithGroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddNewTaskWithGroupForApps">
+      <wsdl:input message="tns:AddNewTaskWithGroupForAppsSoapIn" />
+      <wsdl:output message="tns:AddNewTaskWithGroupForAppsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTaskStatus">
+      <wsdl:input message="tns:ChangeTaskStatusSoapIn" />
+      <wsdl:output message="tns:ChangeTaskStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTask">
+      <wsdl:input message="tns:DeleteTaskSoapIn" />
+      <wsdl:output message="tns:DeleteTaskSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTaskReadStatus">
+      <wsdl:input message="tns:UpdateTaskReadStatusSoapIn" />
+      <wsdl:output message="tns:UpdateTaskReadStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllIncompleteTaskofUser">
+      <wsdl:input message="tns:GetAllIncompleteTaskofUserSoapIn" />
+      <wsdl:output message="tns:GetAllIncompleteTaskofUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCompleteTaskofUser">
+      <wsdl:input message="tns:GetAllCompleteTaskofUserSoapIn" />
+      <wsdl:output message="tns:GetAllCompleteTaskofUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTeamTask">
+      <wsdl:input message="tns:GetAllTeamTaskSoapIn" />
+      <wsdl:output message="tns:GetAllTeamTaskSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="TasksHttpGet">
+    <wsdl:operation name="CreateNewTaskForAnroid">
+      <wsdl:input message="tns:CreateNewTaskForAnroidHttpGetIn" />
+      <wsdl:output message="tns:CreateNewTaskForAnroidHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTasks">
+      <wsdl:input message="tns:GetAllTasksHttpGetIn" />
+      <wsdl:output message="tns:GetAllTasksHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTasksByUserIdTaskId">
+      <wsdl:input message="tns:UpdateTasksByUserIdTaskIdHttpGetIn" />
+      <wsdl:output message="tns:UpdateTasksByUserIdTaskIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksOfUserList">
+      <wsdl:input message="tns:getAllTasksOfUserListHttpGetIn" />
+      <wsdl:output message="tns:getAllTasksOfUserListHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTaskByUserIdAndGroupId">
+      <wsdl:input message="tns:GetAllTaskByUserIdAndGroupIdHttpGetIn" />
+      <wsdl:output message="tns:GetAllTaskByUserIdAndGroupIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksCommentOfUser">
+      <wsdl:input message="tns:getAllTasksCommentOfUserHttpGetIn" />
+      <wsdl:output message="tns:getAllTasksCommentOfUserHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksCommentOfUserList">
+      <wsdl:input message="tns:getAllTasksCommentOfUserListHttpGetIn" />
+      <wsdl:output message="tns:getAllTasksCommentOfUserListHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddNewTaskWithGroupForApps">
+      <wsdl:input message="tns:AddNewTaskWithGroupForAppsHttpGetIn" />
+      <wsdl:output message="tns:AddNewTaskWithGroupForAppsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTaskStatus">
+      <wsdl:input message="tns:ChangeTaskStatusHttpGetIn" />
+      <wsdl:output message="tns:ChangeTaskStatusHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTask">
+      <wsdl:input message="tns:DeleteTaskHttpGetIn" />
+      <wsdl:output message="tns:DeleteTaskHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTaskReadStatus">
+      <wsdl:input message="tns:UpdateTaskReadStatusHttpGetIn" />
+      <wsdl:output message="tns:UpdateTaskReadStatusHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllIncompleteTaskofUser">
+      <wsdl:input message="tns:GetAllIncompleteTaskofUserHttpGetIn" />
+      <wsdl:output message="tns:GetAllIncompleteTaskofUserHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCompleteTaskofUser">
+      <wsdl:input message="tns:GetAllCompleteTaskofUserHttpGetIn" />
+      <wsdl:output message="tns:GetAllCompleteTaskofUserHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTeamTask">
+      <wsdl:input message="tns:GetAllTeamTaskHttpGetIn" />
+      <wsdl:output message="tns:GetAllTeamTaskHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="TasksHttpPost">
+    <wsdl:operation name="CreateNewTaskForAnroid">
+      <wsdl:input message="tns:CreateNewTaskForAnroidHttpPostIn" />
+      <wsdl:output message="tns:CreateNewTaskForAnroidHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTasks">
+      <wsdl:input message="tns:GetAllTasksHttpPostIn" />
+      <wsdl:output message="tns:GetAllTasksHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTasksByUserIdTaskId">
+      <wsdl:input message="tns:UpdateTasksByUserIdTaskIdHttpPostIn" />
+      <wsdl:output message="tns:UpdateTasksByUserIdTaskIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksOfUserList">
+      <wsdl:input message="tns:getAllTasksOfUserListHttpPostIn" />
+      <wsdl:output message="tns:getAllTasksOfUserListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTaskByUserIdAndGroupId">
+      <wsdl:input message="tns:GetAllTaskByUserIdAndGroupIdHttpPostIn" />
+      <wsdl:output message="tns:GetAllTaskByUserIdAndGroupIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksCommentOfUser">
+      <wsdl:input message="tns:getAllTasksCommentOfUserHttpPostIn" />
+      <wsdl:output message="tns:getAllTasksCommentOfUserHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksCommentOfUserList">
+      <wsdl:input message="tns:getAllTasksCommentOfUserListHttpPostIn" />
+      <wsdl:output message="tns:getAllTasksCommentOfUserListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddNewTaskWithGroupForApps">
+      <wsdl:input message="tns:AddNewTaskWithGroupForAppsHttpPostIn" />
+      <wsdl:output message="tns:AddNewTaskWithGroupForAppsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTaskStatus">
+      <wsdl:input message="tns:ChangeTaskStatusHttpPostIn" />
+      <wsdl:output message="tns:ChangeTaskStatusHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTask">
+      <wsdl:input message="tns:DeleteTaskHttpPostIn" />
+      <wsdl:output message="tns:DeleteTaskHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTaskReadStatus">
+      <wsdl:input message="tns:UpdateTaskReadStatusHttpPostIn" />
+      <wsdl:output message="tns:UpdateTaskReadStatusHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllIncompleteTaskofUser">
+      <wsdl:input message="tns:GetAllIncompleteTaskofUserHttpPostIn" />
+      <wsdl:output message="tns:GetAllIncompleteTaskofUserHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCompleteTaskofUser">
+      <wsdl:input message="tns:GetAllCompleteTaskofUserHttpPostIn" />
+      <wsdl:output message="tns:GetAllCompleteTaskofUserHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTeamTask">
+      <wsdl:input message="tns:GetAllTeamTaskHttpPostIn" />
+      <wsdl:output message="tns:GetAllTeamTaskHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TasksSoap" type="tns:TasksSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateNewTask">
+      <soap:operation soapAction="http://tempuri.org/CreateNewTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewTaskForAnroid">
+      <soap:operation soapAction="http://tempuri.org/CreateNewTaskForAnroid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTasks">
+      <soap:operation soapAction="http://tempuri.org/GetAllTasks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTasksByUserIdTaskId">
+      <soap:operation soapAction="http://tempuri.org/UpdateTasksByUserIdTaskId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksOfUserList">
+      <soap:operation soapAction="http://tempuri.org/getAllTasksOfUserList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTaskByUserIdAndGroupId">
+      <soap:operation soapAction="http://tempuri.org/GetAllTaskByUserIdAndGroupId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksCommentOfUser">
+      <soap:operation soapAction="http://tempuri.org/getAllTasksCommentOfUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksCommentOfUserList">
+      <soap:operation soapAction="http://tempuri.org/getAllTasksCommentOfUserList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addTask">
+      <soap:operation soapAction="http://tempuri.org/addTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddNewTaskWithGroup">
+      <soap:operation soapAction="http://tempuri.org/AddNewTaskWithGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddNewTaskWithGroupForApps">
+      <soap:operation soapAction="http://tempuri.org/AddNewTaskWithGroupForApps" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTaskStatus">
+      <soap:operation soapAction="http://tempuri.org/ChangeTaskStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTask">
+      <soap:operation soapAction="http://tempuri.org/DeleteTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTaskReadStatus">
+      <soap:operation soapAction="http://tempuri.org/UpdateTaskReadStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllIncompleteTaskofUser">
+      <soap:operation soapAction="http://tempuri.org/GetAllIncompleteTaskofUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCompleteTaskofUser">
+      <soap:operation soapAction="http://tempuri.org/GetAllCompleteTaskofUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTeamTask">
+      <soap:operation soapAction="http://tempuri.org/GetAllTeamTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TasksSoap12" type="tns:TasksSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateNewTask">
+      <soap12:operation soapAction="http://tempuri.org/CreateNewTask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewTaskForAnroid">
+      <soap12:operation soapAction="http://tempuri.org/CreateNewTaskForAnroid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTasks">
+      <soap12:operation soapAction="http://tempuri.org/GetAllTasks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTasksByUserIdTaskId">
+      <soap12:operation soapAction="http://tempuri.org/UpdateTasksByUserIdTaskId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksOfUserList">
+      <soap12:operation soapAction="http://tempuri.org/getAllTasksOfUserList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTaskByUserIdAndGroupId">
+      <soap12:operation soapAction="http://tempuri.org/GetAllTaskByUserIdAndGroupId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksCommentOfUser">
+      <soap12:operation soapAction="http://tempuri.org/getAllTasksCommentOfUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksCommentOfUserList">
+      <soap12:operation soapAction="http://tempuri.org/getAllTasksCommentOfUserList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addTask">
+      <soap12:operation soapAction="http://tempuri.org/addTask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddNewTaskWithGroup">
+      <soap12:operation soapAction="http://tempuri.org/AddNewTaskWithGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddNewTaskWithGroupForApps">
+      <soap12:operation soapAction="http://tempuri.org/AddNewTaskWithGroupForApps" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTaskStatus">
+      <soap12:operation soapAction="http://tempuri.org/ChangeTaskStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTask">
+      <soap12:operation soapAction="http://tempuri.org/DeleteTask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTaskReadStatus">
+      <soap12:operation soapAction="http://tempuri.org/UpdateTaskReadStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllIncompleteTaskofUser">
+      <soap12:operation soapAction="http://tempuri.org/GetAllIncompleteTaskofUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCompleteTaskofUser">
+      <soap12:operation soapAction="http://tempuri.org/GetAllCompleteTaskofUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTeamTask">
+      <soap12:operation soapAction="http://tempuri.org/GetAllTeamTask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TasksHttpGet" type="tns:TasksHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="CreateNewTaskForAnroid">
+      <http:operation location="/CreateNewTaskForAnroid" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTasks">
+      <http:operation location="/GetAllTasks" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTasksByUserIdTaskId">
+      <http:operation location="/UpdateTasksByUserIdTaskId" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksOfUserList">
+      <http:operation location="/getAllTasksOfUserList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTaskByUserIdAndGroupId">
+      <http:operation location="/GetAllTaskByUserIdAndGroupId" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksCommentOfUser">
+      <http:operation location="/getAllTasksCommentOfUser" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksCommentOfUserList">
+      <http:operation location="/getAllTasksCommentOfUserList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddNewTaskWithGroupForApps">
+      <http:operation location="/AddNewTaskWithGroupForApps" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTaskStatus">
+      <http:operation location="/ChangeTaskStatus" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTask">
+      <http:operation location="/DeleteTask" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTaskReadStatus">
+      <http:operation location="/UpdateTaskReadStatus" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllIncompleteTaskofUser">
+      <http:operation location="/GetAllIncompleteTaskofUser" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCompleteTaskofUser">
+      <http:operation location="/GetAllCompleteTaskofUser" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTeamTask">
+      <http:operation location="/GetAllTeamTask" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TasksHttpPost" type="tns:TasksHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="CreateNewTaskForAnroid">
+      <http:operation location="/CreateNewTaskForAnroid" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTasks">
+      <http:operation location="/GetAllTasks" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTasksByUserIdTaskId">
+      <http:operation location="/UpdateTasksByUserIdTaskId" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksOfUserList">
+      <http:operation location="/getAllTasksOfUserList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTaskByUserIdAndGroupId">
+      <http:operation location="/GetAllTaskByUserIdAndGroupId" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksCommentOfUser">
+      <http:operation location="/getAllTasksCommentOfUser" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTasksCommentOfUserList">
+      <http:operation location="/getAllTasksCommentOfUserList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddNewTaskWithGroupForApps">
+      <http:operation location="/AddNewTaskWithGroupForApps" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTaskStatus">
+      <http:operation location="/ChangeTaskStatus" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTask">
+      <http:operation location="/DeleteTask" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTaskReadStatus">
+      <http:operation location="/UpdateTaskReadStatus" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllIncompleteTaskofUser">
+      <http:operation location="/GetAllIncompleteTaskofUser" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCompleteTaskofUser">
+      <http:operation location="/GetAllCompleteTaskofUser" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTeamTask">
+      <http:operation location="/GetAllTeamTask" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Tasks">
+    <wsdl:port name="TasksSoap" binding="tns:TasksSoap">
+      <soap:address location="http://localhost:6361/Services/Tasks.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TasksSoap12" binding="tns:TasksSoap12">
+      <soap12:address location="http://localhost:6361/Services/Tasks.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TasksHttpGet" binding="tns:TasksHttpGet">
+      <http:address location="http://localhost:6361/Services/Tasks.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TasksHttpPost" binding="tns:TasksHttpPost">
+      <http:address location="http://localhost:6361/Services/Tasks.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

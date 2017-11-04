@@ -1,0 +1,103 @@
+﻿@using Domain.Socioboard.Domain;
+@{
+    string path = @System.Configuration.ConfigurationManager.AppSettings["domain"];
+    User objUser = (User)Session["User"];
+    
+}
+
+
+
+<h4>Profile Linked To<span id="groupname"> DotNet</span></h4>
+@*<span class="pull-right"><a role="button" class="btn btn-warning btn-sm">Connect a profile</a></span>*@
+
+@foreach (var item in (Dictionary<GroupProfile, object>)Model)
+{
+    if (item.Key.ProfileType == "facebook")
+    {
+        FacebookAccount objFacebookAccount = (FacebookAccount)item.Value;
+        if(objFacebookAccount!=null)
+        {
+        string profileimage = string.Empty;
+    <div id="@objFacebookAccount.FbUserId" class="col-sm-1 groupuserpictiny" >
+       @*<div data-target="#closeModal" data-toggle="modal" onclick="confirmDel('415298848564891','page','fb');" class="add_icon"></div>*@
+         <div class="delet_icon" onclick="removeprofilefromgroup('@objFacebookAccount.FbUserId');"></div>
+        <a href="https://www.facebook.com/@objFacebookAccount.FbUserName" target="_blank"><img src="http://graph.facebook.com/@objFacebookAccount.FbUserId/picture?type=small" class="img-responsive img-rounded groupprofiles" title="@objFacebookAccount.FbUserName">
+        <img class="img-responsive img-circle groupsocialIconPoss" src="/Themes/@path/Contents/img/fb_icon.png"></a>
+    </div>
+}
+    }
+    if (item.Key.ProfileType == "twitter")
+    {
+        TwitterAccount objTwitterAccount = (TwitterAccount)item.Value;
+        if(objTwitterAccount!=null)
+        {
+        string profileimage = string.Empty;
+    <div id="@objTwitterAccount.TwitterUserId" class="col-sm-1 groupuserpictiny">
+       @*<div data-target="#closeModal" data-toggle="modal" onclick="confirmDel('415298848564891','page','fb');" class="add_icon"></div>*@
+         <div class="delet_icon"  onclick="removeprofilefromgroup('@objTwitterAccount.TwitterUserId');"></div>
+        <a href="https://twitter.com/@objTwitterAccount.TwitterScreenName" target="_blank"><img src="@objTwitterAccount.ProfileImageUrl" class="img-responsive img-rounded groupprofiles" title="@objTwitterAccount.TwitterScreenName">
+        <img class="img-responsive img-circle groupsocialIconPoss" src="/Themes/@path/Contents/img/twticon.png"></a>
+    </div>
+}
+    }
+    if (item.Key.ProfileType == "linkedin")
+    {
+        LinkedInAccount objLinkedInAccount = (LinkedInAccount)item.Value;
+        if (objLinkedInAccount != null)
+        {
+
+            string profileimage = string.Empty;
+    <div id="@objLinkedInAccount.LinkedinUserId" class="col-sm-1 groupuserpictiny" @*onclick="removeprofilefromgroup('@objLinkedInAccount.LinkedinUserId');"*@>
+        @*<div data-target="#closeModal" data-toggle="modal" onclick="confirmDel('415298848564891','page','fb');" class="add_icon"></div>*@
+        <div class="delet_icon" onclick="removeprofilefromgroup('@objLinkedInAccount.LinkedinUserId');"></div>
+        <a href="@objLinkedInAccount.ProfileUrl" target="_blank"><img src="@objLinkedInAccount.ProfileImageUrl" class="img-responsive img-rounded groupprofiles" title="@objLinkedInAccount.LinkedinUserName">
+        <img class="img-responsive img-circle groupsocialIconPoss" src="/Themes/@path/Contents/img/link_icon.png"></a>
+    </div>
+        }
+    }
+    if (item.Key.ProfileType == "instagram")
+    {
+        InstagramAccount objInstagramAccount = (InstagramAccount)item.Value;
+        if(objInstagramAccount!=null)
+        {
+        string profileimage = string.Empty;
+    <div id="@objInstagramAccount.InstagramId" class="col-sm-1 groupuserpictiny" @*onclick="removeprofilefromgroup('@objInstagramAccount.InstagramId');"*@>
+        @*<div data-target="#closeModal" data-toggle="modal" onclick="confirmDel('415298848564891','page','fb');" class="add_icon"></div>*@
+        <div class="delet_icon" onclick="removeprofilefromgroup('@objInstagramAccount.InstagramId');"></div>
+        <a href="http://instagram.com/@objInstagramAccount.InsUserName" target="_blank"><img src="@objInstagramAccount.ProfileUrl" class="img-responsive img-rounded groupprofiles" title="@objInstagramAccount.InsUserName">
+        <img class="img-responsive img-circle groupsocialIconPoss" src="/Themes/@path/Contents/img/instagram_24X24.png"></a>
+    </div>
+}
+    }
+    if (item.Key.ProfileType == "tumblr")
+    {
+        TumblrAccount objTumblrAccount = (TumblrAccount)item.Value;
+        if(objTumblrAccount!=null)
+        {
+        string tumblruserimage = "http://api.tumblr.com/v2/blog/" + objTumblrAccount.tblrUserName + ".tumblr.com/avatar";
+    <div id="@objTumblrAccount.tblrUserName" class="col-sm-1 groupuserpictiny"@* onclick="removeprofilefromgroup('@objTumblrAccount.tblrUserName');"*@>
+       @*<div data-target="#closeModal" data-toggle="modal" onclick="confirmDel('415298848564891','page','fb');" class="add_icon"></div>*@
+         <div class="delet_icon" onclick="removeprofilefromgroup('@objTumblrAccount.tblrUserName');"></div>
+        <a href="https://www.tumblr.com/blog/@objTumblrAccount.tblrUserName" target="_blank"><img src="@tumblruserimage" class="img-responsive img-rounded groupprofiles" title="@objTumblrAccount.tblrUserName">
+        <img class="img-responsive img-circle groupsocialIconPoss" src="/Themes/@path/Contents/img/tumblr.png"></a>
+    </div>
+}
+    }
+    if (item.Key.ProfileType == "youtube")
+    {
+        YoutubeAccount objYoutubeAccount = (YoutubeAccount)item.Value;
+        if(objYoutubeAccount!=null)
+        {
+        string profileimage = string.Empty;
+    <div id="@objYoutubeAccount.Ytuserid" class="col-sm-1 groupuserpictiny" @* onclick="removeprofilefromgroup('@objYoutubeAccount.Ytuserid');"*@>
+       @*<div data-target="#closeModal" data-toggle="modal" onclick="confirmDel('415298848564891','page','fb');" class="add_icon"></div>*@
+         <div class="delet_icon" onclick="removeprofilefromgroup('@objYoutubeAccount.Ytuserid');"></div>
+        <a href="https://www.youtube.com/user/@objYoutubeAccount.Ytuserid" target="_blank"><img src="@objYoutubeAccount.Ytprofileimage" class="img-responsive img-rounded groupprofiles" title="@objYoutubeAccount.Ytusername">
+        <img class="img-responsive img-circle groupsocialIconPoss" src="/Themes/@path/Contents/img/youtube.png"></a>
+    </div>
+}
+    }
+}
+
+
+

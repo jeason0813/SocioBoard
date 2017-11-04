@@ -1,0 +1,88 @@
+﻿@{
+    string path = @System.Configuration.ConfigurationManager.AppSettings["domain"];
+}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header col-md-6">@GlobusMultiLanguageLib.Resources.MyStuff_EWallet_EWallet</h1>
+            <div class="page-header pull-right btn btn-danger" id="btn-input-goto-money-wallet" onclick="loadewallet()">@GlobusMultiLanguageLib.Resources.MyStuff_EWallet_AddMoneyToWallet</div>
+        </div>
+
+    </div>
+    <div id="Ewallet-Detail" class="panel-body">
+        <div>
+            <center>
+                                <img src="~/Themes/@path/Contents/img/43px_on_transparent.gif" />
+                            </center>
+        </div>
+    </div>
+
+
+
+
+</div>
+<div class="modal fade" id="SummaryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div>
+        <center>
+                                <img src="~/Themes/@path/Contents/img/43px_on_transparent.gif" />
+                            </center>
+    </div>
+</div>
+<script src="/Themes/@path/Contents/js/iban.js"></script>
+<script src="/Themes/@path/Contents/js/require.js"></script>
+<script>
+    $(document).ready(function () {
+        loadewalletactivity();
+    });
+    function loadewallet() {
+        debugger;
+        var local = getlocatdatetime();
+        $("#btn-input-goto-money-wallet").removeAttr("onclick");
+        $("#btn-input-goto-money-wallet").attr("onclick", "loadewalletactivity()");
+        $.ajax({
+            type: "POST",
+            url: "../MyStuff/LoadEwalletPartial",
+            data: { "localtime": local },
+            success: function (msg) {
+                $('#Ewallet-Detail').html(msg);
+                $("#btn-input-goto-money-wallet").html("@GlobusMultiLanguageLib.Resources.MyStuff_Ewallet_AjaxEwallet2");
+            },
+            error: function () {
+                alert("Somthing Went Wrong!!");
+            }
+        });
+
+    }
+    function loadewalletactivity() {
+        var local = getlocatdatetime();
+        $("#btn-input-goto-money-wallet").removeAttr("onclick");
+        $("#btn-input-goto-money-wallet").attr("onclick", "loadewallet()");
+        $.ajax({
+            type: "POST",
+            url: "../MyStuff/LoadEwalletActivityPartial",
+            data: { "localtime": local },
+            success: function (msg) {
+                $('#Ewallet-Detail').html(msg);
+                $("#btn-input-goto-money-wallet").html("@GlobusMultiLanguageLib.Resources.MyStuff_Ewallet_AjaxEwallet1");
+            },
+            error: function () {
+                alert("Somthing Went Wrong!!");
+            }
+        });
+    }
+    function OpnSummaryModel(frndid) {
+        var local = getlocatdatetime();
+        debugger;
+        $.ajax({
+            type: "POST",
+            url: "../MyStuff/OpenSummayModel?FriendId=" + frndid,
+            data: { "localtime": local },
+            success: function (data) {
+                $("#SummaryModal").html(data);
+            }
+        });
+    }
+
+
+</script>
+

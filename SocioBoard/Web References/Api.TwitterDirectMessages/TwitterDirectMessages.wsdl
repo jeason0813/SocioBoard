@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllDirectMessagesById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Profileid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllDirectMessagesByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAllDirectMessagesByIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDistinctTwitterDirectMessagesByProfilesAndUserId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Profiles" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDistinctTwitterDirectMessagesByProfilesAndUserIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDistinctTwitterDirectMessagesByProfilesAndUserIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConversation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SenderId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RecipientId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConversationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConversationResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTwitterDirectMessageSentCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="profileids" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="days" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTwitterDirectMessageSentCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTwitterDirectMessageSentCountResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTwitterDirectMessageRecievedCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="profileids" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="days" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTwitterDirectMessageRecievedCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTwitterDirectMessageRecievedCountResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllDirectMessagesByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:getAllDirectMessagesById" />
+  </wsdl:message>
+  <wsdl:message name="getAllDirectMessagesByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:getAllDirectMessagesByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDistinctTwitterDirectMessagesByProfilesAndUserIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDistinctTwitterDirectMessagesByProfilesAndUserId" />
+  </wsdl:message>
+  <wsdl:message name="GetDistinctTwitterDirectMessagesByProfilesAndUserIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDistinctTwitterDirectMessagesByProfilesAndUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConversationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConversation" />
+  </wsdl:message>
+  <wsdl:message name="GetConversationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConversationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTwitterDirectMessageSentCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTwitterDirectMessageSentCount" />
+  </wsdl:message>
+  <wsdl:message name="GetTwitterDirectMessageSentCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTwitterDirectMessageSentCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTwitterDirectMessageRecievedCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTwitterDirectMessageRecievedCount" />
+  </wsdl:message>
+  <wsdl:message name="GetTwitterDirectMessageRecievedCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTwitterDirectMessageRecievedCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldHttpGetIn" />
+  <wsdl:message name="HelloWorldHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllDirectMessagesByIdHttpGetIn">
+    <wsdl:part name="Profileid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllDirectMessagesByIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDistinctTwitterDirectMessagesByProfilesAndUserIdHttpGetIn">
+    <wsdl:part name="UserId" type="s:string" />
+    <wsdl:part name="Profiles" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDistinctTwitterDirectMessagesByProfilesAndUserIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConversationHttpGetIn">
+    <wsdl:part name="UserId" type="s:string" />
+    <wsdl:part name="SenderId" type="s:string" />
+    <wsdl:part name="RecipientId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConversationHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTwitterDirectMessageSentCountHttpGetIn">
+    <wsdl:part name="UserId" type="s:string" />
+    <wsdl:part name="profileids" type="s:string" />
+    <wsdl:part name="days" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTwitterDirectMessageSentCountHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTwitterDirectMessageRecievedCountHttpGetIn">
+    <wsdl:part name="UserId" type="s:string" />
+    <wsdl:part name="profileids" type="s:string" />
+    <wsdl:part name="days" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTwitterDirectMessageRecievedCountHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldHttpPostIn" />
+  <wsdl:message name="HelloWorldHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllDirectMessagesByIdHttpPostIn">
+    <wsdl:part name="Profileid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getAllDirectMessagesByIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDistinctTwitterDirectMessagesByProfilesAndUserIdHttpPostIn">
+    <wsdl:part name="UserId" type="s:string" />
+    <wsdl:part name="Profiles" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDistinctTwitterDirectMessagesByProfilesAndUserIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConversationHttpPostIn">
+    <wsdl:part name="UserId" type="s:string" />
+    <wsdl:part name="SenderId" type="s:string" />
+    <wsdl:part name="RecipientId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConversationHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTwitterDirectMessageSentCountHttpPostIn">
+    <wsdl:part name="UserId" type="s:string" />
+    <wsdl:part name="profileids" type="s:string" />
+    <wsdl:part name="days" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTwitterDirectMessageSentCountHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTwitterDirectMessageRecievedCountHttpPostIn">
+    <wsdl:part name="UserId" type="s:string" />
+    <wsdl:part name="profileids" type="s:string" />
+    <wsdl:part name="days" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTwitterDirectMessageRecievedCountHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="TwitterDirectMessagesSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllDirectMessagesById">
+      <wsdl:input message="tns:getAllDirectMessagesByIdSoapIn" />
+      <wsdl:output message="tns:getAllDirectMessagesByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDistinctTwitterDirectMessagesByProfilesAndUserId">
+      <wsdl:input message="tns:GetDistinctTwitterDirectMessagesByProfilesAndUserIdSoapIn" />
+      <wsdl:output message="tns:GetDistinctTwitterDirectMessagesByProfilesAndUserIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConversation">
+      <wsdl:input message="tns:GetConversationSoapIn" />
+      <wsdl:output message="tns:GetConversationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTwitterDirectMessageSentCount">
+      <wsdl:input message="tns:GetTwitterDirectMessageSentCountSoapIn" />
+      <wsdl:output message="tns:GetTwitterDirectMessageSentCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTwitterDirectMessageRecievedCount">
+      <wsdl:input message="tns:GetTwitterDirectMessageRecievedCountSoapIn" />
+      <wsdl:output message="tns:GetTwitterDirectMessageRecievedCountSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="TwitterDirectMessagesHttpGet">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldHttpGetIn" />
+      <wsdl:output message="tns:HelloWorldHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllDirectMessagesById">
+      <wsdl:input message="tns:getAllDirectMessagesByIdHttpGetIn" />
+      <wsdl:output message="tns:getAllDirectMessagesByIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDistinctTwitterDirectMessagesByProfilesAndUserId">
+      <wsdl:input message="tns:GetDistinctTwitterDirectMessagesByProfilesAndUserIdHttpGetIn" />
+      <wsdl:output message="tns:GetDistinctTwitterDirectMessagesByProfilesAndUserIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConversation">
+      <wsdl:input message="tns:GetConversationHttpGetIn" />
+      <wsdl:output message="tns:GetConversationHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTwitterDirectMessageSentCount">
+      <wsdl:input message="tns:GetTwitterDirectMessageSentCountHttpGetIn" />
+      <wsdl:output message="tns:GetTwitterDirectMessageSentCountHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTwitterDirectMessageRecievedCount">
+      <wsdl:input message="tns:GetTwitterDirectMessageRecievedCountHttpGetIn" />
+      <wsdl:output message="tns:GetTwitterDirectMessageRecievedCountHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="TwitterDirectMessagesHttpPost">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldHttpPostIn" />
+      <wsdl:output message="tns:HelloWorldHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllDirectMessagesById">
+      <wsdl:input message="tns:getAllDirectMessagesByIdHttpPostIn" />
+      <wsdl:output message="tns:getAllDirectMessagesByIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDistinctTwitterDirectMessagesByProfilesAndUserId">
+      <wsdl:input message="tns:GetDistinctTwitterDirectMessagesByProfilesAndUserIdHttpPostIn" />
+      <wsdl:output message="tns:GetDistinctTwitterDirectMessagesByProfilesAndUserIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConversation">
+      <wsdl:input message="tns:GetConversationHttpPostIn" />
+      <wsdl:output message="tns:GetConversationHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTwitterDirectMessageSentCount">
+      <wsdl:input message="tns:GetTwitterDirectMessageSentCountHttpPostIn" />
+      <wsdl:output message="tns:GetTwitterDirectMessageSentCountHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTwitterDirectMessageRecievedCount">
+      <wsdl:input message="tns:GetTwitterDirectMessageRecievedCountHttpPostIn" />
+      <wsdl:output message="tns:GetTwitterDirectMessageRecievedCountHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TwitterDirectMessagesSoap" type="tns:TwitterDirectMessagesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllDirectMessagesById">
+      <soap:operation soapAction="http://tempuri.org/getAllDirectMessagesById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDistinctTwitterDirectMessagesByProfilesAndUserId">
+      <soap:operation soapAction="http://tempuri.org/GetDistinctTwitterDirectMessagesByProfilesAndUserId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConversation">
+      <soap:operation soapAction="http://tempuri.org/GetConversation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTwitterDirectMessageSentCount">
+      <soap:operation soapAction="http://tempuri.org/GetTwitterDirectMessageSentCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTwitterDirectMessageRecievedCount">
+      <soap:operation soapAction="http://tempuri.org/GetTwitterDirectMessageRecievedCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TwitterDirectMessagesSoap12" type="tns:TwitterDirectMessagesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllDirectMessagesById">
+      <soap12:operation soapAction="http://tempuri.org/getAllDirectMessagesById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDistinctTwitterDirectMessagesByProfilesAndUserId">
+      <soap12:operation soapAction="http://tempuri.org/GetDistinctTwitterDirectMessagesByProfilesAndUserId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConversation">
+      <soap12:operation soapAction="http://tempuri.org/GetConversation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTwitterDirectMessageSentCount">
+      <soap12:operation soapAction="http://tempuri.org/GetTwitterDirectMessageSentCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTwitterDirectMessageRecievedCount">
+      <soap12:operation soapAction="http://tempuri.org/GetTwitterDirectMessageRecievedCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TwitterDirectMessagesHttpGet" type="tns:TwitterDirectMessagesHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="HelloWorld">
+      <http:operation location="/HelloWorld" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllDirectMessagesById">
+      <http:operation location="/getAllDirectMessagesById" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDistinctTwitterDirectMessagesByProfilesAndUserId">
+      <http:operation location="/GetDistinctTwitterDirectMessagesByProfilesAndUserId" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConversation">
+      <http:operation location="/GetConversation" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTwitterDirectMessageSentCount">
+      <http:operation location="/GetTwitterDirectMessageSentCount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTwitterDirectMessageRecievedCount">
+      <http:operation location="/GetTwitterDirectMessageRecievedCount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TwitterDirectMessagesHttpPost" type="tns:TwitterDirectMessagesHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="HelloWorld">
+      <http:operation location="/HelloWorld" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllDirectMessagesById">
+      <http:operation location="/getAllDirectMessagesById" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDistinctTwitterDirectMessagesByProfilesAndUserId">
+      <http:operation location="/GetDistinctTwitterDirectMessagesByProfilesAndUserId" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConversation">
+      <http:operation location="/GetConversation" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTwitterDirectMessageSentCount">
+      <http:operation location="/GetTwitterDirectMessageSentCount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTwitterDirectMessageRecievedCount">
+      <http:operation location="/GetTwitterDirectMessageRecievedCount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TwitterDirectMessages">
+    <wsdl:port name="TwitterDirectMessagesSoap" binding="tns:TwitterDirectMessagesSoap">
+      <soap:address location="http://localhost:6361/Services/TwitterDirectMessages.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TwitterDirectMessagesSoap12" binding="tns:TwitterDirectMessagesSoap12">
+      <soap12:address location="http://localhost:6361/Services/TwitterDirectMessages.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TwitterDirectMessagesHttpGet" binding="tns:TwitterDirectMessagesHttpGet">
+      <http:address location="http://localhost:6361/Services/TwitterDirectMessages.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TwitterDirectMessagesHttpPost" binding="tns:TwitterDirectMessagesHttpPost">
+      <http:address location="http://localhost:6361/Services/TwitterDirectMessages.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,292 @@
+﻿@{
+    Layout = null;
+    string networktype = (string)Model;
+    string path = @System.Configuration.ConfigurationManager.AppSettings["domain"];              // Edited by Antima
+    var Id = ViewBag.id;
+}
+@if (networktype == "tumblr")
+{
+    <div class="container-fluid" style="margin-top: 25px">
+        <div id="feedimages1" class="row">
+            <div style="margin-top: 50px">
+			<h2 class="page-header">Live Feeds</h2>
+                <div class="col-xs-12" id="feedimages" network="">
+                    <center>
+                                <img class="" src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/43px_on_transparent.gif" />
+                            </center>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if(networktype == "instagram")
+{
+<div class="container-fluid">
+    <div class="row" style="margin-top: 6%;">
+        <div class="col-md-6 col-md-offset-3" id="instafeeds" onscroll="feedonscroll()">
+            <div>
+                <center>
+                    <img src="~/Themes/@path/Contents/img/43px_on_transparent.gif" />
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+}
+else if (networktype == "gplus")
+{
+    <div class="container-fluid" style="margin-top: 25px">
+        <div class="row" style="margin-top:3%;">
+            <div class="col-md-6 col-md-offset-3" id="gplusfeed">
+                
+                    <div style="margin-top: 50px">
+                        <center>
+                            <img class="" src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/43px_on_transparent.gif" />
+                        </center>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+}
+else if (networktype == "youtube")
+{
+    <div class="container-fluid" style="margin-top: 25px">
+
+        <div class="row" style="margin-top:3%;" id="youtubefeed">
+          
+
+                <div style="margin-top: 50px">
+                    <center>
+                        <img class="" src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/43px_on_transparent.gif" />
+                    </center>
+                </div>
+
+            
+        </div>
+    </div>
+}
+else
+{
+    <div class="container-fluid" style="margin-top: 25px">
+
+        @*Edited by Antima*@
+
+        @*<h1 class="page-header">Live Feeds</h1>*@
+
+        <div class="row">
+            <div class="col-md-4">
+                <h1>@GlobusMultiLanguageLib.Resources.Feeds_FeedsPartial_LiveFeeds</h1>
+            </div>
+            <div class="col-md-8" id="feedsfilter">
+
+                <div class="fbfeedsfilter" id="fbfeedsfilter" style="display: none">
+                    @*
+                    <h3 title="User Feeds" class="btn btn-default btn-lg col-md-3" id="btnUserFeeds" onclick="FacebookUserFeeds('@ViewBag.id')" style="background-color: #428bca; color: white;"><i style="margin-left: -22px">
+                        <img src="../Themes/@path/Contents/img/admin/1.png"></i>User Feeds </h3>*@
+                   @*  <h3 title="User Feeds" class="btn btn-default btn-lg col-md-3" id="btnUserFeeds" style="background-color: #428bca; color: white;"><i style="margin-left: -22px">
+                        <img src="../Themes/@path/Contents/img/admin/1.png"></i>@GlobusMultiLanguageLib.Resources.Feeds_FeedPartial_Userfeeds </h3>
+
+                   <h3 title="Status" class="btn btn-default btn-lg col-md-3" id="btnStatus" style="background-color: #428bca; color: white; margin: 20px"><i style="margin-left: -22px">
+                        <img src="../Themes/@path/Contents/img/admin/1.png"></i>@GlobusMultiLanguageLib.Resources.Feeds_FeedPartial_Status</h3>
+                    <h3 title="Tags" class="btn btn-default btn-lg col-md-3" id="btnTag" style="background-color: #428bca; color: white;"><i style="margin-left: -22px">
+                        <img src="../Themes/@path/Contents/img/admin/1.png"></i>@GlobusMultiLanguageLib.Resources.Feeds_FeedPartial_Tag </h3>*@
+                </div>
+
+                @*<div class="twtfeedsfilter" id="twtfeedsfilter" style="display: none">
+                    <h3 class="btn btn-default btn-lg col-md-3" id="btnUserTweet" onclick="TwitterUserTweet('@ViewBag.id')" style="background-color: #428bca;color:white;"><i style="margin-left: -22px">
+                        <img src="../Themes/@path/Contents/img/admin/2.png"></i>@GlobusMultiLanguageLib.Resources.Feeds_FeedPartial_UserTweet </h3>
+                    <h3 class="btn btn-default btn-lg col-md-3" id="btnRetweets" onclick="TwitterRetweets('@ViewBag.id')" style="background-color: #428bca;color:white; margin:20px"><i style="margin-left: -22px">
+                        <img src="../Themes/@path/Contents/img/admin/2.png"></i>@GlobusMultiLanguageLib.Resources.Feeds_FeedPartial_Retweets</h3>
+                    <h3 class="btn btn-default btn-lg col-md-3" id="btnMentions" onclick="TwitterMentions('@ViewBag.id')" style="background-color: #428bca;color:white;"><i style="margin-left: -22px">
+                        <img src="../Themes/@path/Contents/img/admin/2.png"></i>@GlobusMultiLanguageLib.Resources.Feeds_FeedPartial_Mention </h3>
+                </div>*@
+
+               <div class="pull-right" style="margin-top:25px;cursor:pointer;margin-right:70px"> 
+                    <a id="search_Feeds" style="display: block;" data-target="#FeedsSearchModal" data-toggle="modal" title="Search Feeds"><i class="fa fa-search fa-2x"></i></a>
+                </div>
+
+            </div>
+        </div>
+        <div id="feedsdata" class="row">
+            <div class="col-md-6">
+                <div class="chat-panel panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="">
+                            <span>
+                                <img id="img_paneltab1" /></span>&nbsp;&nbsp;<span id="title_paneltab1"></span><a href="#"><img src="~/Themes/Socioboard/Contents/img/admin/9.png" id="refreshpanel1" class="pull-right" /></a></h3>
+                        @*<img src="" id="img_paneltab1" /></i><span id="title_paneltab1"></span><a href="#"><i id="refreshpanel1" class="fa fa-refresh pull-right"></i></a></h3>*@
+
+                    </div>
+                  <div @*id="data_paneltab1"*@ onscroll="ccc()" class="panel-body">
+                        <div id="data_paneltab1">
+                            <div id="ldr-data_paneltab1">
+                                <center><img class="clsImageLoader" src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/43px_on_transparent.gif" /></center>
+                            </div>
+                        </div>
+                        <div id="img-loader-feed-panel1" style="display: none">
+                            <center>
+                                <img class="" src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/43px_on_transparent.gif" />
+                            </center>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="chat-panel panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="">
+                            <span>
+                                <img id="img_paneltab2" /></span>&nbsp;&nbsp;<span id="title_paneltab2"></span><a href="#"><img src="~/Themes/Socioboard/Contents/img/admin/9.png" id="refreshpanel2" class="pull-right" /></a></h3>
+                        @*<img src="" id="img_paneltab2" /></i><span id="title_paneltab2"></span><a href="#"><i id="refreshpanel2" class="fa fa-refresh pull-right"></i></a></h3>*@
+                    </div>
+                    <div @*id="data_paneltab2"*@ onscroll="feedbind()" class="panel-body">
+                        <div id="data_paneltab2">
+                            <div id="ldr-data_paneltab2">
+                                <center><img class="clsImageLoader" src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/43px_on_transparent.gif" /></center>
+                            </div>
+                        </div>
+                        <div id="img-loader-feed-panel2" style="display: none">
+                            <center>
+                                <img class="" src="/Themes/@System.Configuration.ConfigurationManager.AppSettings["domain"]/Contents/img/43px_on_transparent.gif" />
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="col-md-4">
+                <div class="chat-panel panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="">
+                            <span>
+                                <img id="img_paneltab3" /></span>&nbsp;&nbsp;<span id="title_paneltab3"></span><a href="#"><img src="~/Themes/Socioboard/Contents/img/admin/9.png" id="refreshpanel3" class="pull-right" /></a></h3>
+                       
+                    </div>
+                    <div id="data_paneltab3" class="panel-body">
+                    </div>
+                </div>
+            </div>*@
+            <small class=" text-muted"></small>
+        </div>
+        @*<div id="Button1" class="btn btn-default" type="button" value="button" onclick="FacebookLoadNewNewsFeeds()">button</div>*@
+        <small class=" text-muted"></small>
+    </div>
+    
+    
+    <script src="/Themes/@path/Contents/js/jquery-1.11.0.js"></script>
+    
+    <script type="text/javascript">
+       
+        $(document).ready(function () {
+            debugger;
+
+            $("#data_paneltab1").scroll(ccc);
+
+            $("#data_paneltab2").scroll(feedbind);
+
+            $('#refreshpanel1').click(function () {
+                //  alert('asdasd');
+                var nwt = $('#refreshpanel1').attr('nwt');
+                var nwtid = $('#refreshpanel1').attr('nwtid');
+                if (nwt == '' && nwtid == '') {
+                    alert('Please select any account first');
+                }
+                else {
+                    if (nwt == "fb") {
+                        //refreshWallpostFacebook(nwtid);
+                        FacebookLoadNewUserHome();
+                        //FacebookLoadNewUserFeeds();
+                    }
+                    if (nwt == "twt") {
+                        refreshWallpostTwitter(nwtid);
+                    }
+                    if (nwt == "linkedin") {
+                        refreshWallpostLinkedin(nwtid);
+                    }
+                }
+            });
+            $('#refreshpanel2').click(function () {
+                debugger;
+                var nwt = $('#refreshpanel2').attr('nwt');
+                var nwtid = $('#refreshpanel2').attr('nwtid');
+                if (nwt == '' && nwtid == '') {
+                    alert('Please select any account first');
+                }
+                else {
+                    if (nwt == "fb") {
+                        //refreshFeedsFacebook(nwtid);
+                        FacebookLoadNewNewsFeeds();
+                        //FacebookLoadNewUserHome();
+                    }
+                    if (nwt == "twt") {
+                        refreshFeedsTwitter(nwtid);
+                    }
+                    if (nwt == "linkedin") {
+                        refreshFeedsLinkedin(nwtid);
+                    }
+                }
+            });
+            $('#refreshpanel3').click(function () {
+                debugger;
+                var nwt = $('#refreshpanel3').attr('nwt');
+                var nwtid = $('#refreshpanel3').attr('nwtid');
+                var htmlval = $("#title_paneltab3").html();
+                if (nwt == '' && nwtid == '') {
+                    alert('Please select any account first');
+                }
+                else {
+                    if (nwt == "fb" && htmlval == "User Feeds") {
+                        ////refreshSchedularMessageFacebook(nwtid);
+                        FacebookLoadNewUserHome();
+                    }
+                    else if (nwt == "fb" && htmlval == "Status") {
+                        FacebookStatus();
+                    }
+                    else if (nwt == "fb" && htmlval == "Tags") {
+                        FacebookTag();
+                    }
+                    if (nwt == "twt" && htmlval=="User Tweet") {
+                        //refreshSchedularMessageTwitter(nwtid);
+                        TwitterUserTweet(nwtid);
+                    }
+                    else if (nwt == "twt" && htmlval == "Retweets") {
+                        TwitterRetweets(nwtid);
+                    }
+                    else if (nwt == "twt" && htmlval == "Mentions") {
+                        TwitterMentions(nwtid);
+                    }
+                    if (nwt == "linkedin") {
+                        refreshSchedularMessageLinkedin(nwtid);
+                    }
+                }
+            });
+
+            $('.ytvideo').on('click', function () {
+                //alert('asdasdasd');
+            });
+
+            $('#btnUserFeeds').click(function () {
+                // alert("Userfeed");
+                var nwtid = $('#refreshpanel2').attr('nwtid');
+                FacebookUserFeeds(nwtid);
+            });
+
+            $('#btnStatus').click(function () {
+                //   alert("Userfeed");
+                var nwtid = $('#refreshpanel2').attr('nwtid');
+                FacebookStatus(nwtid);
+            });
+
+            $('#btnTag').click(function () {
+                //  alert("Userfeed");
+                var nwtid = $('#refreshpanel2').attr('nwtid');
+                FacebookTag(nwtid);
+            });
+        });
+    </script>
+    
+}
+
